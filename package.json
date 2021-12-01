@@ -1,0 +1,19 @@
+{
+  "name": "transax",
+  "version": "1.0.0",
+  "description": "I18n parser/compiler",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TonyBogdanov/transax.git"
+  },
+  "author": "Tony Bogdanov <support@tonybogdanov.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TonyBogdanov/transax/issues"
+  },
+  "homepage": "https://github.com/TonyBogdanov/transax#readme"
+}
