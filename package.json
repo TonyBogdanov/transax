@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "I18n parser/compiler",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node bin/build.js",
+    "test": "mocha --parallel --require esm"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,14 @@
   "bugs": {
     "url": "https://github.com/TonyBogdanov/transax/issues"
   },
-  "homepage": "https://github.com/TonyBogdanov/transax#readme"
+  "homepage": "https://github.com/TonyBogdanov/transax#readme",
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "esm": "^3.2.25",
+    "mocha": "^9.1.3",
+    "url": "^0.11.0"
+  },
+  "dependencies": {
+    "pegjs": "^0.10.0"
+  }
 }

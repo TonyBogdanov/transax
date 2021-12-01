@@ -1,0 +1,191 @@
+{
+
+	const SWITCH_NO = '__switch_no__fa6e7332-56e5-4093-98ac-c87d9500147a__';
+
+    const collapse = tokens => tokens.reduce( ( tokens, token ) => {
+    	if ( 'string' === typeof token && 0 < tokens.length && 'string' === typeof tokens[ tokens.length - 1 ] ) {
+        	tokens[ tokens.length - 1 ] += token;
+        } else {
+        	tokens.push( token );
+        }
+    	return tokens;
+    }, [] );
+
+    class Literal {
+    	//_ = 'Literal';
+        constructor( value ) {
+        	this.value = value;
+        }
+        compile() {
+        	return this.value;
+        }
+    }
+
+    class FilteredExpression {
+    	//_ = 'FilteredExpression';
+        constructor( exp, filters ) {
+        	this.exp = exp;
+            this.filters = filters;
+        }
+        compile( context, filters ) {
+        	context = this.exp.compile( context, filters );
+            for ( const filter of this.filters ) {
+            	context = filters[ filter ]( context );
+            }
+            return context;
+        }
+    }
+
+    class Resolution {
+    	//_ = 'Resolution';
+        constructor( resolvers ) {
+        	this.resolvers = resolvers;
+        }
+        compile( context, filters ) {
+        	for ( const resolver of this.resolvers ) {
+            	context = resolver.compile( context, filters );
+            }
+            return context;
+        }
+    }
+
+    class Invocation {
+    	//_ = 'Invocation';
+        constructor( args ) {
+        	this.args = args;
+        }
+        compile( context, filters ) {
+            return context( ... this.args.map( exp => exp.compile( context, filters ) ) );
+        }
+    }
+
+    class Accessor {
+    	//_ = 'Accessor';
+        constructor( key ) {
+        	this.key = key;
+        }
+        compile( context ) {
+        	return context[ this.key ];
+        }
+    }
+
+    class SwitchExpression {
+    	//_ = 'SwitchExpression';
+        constructor( exp, cases ) {
+        	this.exp = exp;
+            this.cases = cases;
+        }
+        compile( context, filters ) {
+        	const value = this.exp.compile( context, filters );
+            for ( const case_ of this.cases ) {
+            	const result = case_.compile( value, filters );
+                if ( SWITCH_NO === result ) {
+                	continue;
+                }
+                return result;
+            }
+            throw 'Switch test does not match any of the supplied cases.';
+        }
+    }
+
+    class SwitchCase {
+    	//_ = 'SwitchCase';
+        constructor( test, exp ) {
+        	this.test = test;
+            this.exp = exp;
+        }
+        compile( context, filters ) {
+        	if ( '*' === this.test || this.test.compile( context, filters ) === context ) {
+            	return this.exp.compile( context, filters );
+            }
+            return SWITCH_NO;
+        }
+    }
+
+}
+
+Start
+	= v:( Token / _Symbol )+ { return collapse( v ) }
+    / '' { return [ '' ] }
+
+Token
+	= '{{' _ v:( FilteredExpression / Expression ) _ '}}' { return v }
+
+FilteredExpression
+	= v:Expression s:_Filters { return new FilteredExpression( v, s ) }
+
+Expression
+    = Switch
+    / SafeExpression
+
+SafeExpression
+	= Literal
+    / Resolution
+
+Switch
+	= 'switch' __ v:SafeExpression _ ':' _ s:( SwitchCase ( _ ( ',' / ';' ) _ SwitchCase )* ) { return new SwitchExpression( v, [ s[0], ... s[1].map( m => m[3] ) ] ) }
+
+SwitchCase
+	= v:( '*' / SafeExpression ) _ '=>' _ s:SafeExpression { return new SwitchCase( v, s ) }
+
+Resolution
+	= v:RootResolver _ s:Resolver* { return new Resolution( [ v, ... s] ) }
+
+RootResolver
+    = Invocation
+    / ArrayAccessor
+    / RootObjectAccessor
+
+Resolver
+    = Invocation
+    / ArrayAccessor
+    / ObjectAccessor
+
+Invocation
+	= "(" _ v:( Expression ( _ "," _ Expression )* )? _ ")" { return new Invocation( v ? [ v[0], ... v[1].map( m => m[3] ) ] : [] ) }
+
+ArrayAccessor
+	= v:_Index { return new Accessor( v ) }
+
+RootObjectAccessor
+	= v:_Name { return new Accessor( v ) }
+
+ObjectAccessor
+	= "." _ v:_Name { return new Accessor( v ) }
+
+Literal
+	= v:( _Null / _String / _Float / _Integer ) { return new Literal( v ) }
+
+_
+	= [ \t\r\n]*
+
+__
+	= [ \t\r\n]+
+
+_Symbol
+	= v:. { return v }
+
+_Null
+	= 'null' { return null }
+    / 'NULL' { return null }
+
+_Integer
+	= '0' { return 0 }
+    / v:( '-'? [1-9] [0-9]* ) { return parseInt( [ v[0], v[1], ... v[2] ].join( '' ), 10 ) }
+
+_Float
+	= v:( '-'? [1-9] [0-9]* '.' [0-9]+ ) { return parseFloat( [ v[0], v[1], v[2].join( '' ), '.', v[4].join( '' ) ].join( '' ), 10 ) }
+	/ v:( '-'? ( '0' / '' ) '.' [0-9]+ ) { return parseFloat( [ ... v.slice( 0, 3 ), ... v[3] ].join( '' ), 10 ) }
+
+_String
+	= "'" v:( "\\'" / [^'] )* "'" { return v.map( m => "\\'" === m ? m[1] : m ).join( '' ) }
+    / '"' v:( '\\"' / [^"] )* '"' { return v.map( m => '\\"' === m ? m[1] : m ).join( '' ) }
+
+_Name
+	= v:( [a-zA-Z_] [a-zA-Z0-9_]* ) { return [ v[0], ... v[1] ].join( '' ) }
+
+_Index
+	= "[" _ v:( "0" / [1-9] [0-9]* ) _ "]" { return parseInt( 'string' === typeof v ? v : [ v[0], ... v[1] ].join( '' ), 10 ) }
+
+_Filters
+    = v:( _ "|" _ _Name )+ { return v.map( m => m[3] ) }
