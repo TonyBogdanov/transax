@@ -25,7 +25,7 @@ const __dirname = dirname( fileURLToPath( import.meta.url ) );
         `import parse from './parse.js';\n\nexport default ${ compiler }` );
 
     await writeFile( resolve( __dirname, '../cjs/compile.cjs' ),
-        `const parse = require( './parse.js' );\n\nmodule.exports = ${ compiler }` );
+        `const parse = require( './parse.cjs' );\n\nmodule.exports = ${ compiler }` );
 
     console.log( 'Generating translator.' );
     const translator = `( text, context, filters ) => parse( text )
@@ -36,6 +36,6 @@ const __dirname = dirname( fileURLToPath( import.meta.url ) );
         `import parse from './parse.js';\n\nexport default ${ translator }` );
 
     await writeFile( resolve( __dirname, '../cjs/translate.cjs' ),
-        `const parse = require( './parse.js' );\n\nmodule.exports = ${ translator }` );
+        `const parse = require( './parse.cjs' );\n\nmodule.exports = ${ translator }` );
 
 } )();
