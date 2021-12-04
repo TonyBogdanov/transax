@@ -45,14 +45,14 @@ const ast = parse( 'Hello {{ name | upper }}, nice to meet you!' );
 ```
 
 The result will be an array of tokens where each token can either be a string (to be treated as text), or a token
-object. Each such object has two low-level methods you can use: `compile( root = false )` and
-`evaluate( context, filters )`.
+object. Each such object has two low-level methods you can use: `compile( root )` and `evaluate( context, filters )`.
 
-Stringify-ing and concatenating the results of calling `evaluate` on each token is equivalent to `translate()` function.
+Stringify-ing and concatenating the results of calling `evaluate` on each token is equivalent to the `translate()`
+function.
 
 ## Compile
 
-You can also choose to compile your translatable string into an executable js code. This can be useful if you
+You can also choose to compile your translatable string into an executable ECMAScript 6 code. This can be useful if you
 want to export an array of executable functions for each of your translation strings:
 
 ```js
