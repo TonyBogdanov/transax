@@ -1,6 +1,6 @@
-import v_expression from './expression.js';
+const v_expression = require( './expression.js' );
 
-export default {
+module.exports = {
 
     name: 'filtered_expression_both',
     transformInput: v => `${ v } | lowercase | uppercase`,

@@ -1,10 +1,8 @@
-import { fileURLToPath } from 'url';
-import { resolve, dirname } from 'path';
-import { promises } from 'fs';
-import pegjs from 'pegjs';
+const { resolve } = require( 'path' );
+const { promises } = require( 'fs' );
+const pegjs = require( 'pegjs' );
 
 const { readFile, writeFile } = promises;
-const __dirname = dirname( fileURLToPath( import.meta.url ) );
 
 ( async () => {
 
@@ -14,7 +12,7 @@ const __dirname = dirname( fileURLToPath( import.meta.url ) );
     const parser = pegjs.generate( grammar, { output: 'source' } );
 
     await writeFile( resolve( __dirname, '../dist/esm/parse.js' ), `export default ${ parser }.parse` );
-    await writeFile( resolve( __dirname, '../dist/cjs/parse.js' ), `exports = ${ parser }.parse` );
+    await writeFile( resolve( __dirname, '../dist/cjs/parse.js' ), `module.exports = ${ parser }.parse` );
 
     console.log( 'Generating compiler.' );
     const compiler = `ast => '(c,f)=>\`' + ( 'string' === typeof ast ? parse( ast ) : ast )
@@ -25,7 +23,7 @@ const __dirname = dirname( fileURLToPath( import.meta.url ) );
         `import parse from './parse.js';\n\nexport default ${ compiler }\n` );
 
     await writeFile( resolve( __dirname, '../dist/cjs/compile.js' ),
-        `const parse = require( './parse.js' );\n\nexports = ${ compiler }\n` );
+        `const parse = require( './parse.js' );\n\nmodule.exports = ${ compiler }\n` );
 
     console.log( 'Generating translator.' );
     const translator = `( text, context, filters ) => parse( text )
@@ -36,7 +34,7 @@ const __dirname = dirname( fileURLToPath( import.meta.url ) );
         `import parse from './parse.js';\n\nexport default ${ translator }\n` );
 
     await writeFile( resolve( __dirname, '../dist/cjs/translate.js' ),
-        `const parse = require( './parse.js' );\n\nexports = ${ translator }\n` );
+        `const parse = require( './parse.js' );\n\nmodule.exports = ${ translator }\n` );
 
     console.log( 'Generating exports.' );
 

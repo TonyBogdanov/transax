@@ -1,9 +1,9 @@
-import v_token from './token.js';
-import v_text from './text.js';
-import v_mixed from './mixed.js';
-import v_empty from './empty.js';
+const v_token = require( './token.js' );
+const v_text = require( './text.js' );
+const v_mixed = require( './mixed.js' );
+const v_empty = require( './empty.js' );
 
-export default {
+module.exports = {
 
     name: 'start',
     tests: [

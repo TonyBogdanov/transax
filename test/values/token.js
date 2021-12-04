@@ -1,7 +1,7 @@
-import v_filtered_expression from './filtered_expression.js';
-import v_expression from './expression.js';
+const v_filtered_expression = require( './filtered_expression.js' );
+const v_expression = require( './expression.js' );
 
-export default {
+module.exports = {
 
     name: 'token',
     transformInput: v => `{{ ${ v } }}`,

@@ -1,7 +1,7 @@
-import v_switch from './switch.js';
-import v_safe_expression from './safe_expression.js';
+const v_switch = require( './switch.js' );
+const v_safe_expression = require( './safe_expression.js' );
 
-export default {
+module.exports = {
 
     name: 'expression',
     tests: [

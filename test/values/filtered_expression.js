@@ -1,8 +1,8 @@
-import v_filtered_expression_lowercase from './filtered_expression_lowercase.js';
-import v_filtered_expression_uppercase from './filtered_expression_uppercase.js';
-import v_filtered_expression_both from './filtered_expression_both.js';
+const v_filtered_expression_lowercase = require( './filtered_expression_lowercase.js' );
+const v_filtered_expression_uppercase = require( './filtered_expression_uppercase.js' );
+const v_filtered_expression_both = require( './filtered_expression_both.js' );
 
-export default {
+module.exports = {
 
     name: 'filtered_expression',
     tests: [

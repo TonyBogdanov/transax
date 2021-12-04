@@ -1,5 +1,3 @@
-import parse from './parse.js';
-import compile from './compile.js';
-import translate from './translate.js';
-
-export { parse, compile, translate };
+export * as parse from './parse.js';
+export * as compile from './compile.js';
+export * as translate from './translate.js';

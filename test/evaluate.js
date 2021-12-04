@@ -1,8 +1,8 @@
-import { expect } from 'chai';
-import { translate } from '../dist/esm/index.js';
+const { expect } = require( 'chai' );
+const { translate } = require( '../dist/cjs/index.js' );
 
-import filters from './util/filters.js';
-import load from './util/load.js';
+const filters = require( './util/filters.js' );
+const load = require( './util/load.js' );
 
 load( ( { input, output, context = {} } ) => it( input, () => 'undefined' === typeof output ?
     expect( () => translate( input, context, filters ) ).to.throw() :

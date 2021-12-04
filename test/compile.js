@@ -1,9 +1,9 @@
-import { Script } from 'vm';
-import { expect } from 'chai';
-import { compile } from '../dist/esm/index.js';
+const { Script } = require( 'vm' );
+const { expect } = require( 'chai' );
+const { compile } = require( '../dist/cjs/index.js' );
 
-import filters from './util/filters.js';
-import load from './util/load.js';
+const filters = require( './util/filters.js' );
+const load = require( './util/load.js' );
 
 load( ( { input, output, context = {} } ) => {
 

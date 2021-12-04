@@ -1,6 +1,6 @@
-import v_token from './token.js';
+const v_token = require( './token.js' );
 
-export default {
+module.exports = {
 
     name: 'mixed',
     transformInput: v => `prefix ${ v } suffix`,

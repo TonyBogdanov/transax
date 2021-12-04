@@ -1,9 +1,8 @@
-import v_start from '../values/start.js';
+const v_start = require( '../values/start.js' );
 
 const load = ( { name, tests, transformInput = [], transformOutput = [] }, trail = [] ) => {
 
     const result = [];
-
     tests.forEach( test => {
 
         if ( Array.isArray( test ) ) {
@@ -33,7 +32,7 @@ const load = ( { name, tests, transformInput = [], transformOutput = [] }, trail
 
 };
 
-export default callback => {
+module.exports = callback => {
 
     const tree = {};
     load( v_start ).forEach( ( [ trail, test ] ) => {

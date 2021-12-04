@@ -1,9 +1,9 @@
-import v_null from './null.js';
-import v_string from './string.js';
-import v_float from './float.js';
-import v_integer from './integer.js';
+const v_null = require( './null.js' );
+const v_string = require( './string.js' );
+const v_float = require( './float.js' );
+const v_integer = require( './integer.js' );
 
-export default {
+module.exports = {
 
     name: 'literal',
     tests: [

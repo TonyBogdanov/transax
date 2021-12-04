@@ -1,7 +1,7 @@
-import v_literal from './literal.js';
-import v_resolution from './resolution.js';
+const v_literal = require( './literal.js' );
+const v_resolution = require( './resolution.js' );
 
-export default {
+module.exports = {
 
     name: 'safe_expression',
     tests: [
