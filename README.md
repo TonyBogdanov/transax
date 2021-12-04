@@ -21,7 +21,7 @@ The main purpose of the package is to allow parsing such strings and then compil
 The *translate* function provided by the package accepts a translatable string along with *context* and *filters*,
 parses the supplied string and evaluates it against the context / filters, returning a final *translated* string.
 
-```ecmascript 6
+```js
 import { translate } from 'transax';
 
 // Hello JOHN, nice to meet you!
@@ -39,22 +39,23 @@ Keep in mind that the *translate* function calls `parse` internally, but **does 
 
 If you need to, you can also parse your translatable string into an AST:
 
-```ecmascript 6
+```js
 import { parse } from 'transax';
 const ast = parse( 'Hello {{ name | upper }}, nice to meet you!' );
 ```
 
 The result will be an array of tokens where each token can either be a string (to be treated as text), or a token
-object. Each such object has two low-level methods you can use: `compile()` and `evaluate( context, filters )`.
+object. Each such object has two low-level methods you can use: `compile( root = false )` and
+`evaluate( context, filters )`.
 
 Stringify-ing and concatenating the results of calling `evaluate` on each token is equivalent to `translate()` function.
 
 ## Compile
 
-You can also choose to compile your translatable string into an executable ECMAScript 6 code. This can be useful if you
+You can also choose to compile your translatable string into an executable js code. This can be useful if you
 want to export an array of executable functions for each of your translation strings:
 
-```ecmascript 6
+```js
 import { compile } from 'transax';
 
 // const t = (c,f)=>`Hello ${f.upper(c.name)}, nice to meet you!`;
@@ -121,7 +122,7 @@ instead, but has a deeper value that's a function, you can mix-and-match with *A
 
 For example, this syntax: `().a()[0]()[1]` will evaluate to `foo`, if your context looks like this:
 
-```ecmascript 6
+```js
 const context = () => ( {
     a: () => [
         () => [ null, 'foo' ],
