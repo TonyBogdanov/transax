@@ -1,6 +1,6 @@
 {
   "name": "transax",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "I18n parser/compiler",
   "main": "index.js",
   "type": "module",

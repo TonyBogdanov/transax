@@ -14,7 +14,7 @@ const __dirname = dirname( fileURLToPath( import.meta.url ) );
     const parser = pegjs.generate( grammar, { output: 'source' } );
 
     await writeFile( resolve( __dirname, '../src/parse.js' ), `export default ${ parser }.parse` );
-    await writeFile( resolve( __dirname, '../cjs/parse.js' ), `module.exports = ${ parser }.parse` );
+    await writeFile( resolve( __dirname, '../cjs/parse.cjs' ), `module.exports = ${ parser }.parse` );
 
     console.log( 'Generating compiler.' );
     const compiler = `ast => '(c,f)=>\`' + ( 'string' === typeof ast ? parse( ast ) : ast )
@@ -24,7 +24,7 @@ const __dirname = dirname( fileURLToPath( import.meta.url ) );
     await writeFile( resolve( __dirname, '../src/compile.js' ),
         `import parse from './parse.js';\n\nexport default ${ compiler }` );
 
-    await writeFile( resolve( __dirname, '../cjs/compile.js' ),
+    await writeFile( resolve( __dirname, '../cjs/compile.cjs' ),
         `const parse = require( './parse.js' );\n\nmodule.exports = ${ compiler }` );
 
     console.log( 'Generating translator.' );
@@ -35,7 +35,7 @@ const __dirname = dirname( fileURLToPath( import.meta.url ) );
     await writeFile( resolve( __dirname, '../src/translate.js' ),
         `import parse from './parse.js';\n\nexport default ${ translator }` );
 
-    await writeFile( resolve( __dirname, '../cjs/translate.js' ),
+    await writeFile( resolve( __dirname, '../cjs/translate.cjs' ),
         `const parse = require( './parse.js' );\n\nmodule.exports = ${ translator }` );
 
 } )();
