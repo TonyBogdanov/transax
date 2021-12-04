@@ -16,7 +16,17 @@
         constructor( value ) {
         	this.value = value;
         }
-        compile() {
+        compile( root = false ) {
+            if ( null === this.value ) {
+                return 'null';
+            }
+            if ( 'number' === typeof this.value ) {
+                return `${ this.value }`;
+            }
+            const text = this.value.replace( /`/g, '\\`' );
+            return root ? text : `\`${ text }\``;
+        }
+        evaluate() {
         	return this.value;
         }
     }
@@ -27,8 +37,11 @@
         	this.exp = exp;
             this.filters = filters;
         }
-        compile( context, filters ) {
-        	context = this.exp.compile( context, filters );
+        compile() {
+            return `\${${ this.filters.reduce( ( acc, filter ) => `f.${ filter }(${ acc })`, this.exp.compile() ) }}`;
+        }
+        evaluate( context, filters ) {
+        	context = this.exp.evaluate( context, filters );
             for ( const filter of this.filters ) {
             	context = filters[ filter ]( context );
             }
@@ -41,9 +54,13 @@
         constructor( resolvers ) {
         	this.resolvers = resolvers;
         }
-        compile( context, filters ) {
+        compile( root = false ) {
+            const result = `c${ this.resolvers.map( resolver => resolver.compile() ).join( '' ) }`;
+            return root ? `\${${ result }}` : result;
+        }
+        evaluate( context, filters ) {
         	for ( const resolver of this.resolvers ) {
-            	context = resolver.compile( context, filters );
+            	context = resolver.evaluate( context, filters );
             }
             return context;
         }
@@ -54,8 +71,12 @@
         constructor( args ) {
         	this.args = args;
         }
-        compile( context, filters ) {
-            return context( ... this.args.map( exp => exp.compile( context, filters ) ) );
+        compile( root = false ) {
+            const result = `(${ this.args.map( arg => arg.compile() ).join( ',' ) })`;
+            return root ? `\${${ result }}` : result;
+        }
+        evaluate( context, filters ) {
+            return context( ... this.args.map( exp => exp.evaluate( context, filters ) ) );
         }
     }
 
@@ -64,7 +85,11 @@
         constructor( key ) {
         	this.key = key;
         }
-        compile( context ) {
+        compile( root = false ) {
+            const result = 'number' === typeof this.key ? `[${ this.key }]` : `.${ this.key }`;
+            return root ? `\${${ result }}` : result;
+        }
+        evaluate( context ) {
         	return context[ this.key ];
         }
     }
@@ -75,16 +100,28 @@
         	this.exp = exp;
             this.cases = cases;
         }
-        compile( context, filters ) {
-        	const value = this.exp.compile( context, filters );
+        compile( root = false ) {
+            let fallback = false;
             for ( const case_ of this.cases ) {
-            	const result = case_.compile( value, filters );
+                if ( '*' === case_.test ) {
+                    fallback = true;
+                    break;
+                }
+            }
+            const result = `(v=>{${ this.cases.map( exp => exp.compile() ).join( '' ) }${ fallback ? '' :
+                `throw 'SWITCH_NO_MATCH'` }})(${ this.exp.compile() })`;
+            return root ? `\${${ result }}` : result;
+        }
+        evaluate( context, filters ) {
+        	const value = this.exp.evaluate( context, filters );
+            for ( const case_ of this.cases ) {
+            	const result = case_.evaluate( value, filters );
                 if ( SWITCH_NO === result ) {
                 	continue;
                 }
                 return result;
             }
-            throw 'Switch test does not match any of the supplied cases.';
+            throw 'SWITCH_NO_MATCH';
         }
     }
 
@@ -94,9 +131,15 @@
         	this.test = test;
             this.exp = exp;
         }
-        compile( context, filters ) {
-        	if ( '*' === this.test || this.test.compile( context, filters ) === context ) {
-            	return this.exp.compile( context, filters );
+        compile() {
+            if ( '*' === this.test ) {
+                return `return ${ this.exp.compile() };`;
+            }
+            return `if(v===${ this.test.compile() })return ${ this.exp.compile() };`;
+        }
+        evaluate( context, filters ) {
+        	if ( '*' === this.test || this.test.evaluate( context, filters ) === context ) {
+            	return this.exp.evaluate( context, filters );
             }
             return SWITCH_NO;
         }
@@ -123,7 +166,8 @@ SafeExpression
     / Resolution
 
 Switch
-	= 'switch' __ v:SafeExpression _ ':' _ s:( SwitchCase ( _ ( ',' / ';' ) _ SwitchCase )* ) { return new SwitchExpression( v, [ s[0], ... s[1].map( m => m[3] ) ] ) }
+	= 'switch' __ v:SafeExpression _ ':' _ s:( SwitchCase ( _ ( ',' / ';' ) _ SwitchCase )* )
+	  { return new SwitchExpression( v, [ s[0], ... s[1].map( m => m[3] ) ] ) }
 
 SwitchCase
 	= v:( '*' / SafeExpression ) _ '=>' _ s:SafeExpression { return new SwitchCase( v, s ) }
@@ -142,7 +186,8 @@ Resolver
     / ObjectAccessor
 
 Invocation
-	= "(" _ v:( Expression ( _ "," _ Expression )* )? _ ")" { return new Invocation( v ? [ v[0], ... v[1].map( m => m[3] ) ] : [] ) }
+	= "(" _ v:( Expression ( _ "," _ Expression )* )? _ ")"
+	  { return new Invocation( v ? [ v[0], ... v[1].map( m => m[3] ) ] : [] ) }
 
 ArrayAccessor
 	= v:_Index { return new Accessor( v ) }
@@ -174,7 +219,8 @@ _Integer
     / v:( '-'? [1-9] [0-9]* ) { return parseInt( [ v[0], v[1], ... v[2] ].join( '' ), 10 ) }
 
 _Float
-	= v:( '-'? [1-9] [0-9]* '.' [0-9]+ ) { return parseFloat( [ v[0], v[1], v[2].join( '' ), '.', v[4].join( '' ) ].join( '' ), 10 ) }
+	= v:( '-'? [1-9] [0-9]* '.' [0-9]+ )
+	  { return parseFloat( [ v[0], v[1], v[2].join( '' ), '.', v[4].join( '' ) ].join( '' ), 10 ) }
 	/ v:( '-'? ( '0' / '' ) '.' [0-9]+ ) { return parseFloat( [ ... v.slice( 0, 3 ), ... v[3] ].join( '' ), 10 ) }
 
 _String
@@ -185,7 +231,8 @@ _Name
 	= v:( [a-zA-Z_] [a-zA-Z0-9_]* ) { return [ v[0], ... v[1] ].join( '' ) }
 
 _Index
-	= "[" _ v:( "0" / [1-9] [0-9]* ) _ "]" { return parseInt( 'string' === typeof v ? v : [ v[0], ... v[1] ].join( '' ), 10 ) }
+	= "[" _ v:( "0" / [1-9] [0-9]* ) _ "]"
+	  { return parseInt( 'string' === typeof v ? v : [ v[0], ... v[1] ].join( '' ), 10 ) }
 
 _Filters
     = v:( _ "|" _ _Name )+ { return v.map( m => m[3] ) }

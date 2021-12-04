@@ -16,13 +16,13 @@ The main purpose of the package is to allow parsing such strings and then compil
 
 # Usage
 
-## Parse + Compile
+## Translate
 
 The *translate* function provided by the package accepts a translatable string along with *context* and *filters*,
-parses the supplied string and compiles it against the context / filters, returning a final *translated* string.
+parses the supplied string and evaluates it against the context / filters, returning a final *translated* string.
 
 ```ecmascript 6
-import translate from 'transax';
+import { translate } from 'transax';
 
 // Hello JOHN, nice to meet you!
 const translated = translate(
@@ -31,6 +31,37 @@ const translated = translate(
     { upper: v => v.toLocaleUpperCase() },
 );
 ```
+
+Keep in mind that the *translate* function calls `parse` internally, but **does not** compile the resulting AST and
+**does not** execute any JavaScript. Evaluation is performed on a per-token basis just like compilation.
+
+## Parse
+
+If you need to, you can also parse your translatable string into an AST:
+
+```ecmascript 6
+import { parse } from 'transax';
+const ast = parse( 'Hello {{ name | upper }}, nice to meet you!' );
+```
+
+The result will be an array of tokens where each token can either be a string (to be treated as text), or a token
+object. Each such object has two low-level methods you can use: `compile()` and `evaluate( context, filters )`.
+
+Stringify-ing and concatenating the results of calling `evaluate` on each token is equivalent to `translate()` function.
+
+## Compile
+
+You can also choose to compile your translatable string into an executable ECMAScript 6 code. This can be useful if you
+want to export an array of executable functions for each of your translation strings:
+
+```ecmascript 6
+import { compile } from 'transax';
+
+// const t = (c,f)=>`Hello ${f.upper(c.name)}, nice to meet you!`;
+const t = compile( 'Hello {{ name | upper }}, nice to meet you!' );
+```
+
+The function can also work with the AST returned from `parse`, if a string is provided instead, it parses it internally.
 
 # Syntax
 
@@ -78,14 +109,14 @@ to target a deeper value: `foo.bar.baz`.
 
 This can also be mixed with *Array Access* and *Invocation*: `a[0].b()[1].a`.
 
-Notice that any object key your write, **unless** if it's the very first accessor, must be preceded by a dot: `.`.
+Notice that any object key you write, **unless** if it's the very first accessor, must be preceded by a dot: `.`.
 
 Good: `foo.bar.baz`.\
 Bad: `.foo.bar.baz`.
 
 ## Invocation
 
-If your context value is a function, you cn invoke it like this: `()`. If the root context is an object, or an array
+If your context value is a function, you can invoke it like this: `()`. If the root context is an object, or an array
 instead, but has a deeper value that's a function, you can mix-and-match with *Array Access* and *Object Access*.
 
 For example, this syntax: `().a()[0]()[1]` will evaluate to `foo`, if your context looks like this:
