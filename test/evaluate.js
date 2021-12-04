@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import translate from '../src/translate.js';
+import { translate } from '../dist/esm/index.js';
 
 import filters from './util/filters.js';
 import load from './util/load.js';

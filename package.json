@@ -1,9 +1,19 @@
 {
   "name": "transax",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "I18n parser/compiler",
   "main": "index.js",
   "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist/**/*.js"
+  ],
   "scripts": {
     "build": "node bin/build.js",
     "test": "mocha --parallel --require esm"

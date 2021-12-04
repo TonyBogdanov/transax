@@ -13,29 +13,45 @@ const __dirname = dirname( fileURLToPath( import.meta.url ) );
     const grammar = ( await readFile( resolve( __dirname, '../grammar.pegjs' ) ) ).toString();
     const parser = pegjs.generate( grammar, { output: 'source' } );
 
-    await writeFile( resolve( __dirname, '../src/parse.js' ), `export default ${ parser }.parse` );
-    await writeFile( resolve( __dirname, '../cjs/parse.cjs' ), `module.exports = ${ parser }.parse` );
+    await writeFile( resolve( __dirname, '../dist/esm/parse.js' ), `export default ${ parser }.parse` );
+    await writeFile( resolve( __dirname, '../dist/cjs/parse.js' ), `exports = ${ parser }.parse` );
 
     console.log( 'Generating compiler.' );
     const compiler = `ast => '(c,f)=>\`' + ( 'string' === typeof ast ? parse( ast ) : ast )
     .map( token => 'string' === typeof token ? token.replace( /\`/g, '\\\\\`' ) : token.compile( true ) )
     .join( '' ) + '\`';`;
 
-    await writeFile( resolve( __dirname, '../src/compile.js' ),
-        `import parse from './parse.js';\n\nexport default ${ compiler }` );
+    await writeFile( resolve( __dirname, '../dist/esm/compile.js' ),
+        `import parse from './parse.js';\n\nexport default ${ compiler }\n` );
 
-    await writeFile( resolve( __dirname, '../cjs/compile.cjs' ),
-        `const parse = require( './parse.cjs' );\n\nmodule.exports = ${ compiler }` );
+    await writeFile( resolve( __dirname, '../dist/cjs/compile.js' ),
+        `const parse = require( './parse.js' );\n\nexports = ${ compiler }\n` );
 
     console.log( 'Generating translator.' );
     const translator = `( text, context, filters ) => parse( text )
     .map( token => \`\${ 'string' === typeof token ? token : token.evaluate( context, filters ) }\` )
     .join( '' );`;
 
-    await writeFile( resolve( __dirname, '../src/translate.js' ),
-        `import parse from './parse.js';\n\nexport default ${ translator }` );
+    await writeFile( resolve( __dirname, '../dist/esm/translate.js' ),
+        `import parse from './parse.js';\n\nexport default ${ translator }\n` );
 
-    await writeFile( resolve( __dirname, '../cjs/translate.cjs' ),
-        `const parse = require( './parse.cjs' );\n\nmodule.exports = ${ translator }` );
+    await writeFile( resolve( __dirname, '../dist/cjs/translate.js' ),
+        `const parse = require( './parse.js' );\n\nexports = ${ translator }\n` );
+
+    console.log( 'Generating exports.' );
+
+    await writeFile(
+        resolve( __dirname, '../dist/esm/index.js' ),
+        "export * as parse from './parse.js';\n" +
+        "export * as compile from './compile.js';\n" +
+        "export * as translate from './translate.js';\n"
+    );
+
+    await writeFile(
+        resolve( __dirname, '../dist/cjs/index.js' ),
+        "exports.parse = require( './parse.js' );\n" +
+        "exports.compile = require( './compile.js' );\n" +
+        "exports.translate = require( './translate.js' );\n"
+    );
 
 } )();

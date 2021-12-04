@@ -1,6 +1,6 @@
 import { Script } from 'vm';
 import { expect } from 'chai';
-import compile from '../src/compile.js';
+import { compile } from '../dist/esm/index.js';
 
 import filters from './util/filters.js';
 import load from './util/load.js';
