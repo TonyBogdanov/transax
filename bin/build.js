@@ -40,9 +40,10 @@ const { readFile, writeFile } = promises;
 
     await writeFile(
         resolve( __dirname, '../dist/esm/index.js' ),
-        "export * as parse from './parse.js';\n" +
-        "export * as compile from './compile.js';\n" +
-        "export * as translate from './translate.js';\n"
+        "import parse from './parse.js';\n" +
+        "import compile from './compile.js';\n" +
+        "import translate from './translate.js';\n\n" +
+        "export { parse, compile, translate };\n"
     );
 
     await writeFile(
@@ -51,5 +52,8 @@ const { readFile, writeFile } = promises;
         "exports.compile = require( './compile.js' );\n" +
         "exports.translate = require( './translate.js' );\n"
     );
+
+    await writeFile( resolve( __dirname, '../dist/esm/package.json' ), `{ "type": "module" }` );
+    await writeFile( resolve( __dirname, '../dist/cjs/package.json' ), `{ "type": "commonjs" }` );
 
 } )();

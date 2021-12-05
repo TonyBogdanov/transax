@@ -38,12 +38,12 @@
             this.filters = filters;
         }
         compile() {
-            return `\${${ this.filters.reduce( ( acc, filter ) => `f.${ filter }(${ acc })`, this.exp.compile() ) }}`;
+            return `\${${ this.filters.reduce( ( acc, filter ) => filter.compile( acc ), this.exp.compile() ) }}`;
         }
         evaluate( context, filters ) {
         	context = this.exp.evaluate( context, filters );
             for ( const filter of this.filters ) {
-            	context = filters[ filter ]( context );
+            	context = filter.evaluate( context, filters );
             }
             return context;
         }
@@ -91,6 +91,22 @@
         }
         evaluate( context ) {
         	return context[ this.key ];
+        }
+    }
+
+    class Filter {
+    	//_ = 'Filter'
+        constructor( name, inv ) {
+        	this.name = name;
+            this.inv = inv;
+        }
+        compile( content ) {
+            const inv = this.inv ? this.inv.compile() : '()';
+            return `f.${ this.name }(${ content }${ this.inv ? `,${ inv.substr( 1, inv.length - 2 ) }` : '' })`;
+        }
+        evaluate( context, filters ) {
+            const args = ( this.inv ? this.inv.args : [] ).map( arg => arg.evaluate( context, filters ) );
+            return filters[ this.name ]( context, ... args );
         }
     }
 
@@ -155,7 +171,7 @@ Token
 	= '{{' _ v:( FilteredExpression / Expression ) _ '}}' { return v }
 
 FilteredExpression
-	= v:Expression s:_Filters { return new FilteredExpression( v, s ) }
+	= v:Expression s:( _ "|" _ Filter )+ { return new FilteredExpression( v, s.map( m => m[3] ) ) }
 
 Expression
     = Switch
@@ -201,6 +217,9 @@ ObjectAccessor
 Literal
 	= v:( _Null / _String / _Float / _Integer ) { return new Literal( v ) }
 
+Filter
+	= v:_Name s:Invocation? { return new Filter( v, s ) }
+
 _
 	= [ \t\r\n]*
 
@@ -233,6 +252,3 @@ _Name
 _Index
 	= "[" _ v:( "0" / [1-9] [0-9]* ) _ "]"
 	  { return parseInt( 'string' === typeof v ? v : [ v[0], ... v[1] ].join( '' ), 10 ) }
-
-_Filters
-    = v:( _ "|" _ _Name )+ { return v.map( m => m[3] ) }

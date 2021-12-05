@@ -154,10 +154,10 @@ Switches are top-level expressions and cannot be passed as arguments or nested. 
 
 Expressions can also be filtered: `value | filter1 | filter2 | filter3`.
 
-The result of `value` will be sequentially passed through the functions specified in the *filters* object, passed to the
-*translate* function, under the respective keys: `filter1`, `filter2` and `filter3`.
+The result of `value` will be sequentially passed through the functions specified in the *filters* object (passed to the
+*translate* function), under the respective keys: `filter1`, `filter2` and `filter3`.
 
-Filters do not accept arguments and filtered expressions cannot be used as arguments, in switches, or nested.
-Filters exist as a way of applying simple, globally available transforms to the final result of your expression.
+Filters can act like *Invocation*s and accept arguments: `value | filter1( 1, 'hello', a.b.c )`. These arguments will
+be appended to the value being filtered when the `filter1` filter function is being invoked.
 
-If you need a more complex logic, pass the filtering function in your *context* and use *Invocation*s instead.
+Filtered expressions must be top-level citizens and cannot be used as arguments, in switches, or nested.
