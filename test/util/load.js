@@ -1,6 +1,6 @@
 const v_start = require( '../values/start.js' );
 
-const load = ( { name, tests, transformInput = [], transformOutput = [] }, trail = [] ) => {
+const load = ( { name, tests, transformInput = [], transformOutput = [], transformContext = [] }, trail = [] ) => {
 
     const result = [];
     tests.forEach( test => {
@@ -13,17 +13,22 @@ const load = ( { name, tests, transformInput = [], transformOutput = [] }, trail
             let output = test[1];
             transformOutput.forEach( t => output = t( output ) );
 
-            result.push( [ trail.concat( name ), { input, output, context: test[2] } ] );
+            let context = test[2];
+            transformContext.forEach( t => context = t( context ) );
+
+            result.push( [ trail.concat( name ), { input, output, context } ] );
             return;
 
         }
 
         const oTransformInput = 'function' === typeof test.transformInput ? [ test.transformInput ] : [];
         const oTransformOutput = 'function' === typeof test.transformOutput ? [ test.transformOutput ] : [];
+        const oTransformContext = 'function' === typeof test.transformContext ? [ test.transformContext ] : [];
 
         result.push( ... load( Object.assign( {}, test, {
             transformInput: oTransformInput.concat( transformInput ),
             transformOutput: oTransformOutput.concat( transformOutput ),
+            transformContext: oTransformContext.concat( transformContext ),
         } ), trail.concat( name ) ) );
 
     } );

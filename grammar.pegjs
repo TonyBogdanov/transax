@@ -41,11 +41,11 @@
             return `\${${ this.filters.reduce( ( acc, filter ) => filter.compile( acc ), this.exp.compile() ) }}`;
         }
         evaluate( context, filters ) {
-        	context = this.exp.evaluate( context, filters );
+        	let value = this.exp.evaluate( context, filters );
             for ( const filter of this.filters ) {
-            	context = filter.evaluate( context, filters );
+            	value = filter.evaluate( value, context, filters );
             }
-            return context;
+            return value;
         }
     }
 
@@ -104,9 +104,9 @@
             const inv = this.inv ? this.inv.compile() : '()';
             return `f.${ this.name }(${ content }${ this.inv ? `,${ inv.substr( 1, inv.length - 2 ) }` : '' })`;
         }
-        evaluate( context, filters ) {
+        evaluate( value, context, filters ) {
             const args = ( this.inv ? this.inv.args : [] ).map( arg => arg.evaluate( context, filters ) );
-            return filters[ this.name ]( context, ... args );
+            return filters[ this.name ]( value, ... args );
         }
     }
 
