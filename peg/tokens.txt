@@ -1,0 +1,12 @@
+Start
+    = t:( Token / Text )+ { return collapse( t ) }
+    / '' { return [ new TextToken( '' ) ] }
+
+Text
+    = v:_Symbol { return new TextToken( v ) }
+
+Token
+    = '{{' _ e:Literal _ '}}' { return e }
+
+Literal
+    = v:( _Null / _String / _Float / _Integer ) { return new LiteralToken( v ) }

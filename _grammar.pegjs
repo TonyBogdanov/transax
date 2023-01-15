@@ -171,7 +171,7 @@ Token
 	= '{{' _ v:( FilteredExpression / Expression ) _ '}}' { return v }
 
 FilteredExpression
-	= v:Expression s:( _ "|" _ Filter )+ { return new FilteredExpression( v, s.map( m => m[3] ) ) }
+	= v:Expression s:( _ "|" _ Filter )+ { return new FilteredExpression( v, s.map( ( m: any[] ) => m[3] ) ) }
 
 Expression
     = Switch
@@ -183,7 +183,7 @@ SafeExpression
 
 Switch
 	= 'switch' __ v:SafeExpression _ ':' _ s:( SwitchCase ( _ ( ',' / ';' ) _ SwitchCase )* )
-	  { return new SwitchExpression( v, [ s[0], ... s[1].map( m => m[3] ) ] ) }
+	  { return new SwitchExpression( v, [ s[0], ... s[1].map( ( m: any[] ) => m[3] ) ] ) }
 
 SwitchCase
 	= v:( '*' / SafeExpression ) _ '=>' _ s:SafeExpression { return new SwitchCase( v, s ) }
@@ -203,7 +203,7 @@ Resolver
 
 Invocation
 	= "(" _ v:( Expression ( _ "," _ Expression )* )? _ ")"
-	  { return new Invocation( v ? [ v[0], ... v[1].map( m => m[3] ) ] : [] ) }
+	  { return new Invocation( v ? [ v[0], ... v[1].map( ( m: any[] ) => m[3] ) ] : [] ) }
 
 ArrayAccessor
 	= v:_Index { return new Accessor( v ) }
@@ -239,12 +239,12 @@ _Integer
 
 _Float
 	= v:( '-'? [1-9] [0-9]* '.' [0-9]+ )
-	  { return parseFloat( [ v[0], v[1], v[2].join( '' ), '.', v[4].join( '' ) ].join( '' ), 10 ) }
-	/ v:( '-'? ( '0' / '' ) '.' [0-9]+ ) { return parseFloat( [ ... v.slice( 0, 3 ), ... v[3] ].join( '' ), 10 ) }
+	  { return parseFloat( [ v[0], v[1], v[2].join( '' ), '.', v[4].join( '' ) ].join( '' ) ) }
+	/ v:( '-'? ( '0' / '' ) '.' [0-9]+ ) { return parseFloat( [ ... v.slice( 0, 3 ), ... v[3] ].join( '' ) ) }
 
 _String
-	= "'" v:( "\\'" / [^'] )* "'" { return v.map( m => "\\'" === m ? m[1] : m ).join( '' ) }
-    / '"' v:( '\\"' / [^"] )* '"' { return v.map( m => '\\"' === m ? m[1] : m ).join( '' ) }
+	= "'" v:( "\\'" / [^'] )* "'" { return v.map( ( m: any ) => "\\'" === m ? m[1] : m ).join( '' ) }
+    / '"' v:( '\\"' / [^"] )* '"' { return v.map( ( m: any ) => '\\"' === m ? m[1] : m ).join( '' ) }
 
 _Name
 	= v:( [a-zA-Z_] [a-zA-Z0-9_]* ) { return [ v[0], ... v[1] ].join( '' ) }
@@ -252,3 +252,98 @@ _Name
 _Index
 	= "[" _ v:( "0" / [1-9] [0-9]* ) _ "]"
 	  { return parseInt( 'string' === typeof v ? v : [ v[0], ... v[1] ].join( '' ), 10 ) }
+
+
+
+
+
+
+Placeholder
+    = '{{' _ expr:( FilteredExpression / Expression ) _ '}}'
+    {
+        return new Placeholder( expr );
+    }
+
+FilteredExpression
+    = expr:Expression filters:( _ "|" _ Filter )+
+    {
+        return new FilteredExpression( expr, <Filter[]> nth( filters, 3 ) );
+    }
+
+Expression
+    = expr:( Switch / SafeExpression )
+    {
+        return new Expression( expr );
+    }
+
+Switch
+    = 'switch' __ expr:SafeExpression _ ':' _ cases:( SwitchCase ( _ ( ',' / ';' ) _ SwitchCase )* )
+    {
+        return new Switch( expr, [ cases[0], ... <SwitchCase[]> nth( cases[1], 3 ) ] );
+    }
+
+SafeExpression
+    = expr:( Literal / Resolution )
+    {
+        return new SafeExpression( expr );
+    }
+
+Resolution
+    = root:RootResolver _ resolvers:Resolver*
+    {
+        return new Resolution( root, resolvers );
+    }
+
+RootResolver
+    = resolver:( Invocation / ArrayAccessor / RootObjectAccessor )
+    {
+        return new RootResolver( resolver );
+    }
+
+Invocation
+    = "(" _ exprs:( Expression ( _ "," _ Expression )* )? _ ")"
+    {
+        return new Invocation( exprs ? [ exprs[0], ... <Expression[]> nth( exprs[1], 3 ) ] : [] );
+    }
+
+ArrayAccessor
+    = index:_Index
+    {
+        return new Accessor( index );
+    }
+
+RootObjectAccessor
+    = key:_Name
+    {
+        return new Accessor( key );
+    }
+
+Resolver
+    = resolver:( Invocation / ArrayAccessor / ObjectAccessor )
+    {
+        return new Resolver( resolver );
+    }
+
+ObjectAccessor
+    = "." _ key:_Name
+    {
+        return new Accessor( key );
+    }
+
+SwitchCase
+    = match:( '*' / SafeExpression ) _ '=>' _ expr:SafeExpression
+    {
+        return new SwitchCase( match, expr );
+    }
+
+Literal
+    = value:( _Null / _String / _Float / _Integer )
+    {
+        return new Literal( value );
+    }
+
+Filter
+    = name:_Name invocation:Invocation?
+    {
+        return new Filter( name, invocation );
+    }
