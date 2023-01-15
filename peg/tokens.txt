@@ -6,7 +6,10 @@ Text
     = v:_Symbol { return new TextToken( v ) }
 
 Token
-    = '{{' _ e:Literal _ '}}' { return e }
+    = '{{' _ e:( Literal / Value ) _ '}}' { return e }
 
 Literal
     = v:( _Null / _String / _Float / _Integer ) { return new LiteralToken( v ) }
+
+Value
+    = v:_Name { return new ValueToken( v ) }

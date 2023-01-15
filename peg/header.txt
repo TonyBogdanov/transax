@@ -1,6 +1,7 @@
 import TokenInterface from '../token/interface';
 import TextToken from '../token/text';
 import LiteralToken from '../token/literal';
+import ValueToken from '../token/value';
 
 import nth from './nth';
 import collapse from './collapse';

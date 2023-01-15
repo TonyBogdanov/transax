@@ -8,6 +8,7 @@ import literalNull from './parser/literal.null';
 import literalString from './parser/literal.string';
 import literalFloat from './parser/literal.float';
 import literalInteger from './parser/literal.integer';
+import value from './parser/value';
 
 function test( testCases: Array<Array<any>> ) {
     for ( const [ input, ...tokens ] of testCases ) {
@@ -16,11 +17,18 @@ function test( testCases: Array<Array<any>> ) {
 }
 
 describe( 'parse', () => {
-    describe( 'text', () => test( text() ) );
+    describe( 'text', () => {
+        test( text() );
+    } );
+
     describe( 'literal', () => {
         test( literalNull() );
         test( literalString() );
         test( literalFloat() );
         test( literalInteger() );
+    } );
+
+    describe( 'value', () => {
+        test( value() );
     } );
 } );
