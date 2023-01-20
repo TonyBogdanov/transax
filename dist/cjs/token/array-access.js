@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});class ArrayAccessToken{constructor(e){this._="array-access",this.expr=e}collapse(e){return!1}compile(e){return"["+this.expr.compile(e)+"]"}}exports.default=ArrayAccessToken;

@@ -1,12 +1,12 @@
 export default class Context {
     parameters: string[] = [];
-    environment: string[] = [];
+    globals: string[] = [];
 
     requireParameter( name: string ): void {
         -1 < this.parameters.indexOf( name ) || this.parameters.push( name );
     }
 
-    requireEnvironment( name: string ): void {
-        -1 < this.environment.indexOf( name ) || this.environment.push( name );
+    requireGlobal( name: string ): void {
+        -1 < this.globals.indexOf( name ) || this.globals.push( name );
     }
 }

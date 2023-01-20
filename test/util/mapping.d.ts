@@ -1,13 +1,12 @@
-import { describe } from 'mocha';
-import { expect } from 'chai';
+import TokenInterface from '../../src/token/interface';
 
-import compile from '../src/compiler/compile';
-import parse from '../src/parser/parse';
+type Mapping = {
+    input: string;
+    tokens: TokenInterface[];
+    compiled: string;
+    output: string;
+    params: object;
+    globals: object;
+};
 
-export default function testParse( mapping: object[] ): void {
-    describe( 'parses', () => {
-        for ( const { input, tokens } of mapping ) {
-            it( input, () => expect( parse( input ) ).to.deep.eq( tokens ) );
-        }
-    } );
-}
+export default Mapping;

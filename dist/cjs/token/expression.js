@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});class ExpressionToken{constructor(e,s=[]){this._="expression",this.identifier=e,this.resolvers=s}collapse(e){return!1}compile(s){return this.identifier.compile(s)+this.resolvers.map(e=>e.compile(s)).join("")}}exports.default=ExpressionToken;

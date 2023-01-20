@@ -24,9 +24,5 @@ _String
     = "'" v:( "\\'" / [^'] )* "'" { return v.map( ( m: any ) => "\\'" === m ? m[1] : m ).join( '' ) }
     / '"' v:( '\\"' / [^"] )* '"' { return v.map( ( m: any ) => '\\"' === m ? m[1] : m ).join( '' ) }
 
-_Name
-    = v:( [a-zA-Z_] [a-zA-Z0-9_]* ) { return [ v[0], ... v[1] ].join( '' ) }
-
-_Index
-    = "[" _ v:( "0" / [1-9] [0-9]* ) _ "]" { return parseInt( 'string' === typeof v ? v : [ v[0], ... v[1] ]
-        .join( '' ), 10 ) }
+_Identifier
+    = v:( [a-zA-Z_$] [a-zA-Z0-9_$]* ) { return [ v[0], ... v[1] ].join( '' ) }

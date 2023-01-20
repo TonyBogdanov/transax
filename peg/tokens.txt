@@ -1,15 +1,24 @@
 Start
-    = t:( Token / Text )+ { return collapse( t ) }
+    = a:( Token / Text )+ { return collapse( a ) }
     / '' { return [ new TextToken( '' ) ] }
 
 Text
-    = v:_Symbol { return new TextToken( v ) }
+    = a:_Symbol { return new TextToken( a ) }
 
 Token
-    = '{{' _ e:( Literal / Value ) _ '}}' { return e }
+    = '{{' _ a:( Literal / Expression ) _ '}}' { return a }
 
 Literal
-    = v:( _Null / _String / _Float / _Integer ) { return new LiteralToken( v ) }
+    = a:( _Null / _String / _Float / _Integer ) { return new LiteralToken( a ) }
 
-Value
-    = v:_Name { return new ValueToken( v ) }
+Expression
+    = a:Identifier b:( ObjectAccess / ArrayAccess )* { return new ExpressionToken( a, b ) }
+
+Identifier
+    = b:'@'? a:_Identifier { return new IdentifierToken( a, '@' === b ) }
+
+ObjectAccess
+    = _ '.' _ a:_Identifier { return new ObjectAccessToken( a ) }
+
+ArrayAccess
+    = _ '[' _ a:( Literal / Expression ) _ ']' { return new ArrayAccessToken( a ) }

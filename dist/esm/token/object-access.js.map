@@ -1,0 +1,1 @@
+{"version":3,"sources":["0"],"names":["ObjectAccessToken","constructor","key","this","_","collapse","token","compile","context"],"mappings":"qBAAqBA,kBACjBC,YAAYC,GACRC,KAAKC,EAAI,gBACTD,KAAKD,IAAMA,CACf,CACAG,SAASC,GACL,MAAO,CAAA,CACX,CACAC,QAAQC,GACJ,MAAO,IAAIL,KAAKD,GACpB,CACJ"}

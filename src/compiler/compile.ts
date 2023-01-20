@@ -32,11 +32,15 @@ export default function compile( tokens: TokenInterface[] ): string {
 
     let args = '';
     if ( 0 < context.parameters.length ) {
-        args += '{' + context.parameters.join( ',' ) + '}';
+        args += `{${ context.parameters.join( ',' ) }}`;
     }
 
-    if ( 0 < context.environment.length ) {
-        args += ',{' + context.environment.join( ',' ) + '}';
+    if ( 0 < context.globals.length ) {
+        if ( 0 === context.parameters.length ) {
+            args += '_';
+        }
+
+        args += `,{${ context.globals.join( ',' ) }}`;
     }
 
     return `(${ args })=>${ values.join( '+' ) }`;

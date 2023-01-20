@@ -1,0 +1,1 @@
+{"version":3,"sources":["0"],"names":["TextToken","constructor","value","this","_","collapse","token","compile","context","JSON","stringify"],"mappings":"qBAAqBA,UACjBC,YAAYC,GACRC,KAAKC,EAAI,OACTD,KAAKD,MAAQA,CACjB,CACAG,SAASC,GACL,OAAIA,aAAiBN,YACjBG,KAAKD,OAASI,EAAMJ,MACb,CAAA,EAGf,CACAK,QAAQC,GACJ,OAAOC,KAAKC,UAAUP,KAAKD,KAAK,CACpC,CACJ"}

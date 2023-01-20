@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.compile=exports.parse=void 0;const parse_1=require("./parser/parse"),compile_1=(exports.parse=parse_1.default,require("./compiler/compile"));exports.compile=compile_1.default;

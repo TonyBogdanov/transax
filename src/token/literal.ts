@@ -2,10 +2,16 @@ import TokenInterface from './interface';
 import Context from '../compiler/context';
 
 export default class LiteralToken implements TokenInterface {
-    value: null|string|number;
+    _ = 'literal';
 
-    constructor( value: null|string|number ) {
+    value: null | string | number;
+
+    constructor( value: null | string | number ) {
         this.value = value;
+    }
+
+    collapse( token: TokenInterface ): boolean {
+        return false;
     }
 
     compile( context: Context ): string {
@@ -14,9 +20,5 @@ export default class LiteralToken implements TokenInterface {
         }
 
         return JSON.stringify( this.value );
-    }
-
-    collapse( token: TokenInterface ): boolean {
-        return false;
     }
 }

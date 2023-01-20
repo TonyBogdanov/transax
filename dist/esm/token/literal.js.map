@@ -1,0 +1,1 @@
+{"version":3,"sources":["0"],"names":["LiteralToken","constructor","value","this","_","collapse","token","compile","context","JSON","stringify"],"mappings":"qBAAqBA,aACjBC,YAAYC,GACRC,KAAKC,EAAI,UACTD,KAAKD,MAAQA,CACjB,CACAG,SAASC,GACL,MAAO,CAAA,CACX,CACAC,QAAQC,GACJ,OAAI,OAASL,KAAKD,MACP,OAEJO,KAAKC,UAAUP,KAAKD,KAAK,CACpC,CACJ"}
