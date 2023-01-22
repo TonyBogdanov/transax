@@ -1,1 +1,0 @@
-"use strict";function collapse(e){return e.reduce((e,l)=>(0!==e.length&&e[e.length-1].collapse(l)||e.push(l),e),[])}Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=collapse;

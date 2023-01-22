@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});class LiteralToken{constructor(e){this._="literal",this.value=e}collapse(e){return!1}compile(e){return null===this.value?"null":JSON.stringify(this.value)}}exports.default=LiteralToken;

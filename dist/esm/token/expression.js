@@ -1,1 +1,0 @@
-export default class ExpressionToken{constructor(e,i=[]){this._="expression",this.identifier=e,this.resolvers=i}collapse(e){return!1}compile(i){return this.identifier.compile(i)+this.resolvers.map(e=>e.compile(i)).join("")}}

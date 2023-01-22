@@ -1,1 +1,0 @@
-export default class ArrayAccessToken{constructor(r){this._="array-access",this.expr=r}collapse(r){return!1}compile(r){return"["+this.expr.compile(r)+"]"}}

@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});class TextToken{constructor(e){this._="text",this.value=e}collapse(e){return e instanceof TextToken&&(this.value+=e.value,!0)}compile(e){return JSON.stringify(this.value)}}exports.default=TextToken;

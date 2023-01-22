@@ -1,0 +1,22 @@
+Start
+    = a:( _Prefix? Token / _Symbol )* { return a.flat().filter( v => v instanceof Token ) }
+
+Token
+    = a:_Name _ "(" _ b:_String _ [,)] { return new Token( a, b, text(), location().start.line, location().start.column ) }
+
+_
+    = [ \t\r\n]*
+
+_Prefix
+    = [^a-zA-Z_$]
+
+_Symbol
+    = .
+
+_Name
+    = [a-zA-Z_$] [a-zA-Z_$0-9]* { return text() }
+
+_String
+    = "'" a:( "\\'" / [^'] )* "'" { return a.map( ( v: any ) => "\\'" === v ? v[1] : v ).join( '' ) }
+    / '"' a:( '\\"' / [^"] )* '"' { return a.map( ( v: any ) => '\\"' === v ? v[1] : v ).join( '' ) }
+    / "`" a:( ! "${" ( "\\`" / [^`] ) )* "`" { return a.map( ( [ , v ]: any ) => "\\`" === v ? v[1] : v ).join( '' ) }

@@ -1,1 +1,0 @@
-export default class ObjectAccessToken{constructor(e){this._="object-access",this.key=e}collapse(e){return!1}compile(e){return"."+this.key}}

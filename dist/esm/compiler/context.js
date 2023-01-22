@@ -1,1 +1,0 @@
-export default class Context{constructor(){this.parameters=[],this.globals=[]}requireParameter(e){-1<this.parameters.indexOf(e)||this.parameters.push(e)}requireGlobal(e){-1<this.globals.indexOf(e)||this.globals.push(e)}}

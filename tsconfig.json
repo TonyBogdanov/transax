@@ -1,0 +1,10 @@
+{
+  "typeRoots": [
+    "node_modules/@types"
+  ],
+  "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
+  }
+}

@@ -1,8 +1,0 @@
-import TextToken from '../token/text';
-import LiteralToken from '../token/literal';
-import IdentifierToken from '../token/identifier';
-import ExpressionToken from '../token/expression';
-import ObjectAccessToken from '../token/object-access';
-import ArrayAccessToken from '../token/array-access';
-
-import collapse from './collapse';

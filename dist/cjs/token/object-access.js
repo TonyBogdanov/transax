@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});class ObjectAccessToken{constructor(e){this._="object-access",this.key=e}collapse(e){return!1}compile(e){return"."+this.key}}exports.default=ObjectAccessToken;

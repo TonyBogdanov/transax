@@ -1,1 +1,0 @@
-export default function collapse(e){return e.reduce((e,l)=>(0!==e.length&&e[e.length-1].collapse(l)||e.push(l),e),[])}

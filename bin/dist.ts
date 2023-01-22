@@ -1,11 +1,13 @@
-const { spawn } = require( 'child_process' );
-const { resolve } = require( 'path' );
-const { readFile, writeFile } = require( 'fs' ).promises;
-const rimraf = require( 'rimraf' );
-const glob = require( 'glob-promise' );
-const uglify = require( 'uglify-js' );
+import fs from 'fs';
+import rimraf from 'rimraf';
+import glob from 'glob-promise';
+import uglify from 'uglify-js';
+import { spawn } from 'child_process';
+import { resolve } from 'path';
 
-function run( command, args ) {
+const { readFile, writeFile } = fs.promises;
+
+async function run( command, args ) {
     return new Promise( ( resolve, reject ) => spawn( command, args, { stdio: 'inherit' } )
         .on( 'close', code => 0 === code ? resolve( null ) : reject( code ) ) );
 }
@@ -15,9 +17,6 @@ async function build( target ) {
 
     log( 'Transpiling.' );
     await run( 'tsc', [ '--build', resolve( __dirname, `../${ target }.tsconfig.json` ) ] );
-
-    log( 'Cleaning up.' );
-    await rimraf( resolve( __dirname, `../dist/${ target }/token/interface.js` ) );
 
     await Promise.all( ( await glob( resolve( __dirname, `../dist/${ target }/**/*.js` ) ) ).map( async path => {
         log( `Minifying: ${ path }.` );

@@ -1,4 +1,3 @@
-import parse from './parser/parse';
-import compile from './compiler/compile';
+import { Analyzer } from './Analyzer';
 
-export { parse, compile };
+export { Analyzer };
