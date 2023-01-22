@@ -1,5 +1,5 @@
 Start
-    = a:( _Prefix? Token / _Symbol )* { return a.flat().filter( v => v instanceof Token ) }
+    = a:( _Prefix? Token / _Symbol )* { return a.flat().filter( ( v: any ) => v instanceof Token ) }
 
 Token
     = a:_Name _ "(" _ b:_String _ [,)] { return new Token( a, b, text(), location().start.line, location().start.column ) }

@@ -1,3 +1,5 @@
 import { Analyzer } from './Analyzer';
+import { Compiler } from './Compiler';
+import { Generator } from './Generator';
 
-export { Analyzer };
+export { Analyzer, Compiler, Generator };

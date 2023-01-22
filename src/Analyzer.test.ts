@@ -1,21 +1,29 @@
 import { expect, jest } from '@jest/globals';
 import { Token, Analyzer, Options } from './Analyzer';
 
-function run( code: string, expectedTokens: Token[] = [], expectedSkips: string[] = [], options: Object = {} ): void {
+function run(
+    code: string,
+    expectedTokens: Token[] = [],
+    expectedSkips: string[][] = [],
+    options: Object = {},
+    source?: string,
+): void {
     test( code, () => {
-        const spy = jest.spyOn( console, 'warn' );
-        expect( new Analyzer( options ).analyze( code ) ).toStrictEqual( expectedTokens );
+        const analyzer = new Analyzer( options );
+        const skip = jest.spyOn( analyzer, 'skip' );
 
+        expect( analyzer.analyze( code, source ) ).toStrictEqual( expectedTokens );
         if ( 0 === expectedSkips.length ) {
             return;
         }
 
-        expect( spy ).toHaveBeenCalledTimes( expectedSkips.length );
-        for ( const message of expectedSkips ) {
-            expect( spy ).toHaveBeenCalledWith( expect.stringContaining( message ) );
+        expect( skip ).toHaveBeenCalledTimes( expectedSkips.length );
+        for ( let i = 1; i <= expectedSkips.length; i++ ) {
+            expect( skip ).toHaveBeenNthCalledWith( i, expect.objectContaining( { text: expectedSkips[ i - 1 ][0] } ),
+                expectedSkips[ i - 1 ][1] );
         }
 
-        spy.mockClear();
+        skip.mockClear();
     } );
 }
 
@@ -37,9 +45,7 @@ describe( 'Analyzer', () => {
         } );
 
         test( 'allows selectively overriding options values', () => {
-            expect( new Analyzer( { source: '/file.js' } ).options.source ).toBe( '/file.js' );
             expect( new Analyzer( { names: [ 't' ] } ).options.names ).toStrictEqual( [ 't' ] );
-            expect( new Analyzer( { verbose: false } ).options.verbose ).toBe( false );
         } );
     } );
 
@@ -87,13 +93,9 @@ describe( 'Analyzer', () => {
         ] );
 
         // tokens with foreign names are skipped
-        run( 'skip( "this" ) and( "that" )', [], [
-            'Skipping: skip( "this" )',
-            'Skipping: and( "that" )',
-        ] );
+        run( 'skip( "this" ) and( "that" )', [], [ [ 'skip( "this" )' ], [ 'and( "that" )' ] ], { verbose: true } );
 
         // the "skipped" warning can also contain info about a source file, useful when dealing with multiple files
-        run( 'skip( "this" )', [], [ 'Skipping: skip( "this" ) at line: 1, column: 1, because "skip" is not in the' +
-            ' list of configured names in /path/to/file.js', ], { source: '/path/to/file.js' } );
+        run( 'skip( "this" )', [], [ [ 'skip( "this" )', '/path/to/file.js' ] ], { verbose: true }, '/path/to/file.js' );
     } );
 } );

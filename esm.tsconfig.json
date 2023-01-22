@@ -4,9 +4,10 @@
     "src/index.ts"
   ],
   "compilerOptions": {
+    "moduleResolution": "node",
     "target": "es6",
     "module": "es6",
-    "outDir": "dist/esm",
+    "outDir": "esm",
     "strict": true
   }
 }

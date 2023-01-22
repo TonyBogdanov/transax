@@ -4,17 +4,17 @@ import { resolve } from 'path';
 import peggy from 'peggy';
 import tspegjs from 'ts-pegjs';
 
-( async () => {
-    const [ parserPath, grammarPath ] = process.argv.slice( 2 );
+async function build( name: string ): Promise<void> {
+    const log = ( ...args ) => console.log( `[${ name.toUpperCase() }]`, ...args );
 
-    console.log( 'Loading grammar.' );
-    const grammar = ( await readFile( resolve( __dirname, '..', grammarPath ) ) ).toString( 'utf-8' );
+    log( 'Loading grammar.' );
+    const grammar = ( await readFile( resolve( __dirname, '../peg', name + '.txt' ) ) ).toString( 'utf-8' );
 
-    console.log( 'Generating parser.' );
+    log( 'Generating parser.' );
     const parser = peggy.generate( grammar, { output: 'source', plugins: [ tspegjs ] } ).replace( /^export /gmi, '' );
 
-    console.log( 'Writing parser.' );
-    const content = ( await readFile( resolve( __dirname, '..', parserPath ) ) ).toString( 'utf-8' );
+    log( 'Writing parser.' );
+    const content = ( await readFile( resolve( __dirname, '../src', name + '.ts' ) ) ).toString( 'utf-8' );
 
     const first = content.split( /\/\*\s*peg:start\s*\*\//, 2 );
     if ( 2 !== first.length ) {
@@ -27,7 +27,10 @@ import tspegjs from 'ts-pegjs';
     }
 
     const result = first[ 0 ] + '/* peg:start */' + parser + '/* peg:stop */' + second[ 1 ];
-    await writeFile( resolve( __dirname, '..', parserPath ), result );
+    await writeFile( resolve( __dirname, '../src', name + '.ts' ), result );
+}
 
+( async () => {
+    await Promise.all( [ build( 'Analyzer' ), build( 'Compiler' ) ] );
     console.log( '[OK]' );
 } )();

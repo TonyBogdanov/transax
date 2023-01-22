@@ -35,12 +35,6 @@ describe( 'Compiler', () => {
             expect( compiler.options ).toBeInstanceOf( Options );
             expect( compiler.options ).toStrictEqual( new Options() );
         } );
-
-        // test( 'allows selectively overriding options values', () => {
-        //     expect( new Analyzer( { source: '/file.js' } ).options.source ).toBe( '/file.js' );
-        //     expect( new Analyzer( { names: [ 't' ] } ).options.names ).toStrictEqual( [ 't' ] );
-        //     expect( new Analyzer( { verbose: false } ).options.verbose ).toBe( false );
-        // } );
     } );
 
     describe( 'tokenize()', () => {
