@@ -9,14 +9,14 @@ import {
     Options,
     TextToken,
     Token
-} from './Compiler';
+} from '../src/Compiler';
 
 function runTokenize( code: string, expectedTokens: Token[] = [] ): void {
     test( code, () => expect( new Compiler().tokenize( code ) ).toStrictEqual( expectedTokens ) );
 }
 
 function runCompile( code: string, expectedOutput: string ): void {
-    test( code, () => expect( new Compiler().compile( code ) ).toBe( expectedOutput ) );
+    test( code, () => expect( new Compiler().compile( code ) ).toStrictEqual( expectedOutput ) );
 }
 
 describe( 'Compiler', () => {

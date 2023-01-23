@@ -1,5 +1,5 @@
 import { expect, jest } from '@jest/globals';
-import { Token, Analyzer, Options } from './Analyzer';
+import { Token, Analyzer, Options } from '../src/Analyzer';
 
 function run(
     code: string,

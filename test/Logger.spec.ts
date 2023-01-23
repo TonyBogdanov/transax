@@ -1,5 +1,5 @@
 import { expect, jest } from '@jest/globals';
-import { Logger, Options } from './Logger';
+import { Logger, Options } from '../src/Logger';
 
 function testOutput( logger: Logger, callback: ( logger: Logger ) => void ): void {
     const logMock = jest.spyOn( console, 'log' );

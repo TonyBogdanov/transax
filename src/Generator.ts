@@ -1,4 +1,4 @@
-import { sync } from 'glob';
+const glob = require( 'glob-promise' );
 
 import { promises } from 'fs';
 import { relative } from 'path';
@@ -9,49 +9,38 @@ import { Compiler, Options as CompilerOptions } from './Compiler';
 
 const { readFile, writeFile } = promises;
 
-type TranslationDictionary = Record<string, Record<string, string>>;
+export type Dictionary = Record<Locale, DictionaryEntry>;
+export type DictionaryEntry = Record<TranslationKey, TranslationValue>;
 
-const isTranslationDictionary = ( v: any ): v is TranslationDictionary => v instanceof Object &&
-    0 === Object.values( v ).filter( ( v: any ) => !( v instanceof Object ) ||
-        0 !== Object.values( v ).filter( ( v: any ) => 'string' !== typeof v ).length ).length;
+export type Locale = string;
+export type TranslationKey = string;
+export type TranslationValue = string;
 
 export class Options {
-    translations: TranslationDictionary = {};
+    translations: Dictionary = {};
     loggerOptions: LoggerOptions | Object = {};
     analyzerOptions: AnalyzerOptions | Object = {};
     compilerOptions: CompilerOptions | Object = {};
 
     constructor( values: Object = {} ) {
         if ( 'translations' in values ) {
-            if ( !isTranslationDictionary( values.translations ) ) {
-                throw new Error( 'Options.translations must be a TranslationDictionary.' );
-            }
-
-            this.translations = values.translations;
+            // TODO validation
+            this.translations = <Dictionary> values.translations;
         }
 
         if ( 'loggerOptions' in values ) {
-            if ( !( values.loggerOptions instanceof Object ) ) {
-                throw new Error( 'Options.loggerOptions must be an object.' );
-            }
-
-            this.loggerOptions = values.loggerOptions;
+            // TODO validation
+            this.loggerOptions = <LoggerOptions | Object> values.loggerOptions;
         }
 
         if ( 'analyzerOptions' in values ) {
-            if ( !( values.analyzerOptions instanceof Object ) ) {
-                throw new Error( 'Options.analyzerOptions must be an object.' );
-            }
-
-            this.analyzerOptions = values.analyzerOptions;
+            // TODO validation
+            this.analyzerOptions = <AnalyzerOptions | Object> values.analyzerOptions;
         }
 
         if ( 'compilerOptions' in values ) {
-            if ( !( values.compilerOptions instanceof Object ) ) {
-                throw new Error( 'Options.compilerOptions must be an object.' );
-            }
-
-            this.compilerOptions = values.compilerOptions;
+            // TODO validation
+            this.compilerOptions = <CompilerOptions | Object> values.compilerOptions;
         }
     }
 }
@@ -92,7 +81,7 @@ export class Generator {
     }
 
     async parseGlob( pattern: string ): Promise<this> {
-        await Promise.all( sync( pattern ).map( path => this.parseFile( path ) ) );
+        await Promise.all( ( await glob( pattern ) ).map( ( path: string ) => this.parseFile( path ) ) );
         return this;
     }
 
