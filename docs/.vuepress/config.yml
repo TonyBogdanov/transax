@@ -1,0 +1,18 @@
+title: Transax
+description: Framework-agnostic JavaScript library for content internationalization.
+
+themeConfig:
+  nav:
+    - link: /guide/introduction
+      text: Guide
+    - link: https://www.npmjs.com/package/transax
+      text: NPM
+    - link: https://github.com/tonybogdanov/transax
+      text: GitHub
+  sidebar:
+    - title: Guide
+      path: /guide/introduction
+      collapsable: false
+      children:
+        - /guide/introduction
+        - /guide/installation
