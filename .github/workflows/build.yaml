@@ -6,7 +6,7 @@ on:
     tags: [ '*' ]
 
 jobs:
-  test:
+  build:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
 
@@ -18,10 +18,19 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '18'
 
       - name: Setup
         run: npm i
 
       - name: Run tests
         run: npm run test
+
+      - name: Build docs
+        run: npm run build:docs
+
+      - name: Publish docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/.vuepress/dist

@@ -7,7 +7,7 @@
     "build": "npm run build:parsers && npm run build:release",
     "build:parsers": "esrun bin/build-parsers.ts",
     "build:release": "esrun bin/build-release.ts",
-    "build:docs": "vuepress build docs",
+    "build:docs": "NODE_OPTIONS=--openssl-legacy-provider vuepress build docs",
     "docs": "NODE_OPTIONS=--openssl-legacy-provider vuepress dev docs",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.ts",
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch --config jest.config.ts"
