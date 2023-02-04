@@ -3,18 +3,27 @@ base: /transax/
 title: Transax
 description: Framework-agnostic JavaScript library for content internationalization.
 
+plugins:
+  - vuepress-plugin-tabs
+
 themeConfig:
   nav:
-    - link: /guide/introduction
+    - link: /introduction
       text: Guide
     - link: https://www.npmjs.com/package/transax
       text: NPM
     - link: https://github.com/tonybogdanov/transax
       text: GitHub
   sidebar:
-    - title: Guide
-      path: /guide/introduction
+    - title: Introduction
+      path: /introduction
+      collapsable: false
+    - title: Installation
+      path: /installation
+      collapsable: false
+    - title: Usage
+      path: /usage/importing
       collapsable: false
       children:
-        - /guide/introduction
-        - /guide/installation
+        - /usage/importing
+        - /usage/analysis

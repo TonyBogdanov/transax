@@ -1,8 +1,8 @@
 ---
 home: true
-heroText: Transax
+heroText: TRANSAX
 tagline: Framework-agnostic JavaScript library for content internationalization.
-actionLink: /guide/introduction
+actionLink: /introduction
 actionText: Get Started →
 features:
 - title: Framework-agnostic

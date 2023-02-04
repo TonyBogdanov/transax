@@ -1,6 +1,6 @@
 {
   "name": "transax",
-  "version": "2.0.0-alpha.3",
+  "version": "2.0.0-alpha.4",
   "description": "Internationalization",
   "type": "module",
   "scripts": {
@@ -23,8 +23,7 @@
   },
   "files": [
     "esm/**/*",
-    "cjs/**/*",
-    "browser/**/*"
+    "cjs/**/*"
   ],
   "repository": {
     "type": "git",
@@ -53,7 +52,8 @@
     "typescript": "^4.9.4",
     "uglify-js": "^3.17.4",
     "vuepress": "^1.9.8",
-    "vuepress-plugin-tabs": "^0.3.0"
+    "vuepress-plugin-tabs": "^0.3.0",
+    "vue-tabs-component": "^1.5.0"
   },
   "dependencies": {
     "@jest/globals": "^29.3.1",
