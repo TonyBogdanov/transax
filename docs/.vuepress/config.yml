@@ -1,4 +1,5 @@
 base: /transax/
+
 title: Transax
 description: Framework-agnostic JavaScript library for content internationalization.
 
