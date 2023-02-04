@@ -16,11 +16,17 @@ async function run( command: string, args: string[] ): Promise<void> {
 async function build( target: string ): Promise<void> {
     const log = ( ...args ) => console.log( `[${ target.toUpperCase() }]`, ...args );
 
-    log( 'Purging.' );
-    await rimraf( resolve( __dirname, '..', target ) );
+    if ( 'browser' !== target ) {
+        log( 'Purging.' );
+        await rimraf( resolve( __dirname, '..', target ) );
+    }
 
     log( 'Transpiling.' );
-    await run( 'tsc', [ '--build', resolve( __dirname, `../${ target }.tsconfig.json` ) ] );
+    if ( 'browser' === target ) {
+        await run( 'browserify', [ resolve( __dirname, `../cjs/index.js` ), '-o', resolve( __dirname, `../browser/index.js` ) ] );
+    } else {
+        await run( 'tsc', [ '--build', resolve( __dirname, `../${ target }.tsconfig.json` ) ] );
+    }
 
     log( 'Minifying.' );
     await Promise.all( glob.sync( resolve( __dirname, '..', target, '**/*.js' ) ).map( async path => {
@@ -29,7 +35,13 @@ async function build( target: string ): Promise<void> {
     } ) );
 }
 
+async function seq( ...promises: ( () => Promise<void> )[] ): Promise<void> {
+    for ( const promise of promises ) {
+        await promise();
+    }
+}
+
 ( async () => {
-    await Promise.all( [ build( 'cjs' ), build( 'esm' ) ] );
+    await Promise.all( [ seq( () => build( 'cjs' ), () => build( 'browser' ) ), build( 'esm' ) ] );
     console.log( '[OK]' );
 } )();
