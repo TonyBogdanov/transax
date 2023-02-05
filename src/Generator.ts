@@ -1,5 +1,3 @@
-const glob = require( 'glob-promise' );
-
 import { promises } from 'fs';
 import { relative } from 'path';
 
@@ -77,11 +75,6 @@ export class Generator {
 
     async parseFile( path: string ): Promise<this> {
         await this.parseContent( ( await readFile( path ) ).toString( 'utf-8' ), path );
-        return this;
-    }
-
-    async parseGlob( pattern: string ): Promise<this> {
-        await Promise.all( ( await glob( pattern ) ).map( ( path: string ) => this.parseFile( path ) ) );
         return this;
     }
 

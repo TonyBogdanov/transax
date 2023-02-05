@@ -1,6 +1,6 @@
 {
   "name": "transax",
-  "version": "2.0.0-alpha.4",
+  "version": "2.0.0-alpha.5",
   "description": "Internationalization",
   "type": "commonjs",
   "main": "index.js",
@@ -36,7 +36,6 @@
     "vuepress-plugin-tabs": "^0.3.0"
   },
   "dependencies": {
-    "glob": "^8.1.0",
     "glob-promise": "^6.0.2"
   }
 }

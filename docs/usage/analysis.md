@@ -41,7 +41,7 @@ console.log( gen.getMissingTranslationKeys() );
 // -> { en: [ 'Hello' ], de: [ 'nice to meet you' ] }
 
 console.log( gen.getUnusedTranslationKeys() );
-// -> { en: [ 'unused' ] }
+// -> { en: [ 'unused' ], de: [] }
 ```
 
 ## Limitations

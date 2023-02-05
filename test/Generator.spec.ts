@@ -62,16 +62,6 @@ describe( 'Generator', () => {
         } ) );
     } );
 
-    describe( 'parseGlob()', () => {
-        test( 'sample', async () => {
-            expect( ( await new Generator().parseGlob( resolve( __dirname, 'fixture/*.js' ) ) ).keys ).toStrictEqual( {
-                test: [
-                    'test/fixture/simple.js::1:15',
-                ],
-            } );
-        } )
-    } );
-
     describe( 'getMissingTranslationKeys()', () => {
         const options = { translations: { en: { foo: 'bar' }, de: { bar: 'baz' } } };
 

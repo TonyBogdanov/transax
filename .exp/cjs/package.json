@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "transax": "^2.0.0-alpha.3"
+    "transax": "^2.0.0-alpha.4"
   }
 }

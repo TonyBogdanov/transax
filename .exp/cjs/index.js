@@ -1,22 +1,27 @@
 const { Generator } = require( 'transax' );
 
-console.log( Generator );
+const code = `
+const hello = $t( 'Hello' );
+const greet = $t( 'nice to meet you' );
 
-// const translations = {
-//     en: {
-//         'nice to meet you': 'nice to meet you',
-//         'unused': 'unused',
-//     },
-//     de: {
-//         'Hello': 'Hallo',
-//     },
-// };
-//
-// const gen = new Generator( { translations } );
-// gen.parseContent( '<source code as string>' );
-//
-// console.log( gen.getMissingTranslationKeys() );
-// // -> { en: [ 'Hello' ], de: [ 'nice to meet you' ] }
-//
-// console.log( gen.getUnusedTranslationKeys() );
-// // -> { en: [ 'unused' ] }
+console.log( \`\${ hello } John, \${ greet }!\` );
+`;
+
+const translations = {
+    en: {
+        'nice to meet you': 'nice to meet you',
+        'unused': 'unused',
+    },
+    de: {
+        'Hello': 'Hallo',
+    },
+};
+
+const gen = new Generator( { translations } );
+gen.parseContent( code );
+
+console.log( gen.getMissingTranslationKeys() );
+// -> { en: [ 'Hello' ], de: [ 'nice to meet you' ] }
+
+console.log( gen.getUnusedTranslationKeys() );
+// -> { en: [ 'unused' ], de: [] }
