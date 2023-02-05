@@ -3,28 +3,7 @@
   "version": "2.0.0-alpha.4",
   "description": "Internationalization",
   "type": "module",
-  "scripts": {
-    "build": "npm run build:parsers && npm run build:release",
-    "build:parsers": "esrun bin/build-parsers.ts",
-    "build:release": "esrun bin/build-release.ts",
-    "build:docs": "NODE_OPTIONS=--openssl-legacy-provider vuepress build docs",
-    "docs": "NODE_OPTIONS=--openssl-legacy-provider vuepress dev docs",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.ts",
-    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch --config jest.config.ts"
-  },
-  "module": "./esm/index.js",
-  "main": "./cjs/index.js",
-  "exports": {
-    ".": {
-      "import": "./esm/index.js",
-      "require": "./cjs/index.js"
-    },
-    "./package.json": "./package.json"
-  },
-  "files": [
-    "esm/**/*",
-    "cjs/**/*"
-  ],
+  "module": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TonyBogdanov/transax.git"

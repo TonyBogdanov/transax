@@ -17,7 +17,7 @@ export interface TranslateOptions {
 }
 
 export class Options {
-    fallbackLocale: Locale;
+    fallbackLocale?: Locale;
     loggerOptions: LoggerOptions | Object = {};
 
     constructor( values: Object = {} ) {
@@ -51,7 +51,7 @@ export class Translator {
         if ( options.locale ) {
             if ( options.locale in this.dictionary ) {
                 if ( key in this.dictionary[ options.locale ] ) {
-                    return this.dictionary[ options.locale ][ key ]( options.params, options.globals );
+                    return this.dictionary[ options.locale ][ key ]( options.params ?? {}, options.globals ?? {} );
                 }
 
                 this.logger.verbose( `Key "${ key }" does not exist in dictionary for locale: "${
@@ -67,7 +67,10 @@ export class Translator {
         if ( this.options.fallbackLocale ) {
             if ( this.options.fallbackLocale in this.dictionary ) {
                 if ( key in this.dictionary[ this.options.fallbackLocale ] ) {
-                    return this.dictionary[ this.options.fallbackLocale ][ key ]( options.params, options.globals );
+                    return this.dictionary[ this.options.fallbackLocale ][ key ](
+                        options.params ?? {},
+                        options.globals ?? {},
+                    );
                 }
 
                 this.logger.log( `Key: "${ key }" does not exist in dictionary for fallback locale: "${

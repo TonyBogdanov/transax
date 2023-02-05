@@ -7,20 +7,19 @@ If you are using [TypeScript](https://www.typescriptlang.org), you can even impo
 :::: tabs
 ::: tab ESM
 ```js
-import { Compiler, Translator } from 'transax';
-import { Compiler, Translator } from 'transax/esm'; // or this to be explicit
+import { Generator } from 'transax';
+import { Generator } from 'transax/esm'; // or this to be explicit
 ```
 :::
 ::: tab CommonJS
 ```js
-const { Compiler, Translator } = require( 'transax' );
-const { Compiler, Translator } = require( 'transax/cjs' ); // or this to be explicit
+const { Generator } = require( 'transax' );
+const { Generator } = require( 'transax/cjs' ); // or this to be explicit
 ```
 :::
 ::: tab TypeScript
 ```ts
-import { Translator } from 'transax/src/Translator';
-import { Compiler } from 'transax/src/Compiler';
+import { Generator } from 'transax/src/Generator';
 ```
 :::
 ::::

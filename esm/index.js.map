@@ -1,1 +1,1 @@
-{"version":3,"sources":["0"],"names":["Analyzer","Compiler","Generator"],"mappings":"OAASA,QAAgC,KAAhB,wBAChBC,QAAgC,KAAhB,wBAChBC,SAAkC,KAAjB,yBACjBF,SAAUC,SAAUC,SAAW"}
+{"version":3,"sources":["0"],"names":["Analyzer","Compiler","Generator","Translator"],"mappings":"OAASA,QAAgC,KAAhB,wBAChBC,QAAgC,KAAhB,wBAChBC,SAAkC,KAAjB,yBACjBC,UAAoC,KAAlB,0BAClBH,SAAUC,SAAUC,UAAWC,UAAY"}
