@@ -1,0 +1,1 @@
+class Options{constructor(o={}){var s;this.namespace=(null!=(s=o.namespace)?s:"Log").toUpperCase(),this.verbose=null!=(s=o.verbose)&&s}}export default class Logger{constructor(o={}){this.options=new Options(o)}log(...o){console.log(`[${this.options.namespace}]`,...o)}verbose(...o){this.options.verbose&&console.log(`[${this.options.namespace}]`,...o)}}

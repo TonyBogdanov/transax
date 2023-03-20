@@ -1,0 +1,1 @@
+export default class CompilerContext{constructor(){this.parameters=[],this.globals=[]}requireParameter(e){return-1<this.parameters.indexOf(e)||this.parameters.push(e),this}requireGlobal(e){return-1<this.globals.indexOf(e)||this.globals.push(e),this}}

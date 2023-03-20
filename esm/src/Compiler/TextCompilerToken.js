@@ -1,0 +1,1 @@
+import AbstractCompilerToken from"./AbstractCompilerToken";export default class TextCompilerToken extends AbstractCompilerToken{constructor(t,e,r){super(t,e,r)}compile(t){return JSON.stringify(this.text)}}

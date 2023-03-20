@@ -1,17 +1,18 @@
 {
   "name": "transax",
-  "version": "2.0.0-alpha.5",
+  "version": "2.0.0-alpha.6",
   "description": "Internationalization",
   "type": "module",
   "scripts": {
-    "build": "npm run build:parsers && npm run build:release",
+    "build": "npm run build:parsers && npm run build:release && npm run build:docs",
     "build:parsers": "esrun bin/build-parsers.ts",
     "build:release": "esrun bin/build-release.ts",
-    "build:docs": "NODE_OPTIONS=--openssl-legacy-provider vuepress build docs",
-    "docs": "NODE_OPTIONS=--openssl-legacy-provider vuepress dev docs",
+    "build:docs": "typedoc && NODE_OPTIONS=--openssl-legacy-provider vuepress build docs",
+    "docs": "typedoc && NODE_OPTIONS=--openssl-legacy-provider vuepress dev docs",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.ts",
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch --config jest.config.ts"
   },
+  "typedocMain": "./index.ts",
   "module": "./esm/index.js",
   "main": "./cjs/index.js",
   "exports": {
@@ -50,11 +51,14 @@
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
     "ts-pegjs": "^3.0.0",
+    "typedoc": "^0.23.28",
+    "typedoc-plugin-markdown": "^3.14.0",
     "typescript": "^4.9.4",
     "uglify-js": "^3.17.4",
     "vue-tabs-component": "^1.5.0",
     "vuepress": "^1.9.8",
-    "vuepress-plugin-tabs": "^0.3.0"
+    "vuepress-plugin-tabs": "^0.3.0",
+    "fsmonitor": "^0.2.4"
   },
   "dependencies": {
     "glob-promise": "^6.0.2"

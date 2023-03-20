@@ -12,7 +12,8 @@ console.log( `${ hello } John, ${ greet }!` );
 ```
 
 In this code you have two translatable strings: `Hello` and `nice to meet you`. Here it is obvious you will need to make
-sure you translate both of them. But what if you had a hundred strings in your code?
+sure you translate both of them. But what if you had a hundred strings in your code? Manually keeping track of each of
+them can be a tedious task.
 
 ## The solution
 Instead, you can use the analysis feature to extract all the strings from your code and then compare them against
@@ -24,23 +25,24 @@ used and can be removed.
 ```js
 import { Generator } from 'transax';
 
-const translations = {
-    en: {
-        'nice to meet you': 'nice to meet you',
-        'unused': 'unused',
+const generator = new Generator( {
+    translations: {
+        en: {
+            'nice to meet you': 'nice to meet you',
+            'unused': 'unused',
+        },
+        de: {
+            'Hello': 'Hallo',
+        },
     },
-    de: {
-        'Hello': 'Hallo',
-    },
-};
+} );
 
-const gen = new Generator( { translations } );
-gen.parseContent( '<source code as string>' );
+generator.parse( '<source code as string>' );
 
-console.log( gen.getMissingTranslationKeys() );
+console.log( generator.getMissingTranslationKeys() );
 // -> { en: [ 'Hello' ], de: [ 'nice to meet you' ] }
 
-console.log( gen.getUnusedTranslationKeys() );
+console.log( generator.getUnusedTranslationKeys() );
 // -> { en: [ 'unused' ], de: [] }
 ```
 

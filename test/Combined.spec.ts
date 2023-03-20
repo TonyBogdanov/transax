@@ -1,12 +1,14 @@
-import { Compiler, ExpressionToken, IdentifierToken, LiteralToken, Token } from '../src/Compiler';
 import { expect } from '@jest/globals';
-import { TranslationFunctionGlobals, TranslationFunctionParams } from '../src/Translator';
+
+import Compiler from '../src/Compiler/Compiler';
+import { TranslationContextParams } from '../src/Translator/TranslationContextParams';
+import { TranslationContextGlobals } from '../src/Translator/TranslationContextGlobals';
 
 function runTest(
     code: string,
     expectedOutput: string,
-    params: TranslationFunctionParams = {},
-    globals: TranslationFunctionGlobals = {},
+    params: TranslationContextParams = {},
+    globals: TranslationContextGlobals = {},
 ): void {
     test( code, () => {
         const compiler = new Compiler();

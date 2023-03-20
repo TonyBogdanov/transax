@@ -3,6 +3,7 @@
     "node_modules/@types"
   ],
   "compilerOptions": {
+    "target": "es6",
     "module": "esnext",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true

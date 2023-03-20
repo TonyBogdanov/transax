@@ -17,13 +17,32 @@ themeConfig:
   sidebar:
     - title: Introduction
       path: /introduction
-      collapsable: false
     - title: Installation
       path: /installation
-      collapsable: false
     - title: Usage
       path: /usage/importing
-      collapsable: false
       children:
         - /usage/importing
         - /usage/analysis
+    - title: API Reference
+      path: /api
+      children:
+        - /api/interfaces/LoggerInterface
+        - /api/interfaces/AnalyzerInterface
+        - /api/interfaces/CompilerInterface
+        - /api/interfaces/GeneratorInterface
+        - /api/interfaces/TranslatorInterface
+        - /api/classes/Logger
+        - /api/classes/Analyzer
+        - /api/classes/AnalyzerToken
+        - /api/classes/Compiler
+        - /api/classes/CompilerContext
+        - /api/classes/AbstractCompilerToken
+        - /api/classes/TextCompilerToken
+        - /api/classes/LiteralCompilerToken
+        - /api/classes/IdentifierCompilerToken
+        - /api/classes/ArrayAccessCompilerToken
+        - /api/classes/ObjectAccessCompilerToken
+        - /api/classes/ExpressionCompilerToken
+        - /api/classes/Generator
+        - /api/classes/Translator

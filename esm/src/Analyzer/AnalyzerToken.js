@@ -1,0 +1,1 @@
+export default class AnalyzerToken{constructor(t,s,e,i,h,n){this.name=t,this.key=s,this.text=e,this.line=i,this.column=h,this.source=n}}

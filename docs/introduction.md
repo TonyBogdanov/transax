@@ -1,15 +1,6 @@
 # Introduction
 `transax` is a JavaScript/TypeScript library for content internationalization & localization.
 
-It consists of two main phases: **Extraction** - allowing you to scan your project files and generate
-analysis on the used translation keys (like untranslated keys, unused keys, etc.), and **Translation** - which allows
-you to translate those keys into multiple languages at runtime.
-
-## General concept
-For its most basic use-case translating your project with `transax` is achieved by calling a globally available
-`$t` function with a translation key as the first argument. The function will return the translated string, or the key
-itself if no translation is found for the current locale.
-
 ## Features
 - **Framework-agnostic** &ndash; Pure JavaScript solution, so it can be used with any framework or library.
 - **Flexible** &ndash; Written in [TypeScript](https://www.typescriptlang.org), also works with both
@@ -22,3 +13,12 @@ itself if no translation is found for the current locale.
 [//]: # (  [Vite]&#40;https://vitejs.dev&#41; and [Browserify]&#40;http://browserify.org&#41;.)
 
 [//]: # (- **CLI** &ndash; Powerful, yet easy to use command-line interface.)
+
+## Analysis
+This phase will analyze your source code and look for calls to a global function `$t` with a translation key as the
+first argument. Information about each matching call can then be used to perform analysis on your project, such as
+generating a list of used, unused and untranslated keys.
+
+## Translation
+In this phase you load a dictionary of keys & their translations for each locale you want to support. The translator
+can then be called (via the `$t` global function) to translate a key into your chosen locale.

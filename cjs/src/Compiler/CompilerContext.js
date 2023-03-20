@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});class CompilerContext{constructor(){this.parameters=[],this.globals=[]}requireParameter(e){return-1<this.parameters.indexOf(e)||this.parameters.push(e),this}requireGlobal(e){return-1<this.globals.indexOf(e)||this.globals.push(e),this}}exports.default=CompilerContext;

@@ -1,0 +1,1 @@
+{"version":3,"sources":["0"],"names":["AnalyzerToken","constructor","name","key","text","line","column","source","this"],"mappings":"qBAGqBA,cAWjBC,YAAYC,EAAMC,EAAKC,EAAMC,EAAMC,EAAQC,GACvCC,KAAKN,KAAOA,EACZM,KAAKL,IAAMA,EACXK,KAAKJ,KAAOA,EACZI,KAAKH,KAAOA,EACZG,KAAKF,OAASA,EACdE,KAAKD,OAASA,CAClB,CACJ"}

@@ -3,25 +3,25 @@ Start
     / '' { return [] }
 
 Text
-    = a:_Symbol { return new TextToken( text(), location().start.line, location().start.column ) }
+    = a:_Symbol { return new TextCompilerToken( text(), location().start.line, location().start.column ) }
 
 Token
     = '{{' _ a:( Literal / Expression ) _ '}}' { return a }
 
 Literal
-    = a:( _Null / _String / _Float / _Integer ) { return new LiteralToken( a, text(), location().start.line, location().start.column ) }
+    = a:( _Null / _String / _Float / _Integer ) { return new LiteralCompilerToken( a, text(), location().start.line, location().start.column ) }
 
 Expression
-    = a:Identifier b:( ObjectAccess / ArrayAccess )* { return new ExpressionToken( a, b, text(), location().start.line, location().start.column ) }
+    = a:Identifier b:( ObjectAccess / ArrayAccess )* { return new ExpressionCompilerToken( a, b, text(), location().start.line, location().start.column ) }
 
 Identifier
-    = b:'@'? a:_Identifier { return new IdentifierToken( a, '@' === b, text(), location().start.line, location().start.column ) }
+    = b:'@'? a:_Identifier { return new IdentifierCompilerToken( a, '@' === b, text(), location().start.line, location().start.column ) }
 
 ObjectAccess
-    = _ '.' _ a:_Identifier { return new ObjectAccessToken( a, text(), location().start.line, location().start.column ) }
+    = _ '.' _ a:_Identifier { return new ObjectAccessCompilerToken( a, text(), location().start.line, location().start.column ) }
 
 ArrayAccess
-    = _ '[' _ a:( Literal / Expression ) _ ']' { return new ArrayAccessToken( a, text(), location().start.line, location().start.column ) }
+    = _ '[' _ a:( Literal / Expression ) _ ']' { return new ArrayAccessCompilerToken( a, text(), location().start.line, location().start.column ) }
 
 _
     = [ \t\r\n]*

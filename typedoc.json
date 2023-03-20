@@ -1,0 +1,11 @@
+{
+  "entryPoints": [ "index.ts" ],
+  "out": "docs/api",
+  "excludePrivate": true,
+  "hideBreadcrumbs": true,
+  "githubPages": false,
+  "disableSources": true,
+  "excludeInternal": true,
+  "readme": "none",
+  "name": "API Reference"
+}

@@ -1,6 +1,6 @@
 # Importing
-Since `transax` supports both CommonJS and ES6 modules, you can import using the package name. The correct path will be
-resolved automatically.
+Since `transax` supports both CommonJS and ES6 modules, you can import it using the package name. The correct path
+will be resolved automatically.
 
 If you are using [TypeScript](https://www.typescriptlang.org), you can even import directly from the source files.
 
@@ -19,7 +19,8 @@ const { Generator } = require( 'transax/cjs' ); // or this to be explicit
 :::
 ::: tab TypeScript
 ```ts
-import { Generator } from 'transax/src/Generator';
+import { Generator } from 'transax';
+import Generator from 'transax/src/Generator/Generator'; // or this to be explicit
 ```
 :::
 ::::

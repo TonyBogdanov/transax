@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});const AbstractCompilerToken_1=require("./AbstractCompilerToken");class LiteralCompilerToken extends AbstractCompilerToken_1.default{constructor(e,t,r,l){super(t,r,l),this.value=e}compile(e){return null===this.value?"null":JSON.stringify(this.value)}}exports.default=LiteralCompilerToken;

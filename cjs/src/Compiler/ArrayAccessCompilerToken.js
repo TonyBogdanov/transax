@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});const AbstractCompilerToken_1=require("./AbstractCompilerToken");class ArrayAccessCompilerToken extends AbstractCompilerToken_1.default{constructor(e,r,t,s){super(r,t,s),this.expr=e}compile(e){return"["+this.expr.compile(e)+"]"}}exports.default=ArrayAccessCompilerToken;

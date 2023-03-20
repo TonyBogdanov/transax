@@ -14,7 +14,7 @@ async function build( name: string ): Promise<void> {
     const parser = peggy.generate( grammar, { output: 'source', plugins: [ tspegjs ] } ).replace( /^export /gmi, '' );
 
     log( 'Writing parser.' );
-    const content = ( await readFile( resolve( __dirname, '../src', name + '.ts' ) ) ).toString( 'utf-8' );
+    const content = ( await readFile( resolve( __dirname, '../src', name, 'peg.ts' ) ) ).toString( 'utf-8' );
 
     const first = content.split( /\/\*\s*peg:start\s*\*\//, 2 );
     if ( 2 !== first.length ) {
@@ -27,7 +27,7 @@ async function build( name: string ): Promise<void> {
     }
 
     const result = first[ 0 ] + '/* peg:start */' + parser + '/* peg:stop */' + second[ 1 ];
-    await writeFile( resolve( __dirname, '../src', name + '.ts' ), result );
+    await writeFile( resolve( __dirname, '../src', name, 'peg.ts' ), result );
 }
 
 ( async () => {

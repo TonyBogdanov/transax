@@ -1,8 +1,9 @@
 {
   "name": "transax",
-  "version": "2.0.0-alpha.5",
+  "version": "2.0.0-alpha.6",
   "description": "Internationalization",
   "type": "module",
+  "typedocMain": "./index.ts",
   "module": "index.js",
   "repository": {
     "type": "git",
@@ -29,11 +30,14 @@
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
     "ts-pegjs": "^3.0.0",
+    "typedoc": "^0.23.28",
+    "typedoc-plugin-markdown": "^3.14.0",
     "typescript": "^4.9.4",
     "uglify-js": "^3.17.4",
     "vue-tabs-component": "^1.5.0",
     "vuepress": "^1.9.8",
-    "vuepress-plugin-tabs": "^0.3.0"
+    "vuepress-plugin-tabs": "^0.3.0",
+    "fsmonitor": "^0.2.4"
   },
   "dependencies": {
     "glob-promise": "^6.0.2"

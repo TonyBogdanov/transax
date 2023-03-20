@@ -1,0 +1,1 @@
+import AbstractCompilerToken from"./AbstractCompilerToken";export default class ExpressionCompilerToken extends AbstractCompilerToken{constructor(e,r,i,o,t){super(i,o,t),this.identifier=e,this.resolvers=r}compile(r){return this.identifier.compile(r)+this.resolvers.map(e=>e.compile(r)).join("")}}

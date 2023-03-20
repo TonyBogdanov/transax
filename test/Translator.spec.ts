@@ -1,7 +1,10 @@
 import { expect, jest } from '@jest/globals';
-import { Translator, Options, Dictionary } from '../src/Translator';
 
-const dictionary = {
+import Translator from '../src/Translator/Translator';
+import Logger from '../src/Logger/Logger';
+import { TranslatorOptions } from '../src/Translator/TranslatorOptions';
+
+const translations = {
     en: {
         test: () => 'english',
         alt: () => 'fallback',
@@ -11,19 +14,23 @@ const dictionary = {
     },
 };
 
-const opFoundFallback = new Options( { fallbackLocale: 'en', loggerOptions: { verbose: true } } );
-const opMissingFallback = new Options( { fallbackLocale: 'bg', loggerOptions: { verbose: true } } );
-const opUndefinedFallback = new Options( { loggerOptions: { verbose: true } } );
+const opFoundFallback = { fallbackLocale: 'en', logger: new Logger( { verbose: true } ) };
+const opMissingFallback = { fallbackLocale: 'bg', logger: new Logger( { verbose: true } ) };
+const opUndefinedFallback = { logger: new Logger( { verbose: true } ) };
 
 function runTest(
-    options: Options,
+    options: TranslatorOptions,
     test: ( translator: Translator ) => void,
     expectLog?: string,
     expectVerbose?: string,
 ): void {
-    const translator = new Translator( dictionary, options );
-    const spyLog = jest.spyOn( translator.logger, 'log' );
-    const spyVerbose = jest.spyOn( translator.logger, 'verbose' );
+    const translator = new Translator( Object.assign( { translations }, options ) );
+
+    // @ts-ignore
+    const spyLog = jest.spyOn( translator.options.logger, 'log' );
+
+    // @ts-ignore
+    const spyVerbose = jest.spyOn( translator.options.logger, 'verbose' );
 
     test( translator );
 
@@ -35,23 +42,6 @@ function runTest(
 }
 
 describe( 'Translator', () => {
-    describe( 'constructor()', () => {
-        test( 'accepts nothing for options', () => {
-            expect( new Translator( {} ).options ).toStrictEqual( new Options() );
-        } );
-
-        test( 'accepts Options object', () => {
-            const options = new Options();
-            expect( new Translator( {}, options ).options ).toBe( options );
-        } );
-
-        test( 'accepts empty object for options', () => {
-            const translator = new Translator( {}, {} );
-            expect( translator.options ).toBeInstanceOf( Options );
-            expect( translator.options ).toStrictEqual( new Options() );
-        } );
-    } );
-
     describe( 'translate()', () => {
         test( 'locale: found, fallback: found, key: found => translate', () => {
             runTest( opFoundFallback, translator => {

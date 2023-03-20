@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});class AbstractCompilerToken{constructor(t,e,s){this.text=t,this.line=e,this.column=s}}exports.default=AbstractCompilerToken;
