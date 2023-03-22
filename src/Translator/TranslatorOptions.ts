@@ -1,7 +1,7 @@
 import LoggerInterface from '../Logger/LoggerInterface';
 
-import { TranslationLocale } from './TranslationLocale';
-import { TranslationCompiledCatalog } from './TranslationCompiledCatalog';
+import { TranslationLocale } from '../Type/TranslationLocale';
+import { TranslationCompiledCatalog } from '../Type/TranslationCompiledCatalog';
 
 /**
  * Options for the {@link Translator}.

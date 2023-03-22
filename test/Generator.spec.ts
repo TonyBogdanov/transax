@@ -1,5 +1,4 @@
 import { expect } from '@jest/globals';
-import { resolve } from 'path';
 import { promises } from 'fs';
 
 import Generator from '../src/Generator/Generator';
@@ -13,8 +12,8 @@ const compileOutput2 = `{\n    en: {\n    },\n    de: {\n        bar: (_,{baz})=
 describe( 'Generator', () => {
     describe( 'parse()', () => {
         const code = `{{ $t( 'key' ) }} and {{ $t( 'key', 'again' ) }}\non {{ $t( 'new_line' ) }}`;
-        const empty = resolve( __dirname, 'fixture', 'empty.js' );
-        const sample = resolve( __dirname, 'fixture', 'file.vue' );
+        const empty = 'test/fixture/empty.js';
+        const sample = 'test/fixture/file.vue';
 
         // @ts-ignore
         test( 'empty', () => expect( new Generator().parse( '' ).keys ).toStrictEqual( {} ) );

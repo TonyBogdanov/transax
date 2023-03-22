@@ -1,5 +1,7 @@
 import LoggerInterface from '../Logger/LoggerInterface';
 
+import { TranslationKeyFormatter } from '../Type/TranslationKeyFormatter';
+
 /**
  * Options for the {@link Analyzer}.
  */
@@ -10,6 +12,12 @@ export type AnalyzerOptions = {
      * Defaults to `[ '$t' ]`.
      */
     names?: string[];
+
+    /**
+     * A function to format the translation key based on the context.
+     * Defaults to `( key => key )`.
+     */
+    keyFormatter?: TranslationKeyFormatter;
 
     /**
      * Optional logger instance.

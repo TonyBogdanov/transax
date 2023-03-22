@@ -42,6 +42,7 @@
 - [TranslationContextParams](README.md#translationcontextparams)
 - [TranslationDictionary](README.md#translationdictionary)
 - [TranslationKey](README.md#translationkey)
+- [TranslationKeyFormatter](README.md#translationkeyformatter)
 - [TranslationLocale](README.md#translationlocale)
 - [TranslationValue](README.md#translationvalue)
 - [TranslatorOptions](README.md#translatoroptions)
@@ -58,6 +59,7 @@ Options for the [Analyzer](classes/Analyzer.md).
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
+| `keyFormatter?` | [`TranslationKeyFormatter`](README.md#translationkeyformatter) | A function to format the translation key based on the context. Defaults to `( key => key )`. |
 | `logger?` | [`LoggerInterface`](interfaces/LoggerInterface.md) | Optional logger instance. Defaults to `new Logger( { namespace: 'TRANSAX:ANALYZER' } )`. |
 | `names?` | `string`[] | The names of the functions to analyze. Defaults to `[ '$t' ]`. |
 
@@ -223,6 +225,29 @@ Translation key as a string used to identify a translation.
 ```typescript
 "my.translation.key"
 ```
+
+___
+
+### TranslationKeyFormatter
+
+Ƭ **TranslationKeyFormatter**: (`key`: [`TranslationKey`](README.md#translationkey), `token`: [`AnalyzerToken`](classes/AnalyzerToken.md)) => `string`
+
+#### Type declaration
+
+▸ (`key`, `token`): `string`
+
+A function to format the translation key based on the context.
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | [`TranslationKey`](README.md#translationkey) |
+| `token` | [`AnalyzerToken`](classes/AnalyzerToken.md) |
+
+##### Returns
+
+`string`
 
 ___
 

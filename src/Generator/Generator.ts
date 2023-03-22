@@ -1,6 +1,4 @@
-import Util from '../Util';
-
-import { TranslationCatalog } from '../Translator/TranslationCatalog';
+import { TranslationCatalog } from '../Type/TranslationCatalog';
 
 import Analyzer from '../Analyzer/Analyzer';
 import AnalyzerInterface from '../Analyzer/AnalyzerInterface';
@@ -13,8 +11,8 @@ import LoggerInterface from '../Logger/LoggerInterface';
 
 import GeneratorInterface from './GeneratorInterface';
 import { GeneratorOptions } from './GeneratorOptions';
-import { TranslationLocale } from '../Translator/TranslationLocale';
-import { TranslationDictionary } from '../Translator/TranslationDictionary';
+import { TranslationLocale } from '../Type/TranslationLocale';
+import { TranslationDictionary } from '../Type/TranslationDictionary';
 
 class Options {
 
@@ -53,11 +51,7 @@ export default class Generator implements GeneratorInterface {
      * @inheritDoc
      */
     parse( code: string, source?: string ): this {
-        if ( 'object' !== typeof process ) {
-            throw new Error( 'Generator.parse must be run in a NodeJS environment, `process` is not available.' );
-        }
-
-        const tokens = this.options.analyzer.analyze( code, source ? Util.relative( process.cwd(), source ) : undefined );
+        const tokens = this.options.analyzer.analyze( code, source );
         for ( const token of tokens ) {
             if ( !this.keys.hasOwnProperty( token.key ) ) {
                 this.keys[ token.key ] = [];

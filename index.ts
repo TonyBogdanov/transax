@@ -28,17 +28,18 @@ import { GeneratorOptions } from './src/Generator/GeneratorOptions';
 import Translator from './src/Translator/Translator';
 import { TranslatorOptions } from './src/Translator/TranslatorOptions';
 
-import { TranslationLocale } from './src/Translator/TranslationLocale';
-import { TranslationCatalog } from './src/Translator/TranslationCatalog';
-import { TranslationDictionary } from './src/Translator/TranslationDictionary';
-import { TranslationCompiledCatalog } from './src/Translator/TranslationCompiledCatalog';
-import { TranslationCompiledDictionary } from './src/Translator/TranslationCompiledDictionary';
-import { TranslationCompiledValue } from './src/Translator/TranslationCompiledValue';
-import { TranslationKey } from './src/Translator/TranslationKey';
-import { TranslationValue } from './src/Translator/TranslationValue';
-import { TranslationContext } from './src/Translator/TranslationContext';
-import { TranslationContextParams } from './src/Translator/TranslationContextParams';
-import { TranslationContextGlobals } from './src/Translator/TranslationContextGlobals';
+import { TranslationLocale } from './src/Type/TranslationLocale';
+import { TranslationCatalog } from './src/Type/TranslationCatalog';
+import { TranslationDictionary } from './src/Type/TranslationDictionary';
+import { TranslationCompiledCatalog } from './src/Type/TranslationCompiledCatalog';
+import { TranslationCompiledDictionary } from './src/Type/TranslationCompiledDictionary';
+import { TranslationCompiledValue } from './src/Type/TranslationCompiledValue';
+import { TranslationKey } from './src/Type/TranslationKey';
+import { TranslationKeyFormatter } from './src/Type/TranslationKeyFormatter';
+import { TranslationValue } from './src/Type/TranslationValue';
+import { TranslationContext } from './src/Type/TranslationContext';
+import { TranslationContextParams } from './src/Type/TranslationContextParams';
+import { TranslationContextGlobals } from './src/Type/TranslationContextGlobals';
 
 export {
     LoggerInterface,
@@ -78,6 +79,7 @@ export {
     TranslationCompiledDictionary,
     TranslationCompiledValue,
     TranslationKey,
+    TranslationKeyFormatter,
     TranslationValue,
     TranslationContext,
     TranslationContextParams,

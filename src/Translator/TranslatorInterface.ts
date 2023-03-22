@@ -1,5 +1,5 @@
-import { TranslationKey } from './TranslationKey';
-import { TranslationContext } from './TranslationContext';
+import { TranslationKey } from '../Type/TranslationKey';
+import { TranslationContext } from '../Type/TranslationContext';
 
 /**
  Defines an interface for **Translator** classes.

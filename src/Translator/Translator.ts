@@ -2,11 +2,11 @@ import Logger from '../Logger/Logger';
 import LoggerInterface from '../Logger/LoggerInterface';
 
 import TranslatorInterface from './TranslatorInterface';
-import { TranslationCompiledCatalog } from './TranslationCompiledCatalog';
+import { TranslationCompiledCatalog } from '../Type/TranslationCompiledCatalog';
 import { TranslatorOptions } from './TranslatorOptions';
-import { TranslationLocale } from './TranslationLocale';
-import { TranslationKey } from './TranslationKey';
-import { TranslationContext } from './TranslationContext';
+import { TranslationLocale } from '../Type/TranslationLocale';
+import { TranslationKey } from '../Type/TranslationKey';
+import { TranslationContext } from '../Type/TranslationContext';
 
 class Options {
 

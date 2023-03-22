@@ -1,8 +1,8 @@
 import { expect } from '@jest/globals';
 
 import Compiler from '../src/Compiler/Compiler';
-import { TranslationContextParams } from '../src/Translator/TranslationContextParams';
-import { TranslationContextGlobals } from '../src/Translator/TranslationContextGlobals';
+import { TranslationContextParams } from '../src/Type/TranslationContextParams';
+import { TranslationContextGlobals } from '../src/Type/TranslationContextGlobals';
 
 function runTest(
     code: string,

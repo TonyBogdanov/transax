@@ -1,5 +1,5 @@
-import { TranslationLocale } from '../Translator/TranslationLocale';
-import { TranslationDictionary } from '../Translator/TranslationDictionary';
+import { TranslationLocale } from '../Type/TranslationLocale';
+import { TranslationDictionary } from '../Type/TranslationDictionary';
 
 /**
  * Defines an interface for **Generator** classes.

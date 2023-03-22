@@ -1,1 +1,0 @@
-export default class Util{static relative(t,i){for(var l=t.split("/"),a=i.split("/");0<l.length&&0<a.length&&l[0]===a[0];)l.shift(),a.shift();return l.map(()=>"..").concat(a).join("/")}}

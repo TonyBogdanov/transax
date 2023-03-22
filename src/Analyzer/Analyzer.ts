@@ -5,15 +5,19 @@ import AnalyzerToken from './AnalyzerToken';
 import AnalyzerInterface from './AnalyzerInterface';
 import { AnalyzerOptions } from './AnalyzerOptions';
 
+import { TranslationKeyFormatter } from '../Type/TranslationKeyFormatter';
+
 import parse from './peg';
 
 class Options {
 
     names: string[];
+    keyFormatter: TranslationKeyFormatter;
     logger: LoggerInterface;
 
     constructor( data: AnalyzerOptions = {} ) {
         this.names = data.names ?? [ '$t' ];
+        this.keyFormatter = data.keyFormatter ?? ( key => key );
         this.logger = data.logger ?? new Logger( { namespace: 'TRANSAX:ANALYZER' } );
     }
 
@@ -58,6 +62,8 @@ export default class Analyzer implements AnalyzerInterface {
             }
 
             token.source = source;
+            token.key = this.options.keyFormatter( token.key, token );
+
             result.push( token );
         }
 

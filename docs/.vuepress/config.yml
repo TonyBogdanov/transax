@@ -27,6 +27,8 @@ themeConfig:
         - /usage/compilation
         - /usage/translation
         - /usage/syntax
+    - title: Advanced
+      path: /advanced
     - title: API Reference
       path: /api
       children:

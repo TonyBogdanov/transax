@@ -1,7 +1,7 @@
 import AnalyzerInterface from '../Analyzer/AnalyzerInterface';
 import LoggerInterface from '../Logger/LoggerInterface';
 import CompilerInterface from '../Compiler/CompilerInterface';
-import { TranslationCatalog } from '../Translator/TranslationCatalog';
+import { TranslationCatalog } from '../Type/TranslationCatalog';
 
 /**
  * Options for the {@link Generator}.
