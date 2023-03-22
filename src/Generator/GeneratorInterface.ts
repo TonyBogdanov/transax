@@ -23,6 +23,13 @@ export default interface GeneratorInterface {
     setTranslations( locale: TranslationLocale, dictionary: TranslationDictionaryEntry ): this;
 
     /**
+     * Removes the current translation dictionary for the specified locale.
+     *
+     * @param locale Target translation locale.
+     */
+    removeTranslations( locale: TranslationLocale ): this;
+
+    /**
      * Returns a hashmap of locale keys and corresponding lists of missing translation keys.
      * Those are keys that are extracted from source code, but not present in the translation dictionary.
      */

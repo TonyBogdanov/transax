@@ -1,13 +1,14 @@
 {
   "name": "transax",
-  "version": "2.0.0-alpha.7",
+  "version": "2.0.0-alpha.8",
   "description": "Internationalization",
   "type": "module",
   "scripts": {
-    "build": "npm run build:parsers && npm run build:release && npm run build:docs",
+    "build": "npm run build:parsers && npm run build:release && npm run build:typedoc",
     "build:parsers": "esrun bin/build-parsers.ts",
     "build:release": "esrun bin/build-release.ts",
-    "build:docs": "typedoc && NODE_OPTIONS=--openssl-legacy-provider vuepress build docs",
+    "build:typedoc": "typedoc",
+    "build:docs": "NODE_OPTIONS=--openssl-legacy-provider vuepress build docs",
     "docs": "typedoc && NODE_OPTIONS=--openssl-legacy-provider vuepress dev docs",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.ts",
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch --config jest.config.ts"

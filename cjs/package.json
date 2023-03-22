@@ -1,6 +1,6 @@
 {
   "name": "transax",
-  "version": "2.0.0-alpha.6",
+  "version": "2.0.0-alpha.7",
   "description": "Internationalization",
   "type": "commonjs",
   "typedocMain": "./index.ts",

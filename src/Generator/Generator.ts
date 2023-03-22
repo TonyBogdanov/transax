@@ -83,6 +83,17 @@ export default class Generator implements GeneratorInterface {
     /**
      * @inheritDoc
      */
+    removeTranslations( locale: TranslationLocale ): this {
+        if ( this.options.translations.hasOwnProperty( locale ) ) {
+            delete this.options.translations[ locale ];
+        }
+
+        return this;
+    }
+
+    /**
+     * @inheritDoc
+     */
     getMissingTranslationKeys(): Record<string, string[]> {
         const result: Record<string, string[]> = {};
         for ( const locale of Object.keys( this.options.translations ) ) {

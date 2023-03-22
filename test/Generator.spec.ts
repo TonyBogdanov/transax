@@ -50,19 +50,28 @@ describe( 'Generator', () => {
     } );
 
     describe( 'setTranslations()', () => {
+        const en = { foo: 'bar' };
+        const de = { bar: 'baz' };
+
         test( 'add', () => {
-            const generator = new Generator();
-            const en = { foo: 'bar' };
-            const de = { bar: 'baz' };
+            // @ts-ignore
+            expect( new Generator().setTranslations( 'en', en ).options.translations ).toStrictEqual( { en } );
+        } );
+
+        test( 'replace', () => {
+            const generator = new Generator( { translations: { en } } );
 
             // @ts-ignore
-            expect( generator.options.translations ).toStrictEqual( {} );
+            expect( generator.setTranslations( 'en', de ).options.translations ).toStrictEqual( { en: de } );
+        } );
+    } );
 
-            // @ts-ignore
-            expect( generator.setTranslations( 'en', en ).options.translations ).toStrictEqual( { en } );
+    describe( 'removeTranslations()', () => {
+        const options = { translations: { en: { foo: 'bar' } } };
 
+        test( 'remove', () => {
             // @ts-ignore
-            expect( generator.setTranslations( 'de', de ).options.translations ).toStrictEqual( { en, de } );
+            expect( new Generator( options ).removeTranslations( 'en' ).options.translations ).toStrictEqual( {} );
         } );
     } );
 

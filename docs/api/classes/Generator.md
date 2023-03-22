@@ -20,6 +20,8 @@ Default implementation of the [GeneratorInterface](../interfaces/GeneratorInterf
 - [getMissingTranslationKeys](Generator.md#getmissingtranslationkeys)
 - [getUnusedTranslationKeys](Generator.md#getunusedtranslationkeys)
 - [parse](Generator.md#parse)
+- [removeTranslations](Generator.md#removetranslations)
+- [setTranslations](Generator.md#settranslations)
 
 ## Constructors
 
@@ -139,3 +141,48 @@ Parses the given source code extracting translation keys and saves them in the c
 #### Implementation of
 
 [GeneratorInterface](../interfaces/GeneratorInterface.md).[parse](../interfaces/GeneratorInterface.md#parse)
+
+___
+
+### removeTranslations
+
+▸ **removeTranslations**(`locale`): [`Generator`](Generator.md)
+
+Removes the current translation dictionary for the specified locale.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `locale` | `string` | Target translation locale. |
+
+#### Returns
+
+[`Generator`](Generator.md)
+
+#### Implementation of
+
+[GeneratorInterface](../interfaces/GeneratorInterface.md).[removeTranslations](../interfaces/GeneratorInterface.md#removetranslations)
+
+___
+
+### setTranslations
+
+▸ **setTranslations**(`locale`, `dictionary`): [`Generator`](Generator.md)
+
+Adds or replaces the current translation dictionary for the specified locale.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `locale` | `string` | Target translation locale. |
+| `dictionary` | [`TranslationDictionaryEntry`](../README.md#translationdictionaryentry) | Target translation dictionary. |
+
+#### Returns
+
+[`Generator`](Generator.md)
+
+#### Implementation of
+
+[GeneratorInterface](../interfaces/GeneratorInterface.md).[setTranslations](../interfaces/GeneratorInterface.md#settranslations)

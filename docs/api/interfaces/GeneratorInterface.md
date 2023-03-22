@@ -16,6 +16,8 @@ Defines an interface for **Generator** classes.
 - [getMissingTranslationKeys](GeneratorInterface.md#getmissingtranslationkeys)
 - [getUnusedTranslationKeys](GeneratorInterface.md#getunusedtranslationkeys)
 - [parse](GeneratorInterface.md#parse)
+- [removeTranslations](GeneratorInterface.md#removetranslations)
+- [setTranslations](GeneratorInterface.md#settranslations)
 
 ## Methods
 
@@ -93,6 +95,43 @@ Parses the given source code extracting translation keys and saves them in the c
 | :------ | :------ | :------ |
 | `code` | `string` | The source code to be parsed. |
 | `source?` | `string` | Optional origin of the source code, usually a path to the source file. |
+
+#### Returns
+
+[`GeneratorInterface`](GeneratorInterface.md)
+
+___
+
+### removeTranslations
+
+▸ **removeTranslations**(`locale`): [`GeneratorInterface`](GeneratorInterface.md)
+
+Removes the current translation dictionary for the specified locale.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `locale` | `string` | Target translation locale. |
+
+#### Returns
+
+[`GeneratorInterface`](GeneratorInterface.md)
+
+___
+
+### setTranslations
+
+▸ **setTranslations**(`locale`, `dictionary`): [`GeneratorInterface`](GeneratorInterface.md)
+
+Adds or replaces the current translation dictionary for the specified locale.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `locale` | `string` | Target translation locale. |
+| `dictionary` | [`TranslationDictionaryEntry`](../README.md#translationdictionaryentry) | Target translation dictionary. |
 
 #### Returns
 
