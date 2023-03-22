@@ -2,7 +2,7 @@ import Logger from '../Logger/Logger';
 import LoggerInterface from '../Logger/LoggerInterface';
 
 import TranslatorInterface from './TranslatorInterface';
-import { TranslationCompiledDictionary } from './TranslationCompiledDictionary';
+import { TranslationCompiledCatalog } from './TranslationCompiledCatalog';
 import { TranslatorOptions } from './TranslatorOptions';
 import { TranslationLocale } from './TranslationLocale';
 import { TranslationKey } from './TranslationKey';
@@ -10,7 +10,7 @@ import { TranslationContext } from './TranslationContext';
 
 class Options {
 
-    translations: TranslationCompiledDictionary;
+    translations: TranslationCompiledCatalog;
     fallbackLocale: TranslationLocale | undefined;
     logger: LoggerInterface;
 
@@ -51,11 +51,11 @@ export default class Translator implements TranslatorInterface {
                     );
                 }
 
-                this.options.logger.verbose( `Key "${ key }" does not exist in dictionary for locale: "${
+                this.options.logger.verbose( `Key "${ key }" does not exist in the catalog for locale: "${
                     context.locale }", resorting to fallback locale.` );
             } else {
                 this.options.logger.verbose( `Locale: "${
-                    context.locale }" does not exist in dictionary, resorting to fallback locale.` );
+                    context.locale }" does not exist in the catalog, resorting to fallback locale.` );
             }
         } else {
             this.options.logger.verbose( `Locale is not specified, resorting to fallback locale.` );
@@ -70,11 +70,11 @@ export default class Translator implements TranslatorInterface {
                     );
                 }
 
-                this.options.logger.log( `Key: "${ key }" does not exist in dictionary for fallback locale: "${
+                this.options.logger.log( `Key: "${ key }" does not exist in the catalog for fallback locale: "${
                     this.options.fallbackLocale }".` );
             } else {
                 this.options.logger.log( `Fallback locale: "${
-                    this.options.fallbackLocale }" does not exist in dictionary.` );
+                    this.options.fallbackLocale }" does not exist in the catalog.` );
             }
         } else {
             this.options.logger.log( `Fallback locale is not specified.` );

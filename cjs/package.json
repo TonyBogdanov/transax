@@ -1,7 +1,7 @@
 {
   "name": "transax",
-  "version": "2.0.0-alpha.7",
-  "description": "Internationalization",
+  "version": "2.0.0-alpha.9",
+  "description": "Framework-agnostic JavaScript library for content internationalization.",
   "type": "commonjs",
   "typedocMain": "./index.ts",
   "main": "index.js",
@@ -22,9 +22,7 @@
     "@types/glob": "^8.0.1",
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.11.18",
-    "browserify": "^17.0.0",
     "jest": "^29.3.1",
-    "npm": "^9.3.1",
     "peggy": "^2.0.1",
     "rimraf": "^4.1.1",
     "ts-jest": "^29.0.5",
@@ -36,10 +34,6 @@
     "uglify-js": "^3.17.4",
     "vue-tabs-component": "^1.5.0",
     "vuepress": "^1.9.8",
-    "vuepress-plugin-tabs": "^0.3.0",
-    "fsmonitor": "^0.2.4"
-  },
-  "dependencies": {
-    "glob-promise": "^6.0.2"
+    "vuepress-plugin-tabs": "^0.3.0"
   }
 }

@@ -29,10 +29,10 @@ import Translator from './src/Translator/Translator';
 import { TranslatorOptions } from './src/Translator/TranslatorOptions';
 
 import { TranslationLocale } from './src/Translator/TranslationLocale';
+import { TranslationCatalog } from './src/Translator/TranslationCatalog';
 import { TranslationDictionary } from './src/Translator/TranslationDictionary';
-import { TranslationDictionaryEntry } from './src/Translator/TranslationDictionaryEntry';
+import { TranslationCompiledCatalog } from './src/Translator/TranslationCompiledCatalog';
 import { TranslationCompiledDictionary } from './src/Translator/TranslationCompiledDictionary';
-import { TranslationCompiledDictionaryEntry } from './src/Translator/TranslationCompiledDictionaryEntry';
 import { TranslationCompiledValue } from './src/Translator/TranslationCompiledValue';
 import { TranslationKey } from './src/Translator/TranslationKey';
 import { TranslationValue } from './src/Translator/TranslationValue';
@@ -72,10 +72,10 @@ export {
     TranslatorOptions,
 
     TranslationLocale,
+    TranslationCatalog,
     TranslationDictionary,
-    TranslationDictionaryEntry,
+    TranslationCompiledCatalog,
     TranslationCompiledDictionary,
-    TranslationCompiledDictionaryEntry,
     TranslationCompiledValue,
     TranslationKey,
     TranslationValue,

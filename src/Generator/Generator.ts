@@ -1,6 +1,6 @@
 import Util from '../Util';
 
-import { TranslationDictionary } from '../Translator/TranslationDictionary';
+import { TranslationCatalog } from '../Translator/TranslationCatalog';
 
 import Analyzer from '../Analyzer/Analyzer';
 import AnalyzerInterface from '../Analyzer/AnalyzerInterface';
@@ -14,11 +14,11 @@ import LoggerInterface from '../Logger/LoggerInterface';
 import GeneratorInterface from './GeneratorInterface';
 import { GeneratorOptions } from './GeneratorOptions';
 import { TranslationLocale } from '../Translator/TranslationLocale';
-import { TranslationDictionaryEntry } from '../Translator/TranslationDictionaryEntry';
+import { TranslationDictionary } from '../Translator/TranslationDictionary';
 
 class Options {
 
-    translations: TranslationDictionary;
+    translations: TranslationCatalog;
     analyzer: AnalyzerInterface;
     compiler: CompilerInterface;
     logger: LoggerInterface;
@@ -75,7 +75,7 @@ export default class Generator implements GeneratorInterface {
     /**
      * @inheritDoc
      */
-    setTranslations( locale: TranslationLocale, dictionary: TranslationDictionaryEntry ): this {
+    setTranslations( locale: TranslationLocale, dictionary: TranslationDictionary ): this {
         this.options.translations[ locale ] = dictionary;
         return this;
     }

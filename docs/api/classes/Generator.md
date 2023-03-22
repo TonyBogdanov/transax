@@ -92,7 +92,7 @@ ___
 ▸ **getMissingTranslationKeys**(): `Record`<`string`, `string`[]\>
 
 Returns a hashmap of locale keys and corresponding lists of missing translation keys.
-Those are keys that are extracted from source code, but not present in the translation dictionary.
+Those are keys that are extracted from source code, but not present in the translation catalog.
 
 #### Returns
 
@@ -109,7 +109,7 @@ ___
 ▸ **getUnusedTranslationKeys**(): `Record`<`string`, `string`[]\>
 
 Returns a hashmap of locale keys and corresponding lists of unused translation keys.
-Those are keys that are present in the translation dictionary, but not in the extracted source code.
+Those are keys that are present in the translation catalog, but not in the extracted source code.
 
 #### Returns
 
@@ -177,7 +177,7 @@ Adds or replaces the current translation dictionary for the specified locale.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `locale` | `string` | Target translation locale. |
-| `dictionary` | [`TranslationDictionaryEntry`](../README.md#translationdictionaryentry) | Target translation dictionary. |
+| `dictionary` | [`TranslationDictionary`](../README.md#translationdictionary) | Target translation dictionary. |
 
 #### Returns
 

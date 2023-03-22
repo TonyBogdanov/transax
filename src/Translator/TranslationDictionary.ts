@@ -1,16 +1,12 @@
-import { TranslationLocale } from './TranslationLocale';
-import { TranslationDictionaryEntry } from './TranslationDictionaryEntry';
+import { TranslationKey } from './TranslationKey';
+import { TranslationValue } from './TranslationValue';
 
 /**
- * Dictionary of translation entries, keyed by locale.
+ * Translation dictionary as a hashmap of key-value pairs.
  *
  * @example
  * ```typescript
- * {
- *   "en_US": {
- *     "my.translation.key": "Hello there, nice to meet you!",
- *   },
- * }
+ * { "my.translation.key": "Hello there, nice to meet you!" }
  * ```
  */
-export type TranslationDictionary = Record<TranslationLocale, TranslationDictionaryEntry>;
+export type TranslationDictionary = Record<TranslationKey, TranslationValue>;

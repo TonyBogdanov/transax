@@ -52,7 +52,7 @@ describe( 'Translator', () => {
         test( 'locale: found, fallback: found, key: missing => translate from fallback, log', () => {
             runTest( opFoundFallback, translator => {
                 expect( translator.translate( 'alt', { locale: 'de' } ) ).toBe( 'fallback' );
-            }, undefined, 'Key "alt" does not exist in dictionary for locale: "de", resorting to fallback locale.' );
+            }, undefined, 'Key "alt" does not exist in the catalog for locale: "de", resorting to fallback locale.' );
         } );
 
         test( 'locale: found, fallback: missing, key: found => translate', () => {
@@ -64,7 +64,7 @@ describe( 'Translator', () => {
         test( 'locale: found, fallback: missing, key: missing => return key, log', () => {
             runTest( opMissingFallback, translator => {
                 expect( translator.translate( 'alt', { locale: 'de' } ) ).toBe( 'alt' );
-            }, 'Fallback locale: "bg" does not exist in dictionary.', 'Key "alt" does not exist in dictionary for' +
+            }, 'Fallback locale: "bg" does not exist in the catalog.', 'Key "alt" does not exist in the catalog for' +
                 ' locale: "de", resorting to fallback locale.' );
         } );
 
@@ -77,7 +77,7 @@ describe( 'Translator', () => {
         test( 'locale: found, fallback: undefined, key: missing => return key, log', () => {
             runTest( opUndefinedFallback, translator => {
                 expect( translator.translate( 'alt', { locale: 'de' } ) ).toBe( 'alt' );
-            }, 'Fallback locale is not specified.', 'Key "alt" does not exist in dictionary for locale: "de",' +
+            }, 'Fallback locale is not specified.', 'Key "alt" does not exist in the catalog for locale: "de",' +
                 ' resorting to fallback locale.' );
         } );
 
@@ -96,14 +96,14 @@ describe( 'Translator', () => {
         test( 'locale: missing, fallback: missing, key: found => return key, log', () => {
             runTest( opMissingFallback, translator => {
                 expect( translator.translate( 'test' ) ).toBe( 'test' );
-            }, 'Fallback locale: "bg" does not exist in dictionary.', 'Locale is not specified, resorting to' +
+            }, 'Fallback locale: "bg" does not exist in the catalog.', 'Locale is not specified, resorting to' +
                 ' fallback locale.' );
         } );
 
         test( 'locale: missing, fallback: missing, key: missing => return key, log', () => {
             runTest( opMissingFallback, translator => {
                 expect( translator.translate( 'alt' ) ).toBe( 'alt' );
-            }, 'Fallback locale: "bg" does not exist in dictionary.', 'Locale is not specified, resorting to' +
+            }, 'Fallback locale: "bg" does not exist in the catalog.', 'Locale is not specified, resorting to' +
                 ' fallback locale.' );
         } );
 
@@ -134,14 +134,14 @@ describe( 'Translator', () => {
         test( 'locale: undefined, fallback: missing, key: found => return key, log', () => {
             runTest( opMissingFallback, translator => {
                 expect( translator.translate( 'test' ) ).toBe( 'test' );
-            }, 'Fallback locale: "bg" does not exist in dictionary.', 'Locale is not specified, resorting to' +
+            }, 'Fallback locale: "bg" does not exist in the catalog.', 'Locale is not specified, resorting to' +
                 ' fallback locale.' );
         } );
 
         test( 'locale: undefined, fallback: missing, key: missing => return key, log', () => {
             runTest( opMissingFallback, translator => {
                 expect( translator.translate( 'alt' ) ).toBe( 'alt' );
-            }, 'Fallback locale: "bg" does not exist in dictionary.', 'Locale is not specified, resorting to' +
+            }, 'Fallback locale: "bg" does not exist in the catalog.', 'Locale is not specified, resorting to' +
                 ' fallback locale.' );
         } );
 

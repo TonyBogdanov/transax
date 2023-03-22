@@ -33,14 +33,14 @@
 - [CompilerOptions](README.md#compileroptions)
 - [GeneratorOptions](README.md#generatoroptions)
 - [LoggerOptions](README.md#loggeroptions)
+- [TranslationCatalog](README.md#translationcatalog)
+- [TranslationCompiledCatalog](README.md#translationcompiledcatalog)
 - [TranslationCompiledDictionary](README.md#translationcompileddictionary)
-- [TranslationCompiledDictionaryEntry](README.md#translationcompileddictionaryentry)
 - [TranslationCompiledValue](README.md#translationcompiledvalue)
 - [TranslationContext](README.md#translationcontext)
 - [TranslationContextGlobals](README.md#translationcontextglobals)
 - [TranslationContextParams](README.md#translationcontextparams)
 - [TranslationDictionary](README.md#translationdictionary)
-- [TranslationDictionaryEntry](README.md#translationdictionaryentry)
 - [TranslationKey](README.md#translationkey)
 - [TranslationLocale](README.md#translationlocale)
 - [TranslationValue](README.md#translationvalue)
@@ -90,7 +90,7 @@ Options for the [Generator](classes/Generator.md).
 | `analyzer?` | [`AnalyzerInterface`](interfaces/AnalyzerInterface.md) | Optional analyzer instance. Defaults to `new Analyzer()`. |
 | `compiler?` | [`CompilerInterface`](interfaces/CompilerInterface.md) | Optional compiler instance. Defaults to `new Compiler()`. |
 | `logger?` | [`LoggerInterface`](interfaces/LoggerInterface.md) | Optional logger instance. Defaults to `new Logger( { namespace: 'TRANSAX:GENERATOR' } )`. |
-| `translations?` | [`TranslationDictionary`](README.md#translationdictionary) | Optional translation dictionary. Defaults to `{}`. |
+| `translations?` | [`TranslationCatalog`](README.md#translationcatalog) | Optional translation catalog. Defaults to `{}`. |
 
 ___
 
@@ -109,19 +109,37 @@ Options for [Logger](classes/Logger.md).
 
 ___
 
-### TranslationCompiledDictionary
+### TranslationCatalog
 
-Ƭ **TranslationCompiledDictionary**: `Record`<[`TranslationLocale`](README.md#translationlocale), [`TranslationCompiledDictionaryEntry`](README.md#translationcompileddictionaryentry)\>
+Ƭ **TranslationCatalog**: `Record`<[`TranslationLocale`](README.md#translationlocale), [`TranslationDictionary`](README.md#translationdictionary)\>
 
-A compiled version of a [TranslationDictionary](README.md#translationdictionary).
+Catalog of translation entries, keyed by locale.
+
+**`Example`**
+
+```typescript
+{
+  "en_US": {
+    "my.translation.key": "Hello there, nice to meet you!",
+  },
+}
+```
 
 ___
 
-### TranslationCompiledDictionaryEntry
+### TranslationCompiledCatalog
 
-Ƭ **TranslationCompiledDictionaryEntry**: `Record`<[`TranslationKey`](README.md#translationkey), [`TranslationCompiledValue`](README.md#translationcompiledvalue)\>
+Ƭ **TranslationCompiledCatalog**: `Record`<[`TranslationLocale`](README.md#translationlocale), [`TranslationCompiledDictionary`](README.md#translationcompileddictionary)\>
 
-A compiled version of a [TranslationDictionaryEntry](README.md#translationdictionaryentry).
+A compiled version of a [TranslationCatalog](README.md#translationcatalog).
+
+___
+
+### TranslationCompiledDictionary
+
+Ƭ **TranslationCompiledDictionary**: `Record`<[`TranslationKey`](README.md#translationkey), [`TranslationCompiledValue`](README.md#translationcompiledvalue)\>
+
+A compiled version of a [TranslationDictionary](README.md#translationdictionary).
 
 ___
 
@@ -182,32 +200,14 @@ ___
 
 ### TranslationDictionary
 
-Ƭ **TranslationDictionary**: `Record`<[`TranslationLocale`](README.md#translationlocale), [`TranslationDictionaryEntry`](README.md#translationdictionaryentry)\>
+Ƭ **TranslationDictionary**: `Record`<[`TranslationKey`](README.md#translationkey), [`TranslationValue`](README.md#translationvalue)\>
 
-Dictionary of translation entries, keyed by locale.
-
-**`Example`**
-
-```typescript
-{
-  "en_US": {
-    "my.translation.key": "Hello there, nice to meet you!",
-  },
-}
-```
-
-___
-
-### TranslationDictionaryEntry
-
-Ƭ **TranslationDictionaryEntry**: `Record`<[`TranslationKey`](README.md#translationkey), [`TranslationValue`](README.md#translationvalue)\>
-
-Translation dictionary entry as key-value pair.
+Translation dictionary as a hashmap of key-value pairs.
 
 **`Example`**
 
 ```typescript
-"my.translation.key": "Hello there, nice to meet you!"
+{ "my.translation.key": "Hello there, nice to meet you!" }
 ```
 
 ___
@@ -266,4 +266,4 @@ Options for the [Translator](classes/Translator.md).
 | :------ | :------ | :------ |
 | `fallbackLocale?` | [`TranslationLocale`](README.md#translationlocale) | Optional fallback locale. Defaults to `undefined`. |
 | `logger?` | [`LoggerInterface`](interfaces/LoggerInterface.md) | Optional logger instance. Defaults to `new Logger( { namespace: 'TRANSAX:TRANSLATOR' } )`. |
-| `translations?` | [`TranslationCompiledDictionary`](README.md#translationcompileddictionary) | Optional compiled translation dictionary. Defaults to `{}`. |
+| `translations?` | [`TranslationCompiledCatalog`](README.md#translationcompiledcatalog) | Optional compiled translation catalog. Defaults to `{}`. |
