@@ -25,7 +25,7 @@ class Options {
         this.translations = data.translations ?? {};
         this.analyzer = data.analyzer ?? new Analyzer();
         this.compiler = data.compiler ?? new Compiler();
-        this.logger = data.logger ?? new Logger( { namespace: 'Generator' } );
+        this.logger = data.logger ?? new Logger( { namespace: 'TRANSAX:GENERATOR' } );
     }
 
 }

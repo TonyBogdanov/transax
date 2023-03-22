@@ -14,7 +14,7 @@ class Options {
     logger: LoggerInterface;
 
     constructor( data: CompilerOptions = {} ) {
-        this.logger = data.logger ?? new Logger( { namespace: 'Compiler' } );
+        this.logger = data.logger ?? new Logger( { namespace: 'TRANSAX:COMPILER' } );
     }
 
 }

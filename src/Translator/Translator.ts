@@ -17,7 +17,7 @@ class Options {
     constructor( data: TranslatorOptions = {} ) {
         this.translations = data.translations ?? {};
         this.fallbackLocale = data.fallbackLocale ?? undefined;
-        this.logger = data.logger ?? new Logger( { namespace: 'Translator' } );
+        this.logger = data.logger ?? new Logger( { namespace: 'TRANSAX:TRANSLATOR' } );
     }
 
 }

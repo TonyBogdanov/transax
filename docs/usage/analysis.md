@@ -37,7 +37,8 @@ const generator = new Generator( {
     },
 } );
 
-generator.parse( '<source code as string>' );
+generator.parse( '<source code as string>', 'path/to/file1.js' );
+generator.parse( '<source code as string>', 'path/to/file2.js' );
 
 console.log( generator.getMissingTranslationKeys() );
 // -> { en: [ 'Hello' ], de: [ 'nice to meet you' ] }
@@ -45,6 +46,10 @@ console.log( generator.getMissingTranslationKeys() );
 console.log( generator.getUnusedTranslationKeys() );
 // -> { en: [ 'unused' ], de: [] }
 ```
+
+::: tip
+Use this feature at **build time** to make sure your translations are always up-to-date.
+:::
 
 ## Limitations
 The analysis feature is not perfect. It works in a more generic manner in order to support almost any kind of

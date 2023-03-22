@@ -58,7 +58,7 @@ Options for the [Analyzer](classes/Analyzer.md).
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `logger?` | [`LoggerInterface`](interfaces/LoggerInterface.md) | Optional logger instance. Defaults to `new Logger( { namespace: 'Analyzer' } )`. |
+| `logger?` | [`LoggerInterface`](interfaces/LoggerInterface.md) | Optional logger instance. Defaults to `new Logger( { namespace: 'TRANSAX:ANALYZER' } )`. |
 | `names?` | `string`[] | The names of the functions to analyze. Defaults to `[ '$t' ]`. |
 
 ___
@@ -73,7 +73,7 @@ Options for the [Compiler](classes/Compiler.md).
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `logger?` | [`LoggerInterface`](interfaces/LoggerInterface.md) | Optional logger instance. Defaults to `new Logger( { namespace: 'Compiler' } )`. |
+| `logger?` | [`LoggerInterface`](interfaces/LoggerInterface.md) | Optional logger instance. Defaults to `new Logger( { namespace: 'TRANSAX:COMPILER' } )`. |
 
 ___
 
@@ -89,7 +89,7 @@ Options for the [Generator](classes/Generator.md).
 | :------ | :------ | :------ |
 | `analyzer?` | [`AnalyzerInterface`](interfaces/AnalyzerInterface.md) | Optional analyzer instance. Defaults to `new Analyzer()`. |
 | `compiler?` | [`CompilerInterface`](interfaces/CompilerInterface.md) | Optional compiler instance. Defaults to `new Compiler()`. |
-| `logger?` | [`LoggerInterface`](interfaces/LoggerInterface.md) | Optional logger instance. Defaults to `new Logger( { namespace: 'Generator' } )`. |
+| `logger?` | [`LoggerInterface`](interfaces/LoggerInterface.md) | Optional logger instance. Defaults to `new Logger( { namespace: 'TRANSAX:GENERATOR' } )`. |
 | `translations?` | [`TranslationDictionary`](README.md#translationdictionary) | Optional translation dictionary. Defaults to `{}`. |
 
 ___
@@ -265,5 +265,5 @@ Options for the [Translator](classes/Translator.md).
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `fallbackLocale?` | [`TranslationLocale`](README.md#translationlocale) | Optional fallback locale. Defaults to `undefined`. |
-| `logger?` | [`LoggerInterface`](interfaces/LoggerInterface.md) | Optional logger instance. Defaults to `new Logger( { namespace: 'Translator' } )`. |
+| `logger?` | [`LoggerInterface`](interfaces/LoggerInterface.md) | Optional logger instance. Defaults to `new Logger( { namespace: 'TRANSAX:TRANSLATOR' } )`. |
 | `translations?` | [`TranslationCompiledDictionary`](README.md#translationcompileddictionary) | Optional compiled translation dictionary. Defaults to `{}`. |

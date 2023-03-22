@@ -14,7 +14,7 @@ class Options {
 
     constructor( data: AnalyzerOptions = {} ) {
         this.names = data.names ?? [ '$t' ];
-        this.logger = data.logger ?? new Logger( { namespace: 'Analyzer' } );
+        this.logger = data.logger ?? new Logger( { namespace: 'TRANSAX:ANALYZER' } );
     }
 
 }

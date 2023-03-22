@@ -24,6 +24,9 @@ themeConfig:
       children:
         - /usage/importing
         - /usage/analysis
+        - /usage/compilation
+        - /usage/translation
+        - /usage/syntax
     - title: API Reference
       path: /api
       children:

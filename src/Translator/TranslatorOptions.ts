@@ -22,7 +22,7 @@ export type TranslatorOptions = {
 
     /**
      * Optional logger instance.
-     * Defaults to `new Logger( { namespace: 'Translator' } )`.
+     * Defaults to `new Logger( { namespace: 'TRANSAX:TRANSLATOR' } )`.
      */
     logger?: LoggerInterface;
 

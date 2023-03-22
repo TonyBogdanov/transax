@@ -7,7 +7,7 @@ class Options {
     verbose: boolean;
 
     constructor( data: LoggerOptions = {} ) {
-        this.namespace = ( data.namespace ?? 'Log' ).toUpperCase();
+        this.namespace = data.namespace ?? 'TRANSAX';
         this.verbose = data.verbose ?? false;
     }
 

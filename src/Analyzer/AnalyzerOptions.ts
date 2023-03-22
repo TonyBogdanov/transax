@@ -13,7 +13,7 @@ export type AnalyzerOptions = {
 
     /**
      * Optional logger instance.
-     * Defaults to `new Logger( { namespace: 'Analyzer' } )`.
+     * Defaults to `new Logger( { namespace: 'TRANSAX:ANALYZER' } )`.
      */
     logger?: LoggerInterface;
 

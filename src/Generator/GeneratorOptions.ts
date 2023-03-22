@@ -28,7 +28,7 @@ export type GeneratorOptions = {
 
     /**
      * Optional logger instance.
-     * Defaults to `new Logger( { namespace: 'Generator' } )`.
+     * Defaults to `new Logger( { namespace: 'TRANSAX:GENERATOR' } )`.
      */
     logger?: LoggerInterface;
 

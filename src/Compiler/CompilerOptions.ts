@@ -7,7 +7,7 @@ export type CompilerOptions = {
 
     /**
      * Optional logger instance.
-     * Defaults to `new Logger( { namespace: 'Compiler' } )`.
+     * Defaults to `new Logger( { namespace: 'TRANSAX:COMPILER' } )`.
      */
     logger?: LoggerInterface;
 
