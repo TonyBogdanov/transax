@@ -6,4 +6,4 @@
  * "my.translation.key"
  * ```
  */
-export type TranslationKey = string;
+export type Key = string;

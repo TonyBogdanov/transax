@@ -1,7 +1,7 @@
 import AnalyzerInterface from '../Analyzer/AnalyzerInterface';
 import LoggerInterface from '../Logger/LoggerInterface';
 import CompilerInterface from '../Compiler/CompilerInterface';
-import { TranslationCatalog } from '../Type/TranslationCatalog';
+import { Catalog } from '../Type/Catalog';
 
 /**
  * Options for the {@link Generator}.
@@ -12,7 +12,7 @@ export type GeneratorOptions = {
      * Optional translation catalog.
      * Defaults to `{}`.
      */
-    translations?: TranslationCatalog;
+    translations?: Catalog;
 
     /**
      * Optional analyzer instance.

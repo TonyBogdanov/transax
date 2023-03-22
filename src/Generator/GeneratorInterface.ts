@@ -1,5 +1,5 @@
-import { TranslationLocale } from '../Type/TranslationLocale';
-import { TranslationDictionary } from '../Type/TranslationDictionary';
+import { Locale } from '../Type/Locale';
+import { Dictionary } from '../Type/Dictionary';
 
 /**
  * Defines an interface for **Generator** classes.
@@ -20,14 +20,14 @@ export default interface GeneratorInterface {
      * @param locale Target translation locale.
      * @param dictionary Target translation dictionary.
      */
-    setTranslations( locale: TranslationLocale, dictionary: TranslationDictionary ): this;
+    setTranslations( locale: Locale, dictionary: Dictionary ): this;
 
     /**
      * Removes the current translation dictionary for the specified locale.
      *
      * @param locale Target translation locale.
      */
-    removeTranslations( locale: TranslationLocale ): this;
+    removeTranslations( locale: Locale ): this;
 
     /**
      * Returns a hashmap of locale keys and corresponding lists of missing translation keys.

@@ -1,4 +1,4 @@
-import { TranslationCatalog } from '../Type/TranslationCatalog';
+import { Catalog } from '../Type/Catalog';
 
 import Analyzer from '../Analyzer/Analyzer';
 import AnalyzerInterface from '../Analyzer/AnalyzerInterface';
@@ -11,12 +11,12 @@ import LoggerInterface from '../Logger/LoggerInterface';
 
 import GeneratorInterface from './GeneratorInterface';
 import { GeneratorOptions } from './GeneratorOptions';
-import { TranslationLocale } from '../Type/TranslationLocale';
-import { TranslationDictionary } from '../Type/TranslationDictionary';
+import { Locale } from '../Type/Locale';
+import { Dictionary } from '../Type/Dictionary';
 
 class Options {
 
-    translations: TranslationCatalog;
+    translations: Catalog;
     analyzer: AnalyzerInterface;
     compiler: CompilerInterface;
     logger: LoggerInterface;
@@ -69,7 +69,7 @@ export default class Generator implements GeneratorInterface {
     /**
      * @inheritDoc
      */
-    setTranslations( locale: TranslationLocale, dictionary: TranslationDictionary ): this {
+    setTranslations( locale: Locale, dictionary: Dictionary ): this {
         this.options.translations[ locale ] = dictionary;
         return this;
     }
@@ -77,7 +77,7 @@ export default class Generator implements GeneratorInterface {
     /**
      * @inheritDoc
      */
-    removeTranslations( locale: TranslationLocale ): this {
+    removeTranslations( locale: Locale ): this {
         if ( this.options.translations.hasOwnProperty( locale ) ) {
             delete this.options.translations[ locale ];
         }

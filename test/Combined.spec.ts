@@ -1,14 +1,14 @@
 import { expect } from '@jest/globals';
 
 import Compiler from '../src/Compiler/Compiler';
-import { TranslationContextParams } from '../src/Type/TranslationContextParams';
-import { TranslationContextGlobals } from '../src/Type/TranslationContextGlobals';
+import { ContextParams } from '../src/Type/ContextParams';
+import { ContextGlobals } from '../src/Type/ContextGlobals';
 
 function runTest(
     code: string,
     expectedOutput: string,
-    params: TranslationContextParams = {},
-    globals: TranslationContextGlobals = {},
+    params: ContextParams = {},
+    globals: ContextGlobals = {},
 ): void {
     test( code, () => {
         const compiler = new Compiler();

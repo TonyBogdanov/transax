@@ -5,14 +5,14 @@ import AnalyzerToken from './AnalyzerToken';
 import AnalyzerInterface from './AnalyzerInterface';
 import { AnalyzerOptions } from './AnalyzerOptions';
 
-import { TranslationKeyFormatter } from '../Type/TranslationKeyFormatter';
+import { KeyFormatter } from '../Type/KeyFormatter';
 
 import parse from './peg';
 
 class Options {
 
     names: string[];
-    keyFormatter: TranslationKeyFormatter;
+    keyFormatter: KeyFormatter;
     logger: LoggerInterface;
 
     constructor( data: AnalyzerOptions = {} ) {

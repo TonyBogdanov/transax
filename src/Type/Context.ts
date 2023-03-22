@@ -1,26 +1,26 @@
-import { TranslationLocale } from './TranslationLocale';
-import { TranslationContextParams } from './TranslationContextParams';
-import { TranslationContextGlobals } from './TranslationContextGlobals';
+import { Locale } from './Locale';
+import { ContextParams } from './ContextParams';
+import { ContextGlobals } from './ContextGlobals';
 
 /**
  * Runtime context to be used during translation.
  */
-export type TranslationContext = {
+export type Context = {
 
     /**
      * The locale to translate to.
      * If not specified, the default locale specified in the translator options will be used.
      */
-    locale?: TranslationLocale;
+    locale?: Locale;
 
     /**
      * Hashmap of parameters available to translation expressions.
      */
-    params?: TranslationContextParams;
+    params?: ContextParams;
 
     /**
      * Hashmap of globals available to translation expressions.
      */
-    globals?: TranslationContextGlobals;
+    globals?: ContextGlobals;
 
 };

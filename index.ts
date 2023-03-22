@@ -28,18 +28,18 @@ import { GeneratorOptions } from './src/Generator/GeneratorOptions';
 import Translator from './src/Translator/Translator';
 import { TranslatorOptions } from './src/Translator/TranslatorOptions';
 
-import { TranslationLocale } from './src/Type/TranslationLocale';
-import { TranslationCatalog } from './src/Type/TranslationCatalog';
-import { TranslationDictionary } from './src/Type/TranslationDictionary';
-import { TranslationCompiledCatalog } from './src/Type/TranslationCompiledCatalog';
-import { TranslationCompiledDictionary } from './src/Type/TranslationCompiledDictionary';
-import { TranslationCompiledValue } from './src/Type/TranslationCompiledValue';
-import { TranslationKey } from './src/Type/TranslationKey';
-import { TranslationKeyFormatter } from './src/Type/TranslationKeyFormatter';
-import { TranslationValue } from './src/Type/TranslationValue';
-import { TranslationContext } from './src/Type/TranslationContext';
-import { TranslationContextParams } from './src/Type/TranslationContextParams';
-import { TranslationContextGlobals } from './src/Type/TranslationContextGlobals';
+import { Locale } from './src/Type/Locale';
+import { Catalog } from './src/Type/Catalog';
+import { Dictionary } from './src/Type/Dictionary';
+import { CompiledCatalog } from './src/Type/CompiledCatalog';
+import { CompiledDictionary } from './src/Type/CompiledDictionary';
+import { CompiledValue } from './src/Type/CompiledValue';
+import { Key } from './src/Type/Key';
+import { KeyFormatter } from './src/Type/KeyFormatter';
+import { Value } from './src/Type/Value';
+import { Context } from './src/Type/Context';
+import { ContextParams } from './src/Type/ContextParams';
+import { ContextGlobals } from './src/Type/ContextGlobals';
 
 export {
     LoggerInterface,
@@ -72,16 +72,16 @@ export {
     Translator,
     TranslatorOptions,
 
-    TranslationLocale,
-    TranslationCatalog,
-    TranslationDictionary,
-    TranslationCompiledCatalog,
-    TranslationCompiledDictionary,
-    TranslationCompiledValue,
-    TranslationKey,
-    TranslationKeyFormatter,
-    TranslationValue,
-    TranslationContext,
-    TranslationContextParams,
-    TranslationContextGlobals,
+    Locale,
+    Catalog,
+    Dictionary,
+    CompiledCatalog,
+    CompiledDictionary,
+    CompiledValue,
+    Key,
+    KeyFormatter,
+    Value,
+    Context,
+    ContextParams,
+    ContextGlobals,
 };

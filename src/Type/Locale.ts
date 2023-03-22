@@ -6,4 +6,4 @@
  * "en_US"
  * ```
  */
-export type TranslationLocale = string;
+export type Locale = string;

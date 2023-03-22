@@ -131,7 +131,7 @@ Adds or replaces the current translation dictionary for the specified locale.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `locale` | `string` | Target translation locale. |
-| `dictionary` | [`TranslationDictionary`](../README.md#translationdictionary) | Target translation dictionary. |
+| `dictionary` | [`Dictionary`](../README.md#dictionary) | Target translation dictionary. |
 
 #### Returns
 

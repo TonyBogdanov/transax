@@ -30,22 +30,22 @@
 ### Type Aliases
 
 - [AnalyzerOptions](README.md#analyzeroptions)
+- [Catalog](README.md#catalog)
+- [CompiledCatalog](README.md#compiledcatalog)
+- [CompiledDictionary](README.md#compileddictionary)
+- [CompiledValue](README.md#compiledvalue)
 - [CompilerOptions](README.md#compileroptions)
+- [Context](README.md#context)
+- [ContextGlobals](README.md#contextglobals)
+- [ContextParams](README.md#contextparams)
+- [Dictionary](README.md#dictionary)
 - [GeneratorOptions](README.md#generatoroptions)
+- [Key](README.md#key)
+- [KeyFormatter](README.md#keyformatter)
+- [Locale](README.md#locale)
 - [LoggerOptions](README.md#loggeroptions)
-- [TranslationCatalog](README.md#translationcatalog)
-- [TranslationCompiledCatalog](README.md#translationcompiledcatalog)
-- [TranslationCompiledDictionary](README.md#translationcompileddictionary)
-- [TranslationCompiledValue](README.md#translationcompiledvalue)
-- [TranslationContext](README.md#translationcontext)
-- [TranslationContextGlobals](README.md#translationcontextglobals)
-- [TranslationContextParams](README.md#translationcontextparams)
-- [TranslationDictionary](README.md#translationdictionary)
-- [TranslationKey](README.md#translationkey)
-- [TranslationKeyFormatter](README.md#translationkeyformatter)
-- [TranslationLocale](README.md#translationlocale)
-- [TranslationValue](README.md#translationvalue)
 - [TranslatorOptions](README.md#translatoroptions)
+- [Value](README.md#value)
 
 ## Type Aliases
 
@@ -59,9 +59,66 @@ Options for the [Analyzer](classes/Analyzer.md).
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `keyFormatter?` | [`TranslationKeyFormatter`](README.md#translationkeyformatter) | A function to format the translation key based on the context. Defaults to `( key => key )`. |
+| `keyFormatter?` | [`KeyFormatter`](README.md#keyformatter) | A function to format the translation key based on the context. Defaults to `( key => key )`. |
 | `logger?` | [`LoggerInterface`](interfaces/LoggerInterface.md) | Optional logger instance. Defaults to `new Logger( { namespace: 'TRANSAX:ANALYZER' } )`. |
 | `names?` | `string`[] | The names of the functions to analyze. Defaults to `[ '$t' ]`. |
+
+___
+
+### Catalog
+
+Ƭ **Catalog**: `Record`<[`Locale`](README.md#locale), [`Dictionary`](README.md#dictionary)\>
+
+Catalog of translation entries, keyed by locale.
+
+**`Example`**
+
+```typescript
+{
+  "en_US": {
+    "my.translation.key": "Hello there, nice to meet you!",
+  },
+}
+```
+
+___
+
+### CompiledCatalog
+
+Ƭ **CompiledCatalog**: `Record`<[`Locale`](README.md#locale), [`CompiledDictionary`](README.md#compileddictionary)\>
+
+A compiled version of a [Catalog](README.md#catalog).
+
+___
+
+### CompiledDictionary
+
+Ƭ **CompiledDictionary**: `Record`<[`Key`](README.md#key), [`CompiledValue`](README.md#compiledvalue)\>
+
+A compiled version of a [Dictionary](README.md#dictionary).
+
+___
+
+### CompiledValue
+
+Ƭ **CompiledValue**: (`params`: [`ContextParams`](README.md#contextparams), `globals`: [`ContextGlobals`](README.md#contextglobals)) => `string`
+
+#### Type declaration
+
+▸ (`params`, `globals`): `string`
+
+A compiled version of a [Value](README.md#value).
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `params` | [`ContextParams`](README.md#contextparams) |
+| `globals` | [`ContextGlobals`](README.md#contextglobals) |
+
+##### Returns
+
+`string`
 
 ___
 
@@ -79,6 +136,52 @@ Options for the [Compiler](classes/Compiler.md).
 
 ___
 
+### Context
+
+Ƭ **Context**: `Object`
+
+Runtime context to be used during translation.
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `globals?` | [`ContextGlobals`](README.md#contextglobals) | Hashmap of globals available to translation expressions. |
+| `locale?` | [`Locale`](README.md#locale) | The locale to translate to. If not specified, the default locale specified in the translator options will be used. |
+| `params?` | [`ContextParams`](README.md#contextparams) | Hashmap of parameters available to translation expressions. |
+
+___
+
+### ContextGlobals
+
+Ƭ **ContextGlobals**: `Record`<`string`, `any`\>
+
+Hashmap of context globals to be used during translation.
+
+___
+
+### ContextParams
+
+Ƭ **ContextParams**: `Record`<`string`, `any`\>
+
+Hashmap of context parameters to be used during translation.
+
+___
+
+### Dictionary
+
+Ƭ **Dictionary**: `Record`<[`Key`](README.md#key), [`Value`](README.md#value)\>
+
+Translation dictionary as a hashmap of key-value pairs.
+
+**`Example`**
+
+```typescript
+{ "my.translation.key": "Hello there, nice to meet you!" }
+```
+
+___
+
 ### GeneratorOptions
 
 Ƭ **GeneratorOptions**: `Object`
@@ -92,7 +195,58 @@ Options for the [Generator](classes/Generator.md).
 | `analyzer?` | [`AnalyzerInterface`](interfaces/AnalyzerInterface.md) | Optional analyzer instance. Defaults to `new Analyzer()`. |
 | `compiler?` | [`CompilerInterface`](interfaces/CompilerInterface.md) | Optional compiler instance. Defaults to `new Compiler()`. |
 | `logger?` | [`LoggerInterface`](interfaces/LoggerInterface.md) | Optional logger instance. Defaults to `new Logger( { namespace: 'TRANSAX:GENERATOR' } )`. |
-| `translations?` | [`TranslationCatalog`](README.md#translationcatalog) | Optional translation catalog. Defaults to `{}`. |
+| `translations?` | [`Catalog`](README.md#catalog) | Optional translation catalog. Defaults to `{}`. |
+
+___
+
+### Key
+
+Ƭ **Key**: `string`
+
+Translation key as a string used to identify a translation.
+
+**`Example`**
+
+```typescript
+"my.translation.key"
+```
+
+___
+
+### KeyFormatter
+
+Ƭ **KeyFormatter**: (`key`: [`Key`](README.md#key), `token`: [`AnalyzerToken`](classes/AnalyzerToken.md)) => `string`
+
+#### Type declaration
+
+▸ (`key`, `token`): `string`
+
+A function to format the translation key based on the context.
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | [`Key`](README.md#key) |
+| `token` | [`AnalyzerToken`](classes/AnalyzerToken.md) |
+
+##### Returns
+
+`string`
+
+___
+
+### Locale
+
+Ƭ **Locale**: `string`
+
+Translation locale as a string representing a unique language.
+
+**`Example`**
+
+```typescript
+"en_US"
+```
 
 ___
 
@@ -111,174 +265,6 @@ Options for [Logger](classes/Logger.md).
 
 ___
 
-### TranslationCatalog
-
-Ƭ **TranslationCatalog**: `Record`<[`TranslationLocale`](README.md#translationlocale), [`TranslationDictionary`](README.md#translationdictionary)\>
-
-Catalog of translation entries, keyed by locale.
-
-**`Example`**
-
-```typescript
-{
-  "en_US": {
-    "my.translation.key": "Hello there, nice to meet you!",
-  },
-}
-```
-
-___
-
-### TranslationCompiledCatalog
-
-Ƭ **TranslationCompiledCatalog**: `Record`<[`TranslationLocale`](README.md#translationlocale), [`TranslationCompiledDictionary`](README.md#translationcompileddictionary)\>
-
-A compiled version of a [TranslationCatalog](README.md#translationcatalog).
-
-___
-
-### TranslationCompiledDictionary
-
-Ƭ **TranslationCompiledDictionary**: `Record`<[`TranslationKey`](README.md#translationkey), [`TranslationCompiledValue`](README.md#translationcompiledvalue)\>
-
-A compiled version of a [TranslationDictionary](README.md#translationdictionary).
-
-___
-
-### TranslationCompiledValue
-
-Ƭ **TranslationCompiledValue**: (`params`: [`TranslationContextParams`](README.md#translationcontextparams), `globals`: [`TranslationContextGlobals`](README.md#translationcontextglobals)) => `string`
-
-#### Type declaration
-
-▸ (`params`, `globals`): `string`
-
-A compiled version of a [TranslationValue](README.md#translationvalue).
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `params` | [`TranslationContextParams`](README.md#translationcontextparams) |
-| `globals` | [`TranslationContextGlobals`](README.md#translationcontextglobals) |
-
-##### Returns
-
-`string`
-
-___
-
-### TranslationContext
-
-Ƭ **TranslationContext**: `Object`
-
-Runtime context to be used during translation.
-
-#### Type declaration
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `globals?` | [`TranslationContextGlobals`](README.md#translationcontextglobals) | Hashmap of globals available to translation expressions. |
-| `locale?` | [`TranslationLocale`](README.md#translationlocale) | The locale to translate to. If not specified, the default locale specified in the translator options will be used. |
-| `params?` | [`TranslationContextParams`](README.md#translationcontextparams) | Hashmap of parameters available to translation expressions. |
-
-___
-
-### TranslationContextGlobals
-
-Ƭ **TranslationContextGlobals**: `Record`<`string`, `any`\>
-
-Hashmap of context globals to be used during translation.
-
-___
-
-### TranslationContextParams
-
-Ƭ **TranslationContextParams**: `Record`<`string`, `any`\>
-
-Hashmap of context parameters to be used during translation.
-
-___
-
-### TranslationDictionary
-
-Ƭ **TranslationDictionary**: `Record`<[`TranslationKey`](README.md#translationkey), [`TranslationValue`](README.md#translationvalue)\>
-
-Translation dictionary as a hashmap of key-value pairs.
-
-**`Example`**
-
-```typescript
-{ "my.translation.key": "Hello there, nice to meet you!" }
-```
-
-___
-
-### TranslationKey
-
-Ƭ **TranslationKey**: `string`
-
-Translation key as a string used to identify a translation.
-
-**`Example`**
-
-```typescript
-"my.translation.key"
-```
-
-___
-
-### TranslationKeyFormatter
-
-Ƭ **TranslationKeyFormatter**: (`key`: [`TranslationKey`](README.md#translationkey), `token`: [`AnalyzerToken`](classes/AnalyzerToken.md)) => `string`
-
-#### Type declaration
-
-▸ (`key`, `token`): `string`
-
-A function to format the translation key based on the context.
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `key` | [`TranslationKey`](README.md#translationkey) |
-| `token` | [`AnalyzerToken`](classes/AnalyzerToken.md) |
-
-##### Returns
-
-`string`
-
-___
-
-### TranslationLocale
-
-Ƭ **TranslationLocale**: `string`
-
-Translation locale as a string representing a unique language.
-
-**`Example`**
-
-```typescript
-"en_US"
-```
-
-___
-
-### TranslationValue
-
-Ƭ **TranslationValue**: `string`
-
-Translation value as a string translation of its corresponding key.
-
-**`Example`**
-
-```typescript
-"Hello there, nice to meet you!"
-```
-
-___
-
 ### TranslatorOptions
 
 Ƭ **TranslatorOptions**: `Object`
@@ -289,6 +275,20 @@ Options for the [Translator](classes/Translator.md).
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `fallbackLocale?` | [`TranslationLocale`](README.md#translationlocale) | Optional fallback locale. Defaults to `undefined`. |
+| `fallbackLocale?` | [`Locale`](README.md#locale) | Optional fallback locale. Defaults to `undefined`. |
 | `logger?` | [`LoggerInterface`](interfaces/LoggerInterface.md) | Optional logger instance. Defaults to `new Logger( { namespace: 'TRANSAX:TRANSLATOR' } )`. |
-| `translations?` | [`TranslationCompiledCatalog`](README.md#translationcompiledcatalog) | Optional compiled translation catalog. Defaults to `{}`. |
+| `translations?` | [`CompiledCatalog`](README.md#compiledcatalog) | Optional compiled translation catalog. Defaults to `{}`. |
+
+___
+
+### Value
+
+Ƭ **Value**: `string`
+
+Translation value as a string translation of its corresponding key.
+
+**`Example`**
+
+```typescript
+"Hello there, nice to meet you!"
+```

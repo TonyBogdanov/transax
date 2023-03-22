@@ -2,16 +2,16 @@ import Logger from '../Logger/Logger';
 import LoggerInterface from '../Logger/LoggerInterface';
 
 import TranslatorInterface from './TranslatorInterface';
-import { TranslationCompiledCatalog } from '../Type/TranslationCompiledCatalog';
+import { CompiledCatalog } from '../Type/CompiledCatalog';
 import { TranslatorOptions } from './TranslatorOptions';
-import { TranslationLocale } from '../Type/TranslationLocale';
-import { TranslationKey } from '../Type/TranslationKey';
-import { TranslationContext } from '../Type/TranslationContext';
+import { Locale } from '../Type/Locale';
+import { Key } from '../Type/Key';
+import { Context } from '../Type/Context';
 
 class Options {
 
-    translations: TranslationCompiledCatalog;
-    fallbackLocale: TranslationLocale | undefined;
+    translations: CompiledCatalog;
+    fallbackLocale: Locale | undefined;
     logger: LoggerInterface;
 
     constructor( data: TranslatorOptions = {} ) {
@@ -41,7 +41,7 @@ export default class Translator implements TranslatorInterface {
     /**
      * @inheritDoc
      */
-    translate( key: TranslationKey, context: TranslationContext = {} ): string {
+    translate( key: Key, context: Context = {} ): string {
         if ( context.locale ) {
             if ( context.locale in this.options.translations ) {
                 if ( key in this.options.translations[ context.locale ] ) {

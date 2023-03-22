@@ -6,4 +6,4 @@
  * "Hello there, nice to meet you!"
  * ```
  */
-export type TranslationValue = string;
+export type Value = string;

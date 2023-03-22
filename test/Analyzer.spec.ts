@@ -2,7 +2,7 @@ import { expect, jest } from '@jest/globals';
 
 import Analyzer from '../src/Analyzer/Analyzer';
 import AnalyzerToken from '../src/Analyzer/AnalyzerToken';
-import { TranslationKey } from '../src/Type/TranslationKey';
+import { Key } from '../src/Type/Key';
 
 function run(
     code: string,
@@ -85,7 +85,7 @@ describe( 'Analyzer', () => {
         // use a configured key formatter
         test( 'option: keyFormatter', () => {
             expect( new Analyzer( {
-                keyFormatter: ( key: TranslationKey, token: AnalyzerToken ) => token.name + '.' + key.toUpperCase(),
+                keyFormatter: ( key: Key, token: AnalyzerToken ) => token.name + '.' + key.toUpperCase(),
             } ).analyze( `$t( 'key' )` ) ).toStrictEqual( [
                 new AnalyzerToken( '$t', '$t.KEY', `$t( 'key' )`, 1, 1 ),
             ] );

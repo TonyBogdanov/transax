@@ -52,7 +52,7 @@ be retrieved using the fallback locale instead, and if that fails too, the key w
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `key` | `string` | The key to translate. |
-| `context` | [`TranslationContext`](../README.md#translationcontext) | Optional translation context. |
+| `context` | [`Context`](../README.md#context) | Optional translation context. |
 
 #### Returns
 

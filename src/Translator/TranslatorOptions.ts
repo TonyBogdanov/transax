@@ -1,7 +1,7 @@
 import LoggerInterface from '../Logger/LoggerInterface';
 
-import { TranslationLocale } from '../Type/TranslationLocale';
-import { TranslationCompiledCatalog } from '../Type/TranslationCompiledCatalog';
+import { Locale } from '../Type/Locale';
+import { CompiledCatalog } from '../Type/CompiledCatalog';
 
 /**
  * Options for the {@link Translator}.
@@ -12,13 +12,13 @@ export type TranslatorOptions = {
      * Optional compiled translation catalog.
      * Defaults to `{}`.
      */
-    translations?: TranslationCompiledCatalog;
+    translations?: CompiledCatalog;
 
     /**
      * Optional fallback locale.
      * Defaults to `undefined`.
      */
-    fallbackLocale?: TranslationLocale;
+    fallbackLocale?: Locale;
 
     /**
      * Optional logger instance.
