@@ -5,7 +5,7 @@ function testOutput( logger: Logger, callback: ( logger: Logger ) => void ): voi
     const logMock = jest.spyOn( console, 'log' );
 
     callback( logger );
-    expect( logMock ).toHaveBeenCalledWith( '[LOG]', 'test' );
+    expect( logMock ).toHaveBeenCalledWith( '[TRANSAX]', 'test' );
 
     logMock.mockClear();
 }
