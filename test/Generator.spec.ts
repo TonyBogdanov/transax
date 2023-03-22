@@ -49,6 +49,23 @@ describe( 'Generator', () => {
         } );
     } );
 
+    describe( 'setTranslations()', () => {
+        test( 'add', () => {
+            const generator = new Generator();
+            const en = { foo: 'bar' };
+            const de = { bar: 'baz' };
+
+            // @ts-ignore
+            expect( generator.options.translations ).toStrictEqual( {} );
+
+            // @ts-ignore
+            expect( generator.setTranslations( 'en', en ).options.translations ).toStrictEqual( { en } );
+
+            // @ts-ignore
+            expect( generator.setTranslations( 'de', de ).options.translations ).toStrictEqual( { en, de } );
+        } );
+    } );
+
     describe( 'getMissingTranslationKeys()', () => {
         const options = { translations: { en: { foo: 'bar' }, de: { bar: 'baz' } } };
 

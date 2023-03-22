@@ -13,6 +13,8 @@ import LoggerInterface from '../Logger/LoggerInterface';
 
 import GeneratorInterface from './GeneratorInterface';
 import { GeneratorOptions } from './GeneratorOptions';
+import { TranslationLocale } from '../Translator/TranslationLocale';
+import { TranslationDictionaryEntry } from '../Translator/TranslationDictionaryEntry';
 
 class Options {
 
@@ -67,6 +69,14 @@ export default class Generator implements GeneratorInterface {
             sources.includes( <string> token.source ) || sources.push( source );
         }
 
+        return this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    setTranslations( locale: TranslationLocale, dictionary: TranslationDictionaryEntry ): this {
+        this.options.translations[ locale ] = dictionary;
         return this;
     }
 

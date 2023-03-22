@@ -1,3 +1,6 @@
+import { TranslationLocale } from '../Translator/TranslationLocale';
+import { TranslationDictionaryEntry } from '../Translator/TranslationDictionaryEntry';
+
 /**
  * Defines an interface for **Generator** classes.
  */
@@ -10,6 +13,14 @@ export default interface GeneratorInterface {
      * @param source Optional origin of the source code, usually a path to the source file.
      */
     parse( code: string, source?: string ): this;
+
+    /**
+     * Adds or replaces the current translation dictionary for the specified locale.
+     *
+     * @param locale Target translation locale.
+     * @param dictionary Target translation dictionary.
+     */
+    setTranslations( locale: TranslationLocale, dictionary: TranslationDictionaryEntry ): this;
 
     /**
      * Returns a hashmap of locale keys and corresponding lists of missing translation keys.
