@@ -50,7 +50,17 @@ export default class Generator implements GeneratorInterface {
     /**
      * @inheritDoc
      */
-    parse( code: string, source?: string ): this {
+    parse( code: string, source?: string, accumulate: boolean = false ): this {
+        if ( !accumulate && !!source ) {
+            for ( const [ key, sources ] of Object.entries( this.keys ) ) {
+                this.keys[ key ] = sources.filter( candidate => candidate.split( '::' )[0] !== source );
+
+                if ( 0 === this.keys[ key ].length ) {
+                    delete this.keys[ key ];
+                }
+            }
+        }
+
         const tokens = this.options.analyzer.analyze( code, source );
         for ( const token of tokens ) {
             if ( !this.keys.hasOwnProperty( token.key ) ) {
@@ -114,7 +124,7 @@ export default class Generator implements GeneratorInterface {
     /**
      * @inheritDoc
      */
-    getCompiledTranslationsDump(): string {
+    getCompiledTranslationsDump( includeMeta?: boolean ): string {
         const quote = ( v: string ) => v.match( /^[a-z_$][a-z0-9_$]*$/i ) ? v : JSON.stringify( v );
         let result = `{\n`;
 
@@ -123,6 +133,7 @@ export default class Generator implements GeneratorInterface {
             result += `    ${ quote( locale ) }: {\n`;
 
             for ( const key of Object.keys( this.keys ).filter( key => translations.hasOwnProperty( key ) ) ) {
+                includeMeta && this.keys[ key ].forEach( source => result += `        // ${ source }\n` );
                 result += `        ${ quote( key ) }: ${ this.options.compiler.compile( translations[ key ] ) },\n`;
             }
 
@@ -135,14 +146,14 @@ export default class Generator implements GeneratorInterface {
     /**
      * @inheritDoc
      */
-    getCompiledTranslationsDumpAsCJSExport(): string {
-        return `module.exports = ${ this.getCompiledTranslationsDump() };\n`;
+    getCompiledTranslationsDumpAsCJSExport( includeMeta?: boolean ): string {
+        return `module.exports = ${ this.getCompiledTranslationsDump( includeMeta ) };\n`;
     }
 
     /**
      * @inheritDoc
      */
-    getCompiledTranslationsDumpAsESMExport(): string {
-        return `export default ${ this.getCompiledTranslationsDump() };\n`;
+    getCompiledTranslationsDumpAsESMExport( includeMeta?: boolean ): string {
+        return `export default ${ this.getCompiledTranslationsDump( includeMeta ) };\n`;
     }
 }

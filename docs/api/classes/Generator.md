@@ -41,9 +41,15 @@ Creates a new instance.
 
 ### getCompiledTranslationsDump
 
-▸ **getCompiledTranslationsDump**(): `string`
+▸ **getCompiledTranslationsDump**(`includeMeta?`): `string`
 
 Returns an ECMAScript6 code representation of the compiled translations.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `includeMeta?` | `boolean` | Whether to include meta information about the position of extracted keys in the source code. |
 
 #### Returns
 
@@ -57,9 +63,15 @@ ___
 
 ### getCompiledTranslationsDumpAsCJSExport
 
-▸ **getCompiledTranslationsDumpAsCJSExport**(): `string`
+▸ **getCompiledTranslationsDumpAsCJSExport**(`includeMeta?`): `string`
 
 Returns an ECMAScript6 code representation of the compiled translations as CommonJS module.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `includeMeta?` | `boolean` | Whether to include meta information about the position of extracted keys in the source code. |
 
 #### Returns
 
@@ -73,9 +85,15 @@ ___
 
 ### getCompiledTranslationsDumpAsESMExport
 
-▸ **getCompiledTranslationsDumpAsESMExport**(): `string`
+▸ **getCompiledTranslationsDumpAsESMExport**(`includeMeta?`): `string`
 
 Returns an ECMAScript6 code representation of the compiled translations as ECMAScript6 module.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `includeMeta?` | `boolean` | Whether to include meta information about the position of extracted keys in the source code. |
 
 #### Returns
 
@@ -123,16 +141,26 @@ ___
 
 ### parse
 
-▸ **parse**(`code`, `source?`): [`Generator`](Generator.md)
+▸ **parse**(`code`, `source?`, `accumulate?`): [`Generator`](Generator.md)
 
 Parses the given source code extracting translation keys and saves them in the current context.
 
+By default, calling parse() multiple times for the same source will replace previously extracted keys. This is
+useful when you want to iteratively parse the same file as it changes for example. If you want to accumulate
+keys instead, for example when streaming source code, you can pass `true` as the third argument.
+
+Keep in mind that in this case the meta information about the position of extracted keys in the source code
+will be incorrect as it will be based on each call to parse(), rather an accumulated view of the source code.
+
+If `source` is not set, `parse` will accumulate keys regardless of the value of `accumulate`.
+
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `code` | `string` | The source code to be parsed. |
-| `source?` | `string` | Optional origin of the source code, usually a path to the source file. |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `code` | `string` | `undefined` | The source code to be parsed. |
+| `source?` | `string` | `undefined` | Optional origin of the source code, usually a path to the source file. |
+| `accumulate` | `boolean` | `false` | Whether to accumulate parsed keys with existing ones for the same source. |
 
 #### Returns
 

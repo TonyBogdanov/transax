@@ -20,13 +20,8 @@ describe( 'Generator', () => {
 
         // @ts-ignore
         test( 'sample', () => expect( new Generator().parse( code ).keys ).toStrictEqual( {
-            key: [
-                '[inline code]::1:4',
-                '[inline code]::1:26',
-            ],
-            new_line: [
-                '[inline code]::2:7',
-            ],
+            key: [ '[inline code]::1:4', '[inline code]::1:26' ],
+            new_line: [ '[inline code]::2:7' ],
         } ) );
 
         test( 'empty', async () => {
@@ -37,14 +32,33 @@ describe( 'Generator', () => {
         test( 'sample', async () => {
             // @ts-ignore
             expect( new Generator().parse( await promises.readFile( sample, 'utf-8' ), sample ).keys ).toStrictEqual( {
-                key: [
-                    'test/fixture/file.vue::3:12',
-                    'test/fixture/file.vue::3:34',
-                ],
-                new_line: [
-                    'test/fixture/file.vue::4:15',
-                ],
+                key: [ 'test/fixture/file.vue::3:12', 'test/fixture/file.vue::3:34' ],
+                new_line: [ 'test/fixture/file.vue::4:15' ],
             } );
+        } );
+
+        test( 'always accumulate without source', () => {
+            // @ts-ignore
+            expect( new Generator().parse( compileInput1 ).parse( compileInput2 ).keys ).toStrictEqual( {
+                foo: [ '[inline code]::1:4' ],
+                bar: [ '[inline code]::1:4' ],
+            } );
+        } );
+
+        test( 'do not accumulate for the same file', () => {
+            // @ts-ignore
+            expect( new Generator().parse( compileInput1, 'a.js' ).parse( compileInput2, 'a.js' ).keys ).toStrictEqual( {
+                bar: [ 'a.js::1:4' ],
+            } );
+        } );
+
+        test( 'accumulate for the same file if explicitly specified', () => {
+            // @ts-ignore
+            expect( new Generator().parse( compileInput1, 'a.js', true ).parse( compileInput2, 'a.js', true ).keys )
+                .toStrictEqual( {
+                    foo: [ 'a.js::1:4' ],
+                    bar: [ 'a.js::1:4' ],
+                } );
         } );
     } );
 
@@ -78,7 +92,7 @@ describe( 'Generator', () => {
         const options = { translations: { en: { foo: 'bar' }, de: { bar: 'baz' } } };
 
         const a = `{{ $t( "foo" ) }}`;
-        test( a, async () => {
+        test( a, () => {
             expect( new Generator( options ).parse( a ).getMissingTranslationKeys() ).toStrictEqual( {
                 en: [],
                 de: [ 'foo' ],
@@ -86,7 +100,7 @@ describe( 'Generator', () => {
         } );
 
         const b = `{{ $t( "missing" ) }}`;
-        test( b, async () => {
+        test( b, () => {
             expect( new Generator( options ).parse( b ).getMissingTranslationKeys() ).toStrictEqual( {
                 en: [ 'missing' ],
                 de: [ 'missing' ],
@@ -98,7 +112,7 @@ describe( 'Generator', () => {
         const options = { translations: { en: { foo: 'bar' }, de: { bar: 'baz' } } };
 
         const a = `{{ $t( "foo" ) }}`;
-        test( a, async () => {
+        test( a, () => {
             expect( new Generator( options ).parse( a ).getUnusedTranslationKeys() ).toStrictEqual( {
                 en: [],
                 de: [ 'bar' ],
@@ -106,7 +120,7 @@ describe( 'Generator', () => {
         } );
 
         const b = `{{ $t( "missing" ) }}`;
-        test( b, async () => {
+        test( b, () => {
             expect( new Generator( options ).parse( b ).getUnusedTranslationKeys() ).toStrictEqual( {
                 en: [ 'foo' ],
                 de: [ 'bar' ],
@@ -115,20 +129,36 @@ describe( 'Generator', () => {
     } );
 
     describe( 'getCompiledTranslationsDump()', () => {
-        test( compileInput1, async () => expect( new Generator( compileOptions ).parse( compileInput1 )
+        test( compileInput1, () => expect( new Generator( compileOptions ).parse( compileInput1 )
             .getCompiledTranslationsDump() ).toStrictEqual( compileOutput1 ) );
 
-        test( compileInput2, async () => expect( new Generator( compileOptions ).parse( compileInput2 )
+        test( compileInput2, () => expect( new Generator( compileOptions ).parse( compileInput2 )
             .getCompiledTranslationsDump() ).toStrictEqual( compileOutput2 ) );
+
+        test( 'with meta information', () => expect( new Generator( compileOptions )
+            .parse( compileInput1, 'a.js' ).parse( compileInput2, 'b.js' ).parse( compileInput1, 'c.js' )
+            .getCompiledTranslationsDump( true ) ).toStrictEqual(
+                '{\n' +
+                '    en: {\n' +
+                '        // a.js::1:4\n' +
+                '        // c.js::1:4\n' +
+                '        foo: ({bar})=>"foo "+bar,\n' +
+                '    },\n' +
+                '    de: {\n' +
+                '        // b.js::1:4\n' +
+                '        bar: (_,{baz})=>"baz "+baz,\n' +
+                '    },\n' +
+                '}',
+            ) );
     } );
 
     describe( 'getCompiledTranslationsDumpAsCJSExport()', () => {
-        test( compileInput1, async () => expect( new Generator( compileOptions ).parse( compileInput1 )
-            .getCompiledTranslationsDumpAsCJSExport() ).toStrictEqual( `module.exports = ${compileOutput1};\n` ) );
+        test( compileInput1, () => expect( new Generator( compileOptions ).parse( compileInput1 )
+            .getCompiledTranslationsDumpAsCJSExport() ).toStrictEqual( `module.exports = ${ compileOutput1 };\n` ) );
     } );
 
     describe( 'getCompiledTranslationsDumpAsESMExport()', () => {
-        test( compileInput1, async () => expect( new Generator( compileOptions ).parse( compileInput1 )
-            .getCompiledTranslationsDumpAsESMExport() ).toStrictEqual( `export default ${compileOutput1};\n` ) );
+        test( compileInput1, () => expect( new Generator( compileOptions ).parse( compileInput1 )
+            .getCompiledTranslationsDumpAsESMExport() ).toStrictEqual( `export default ${ compileOutput1 };\n` ) );
     } );
 } );

@@ -9,10 +9,20 @@ export default interface GeneratorInterface {
     /**
      * Parses the given source code extracting translation keys and saves them in the current context.
      *
+     * By default, calling parse() multiple times for the same source will replace previously extracted keys. This is
+     * useful when you want to iteratively parse the same file as it changes for example. If you want to accumulate
+     * keys instead, for example when streaming source code, you can pass `true` as the third argument.
+     *
+     * Keep in mind that in this case the meta information about the position of extracted keys in the source code
+     * will be incorrect as it will be based on each call to parse(), rather an accumulated view of the source code.
+     *
+     * If `source` is not set, `parse` will accumulate keys regardless of the value of `accumulate`.
+     *
      * @param code The source code to be parsed.
      * @param source Optional origin of the source code, usually a path to the source file.
+     * @param accumulate Whether to accumulate parsed keys with existing ones for the same source.
      */
-    parse( code: string, source?: string ): this;
+    parse( code: string, source?: string, accumulate?: boolean ): this;
 
     /**
      * Adds or replaces the current translation dictionary for the specified locale.
@@ -43,17 +53,23 @@ export default interface GeneratorInterface {
 
     /**
      * Returns an ECMAScript6 code representation of the compiled translations.
+     *
+     * @param includeMeta Whether to include meta information about the position of extracted keys in the source code.
      */
-    getCompiledTranslationsDump(): string;
+    getCompiledTranslationsDump( includeMeta?: boolean ): string;
 
     /**
      * Returns an ECMAScript6 code representation of the compiled translations as CommonJS module.
+     *
+     * @param includeMeta Whether to include meta information about the position of extracted keys in the source code.
      */
-    getCompiledTranslationsDumpAsCJSExport(): string;
+    getCompiledTranslationsDumpAsCJSExport( includeMeta?: boolean ): string;
 
     /**
      * Returns an ECMAScript6 code representation of the compiled translations as ECMAScript6 module.
+     *
+     * @param includeMeta Whether to include meta information about the position of extracted keys in the source code.
      */
-    getCompiledTranslationsDumpAsESMExport(): string;
+    getCompiledTranslationsDumpAsESMExport( includeMeta?: boolean ): string;
 
 }

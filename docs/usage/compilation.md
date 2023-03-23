@@ -61,5 +61,25 @@ In this format the [Translator](../api/classes/Translator.md) can now look up an
 replacing expressions with their final values without the additional overhead of parsing your dictionary each time.
 
 ::: tip
-Check the full specification here: [TranslationCompiledDictionary](../api/#translationcompileddictionary).
+Pass `true` as first argument to:
+ - `getCompiledTranslationsDumpAsESMExport()`
+ - `getCompiledTranslationsDumpAsCJSExport()` or
+ - `getCompiledTranslationsDump()`
+
+to make the generated code contain comments with information about where each key was extracted from.
+:::
+
+## Accumulation
+By default, when calling `parse` multiple times with the same value for `source`, all previously exported keys for
+that source will be removed prior to extracting new ones. This can be useful when you want to continuously parse a
+file and update the compiled dictionary as the file contents change.
+
+On the other hand you might need to (for example) stream the source code of a file and call `parse` multiple times, but
+accumulate extracted keys instead. To do this, pass `true` as the third argument to `parse`.
+
+::: warning
+Keep in mind that `parse` only analyzes the passed source code during each call, which means that meta information about
+extracted keys in accumulation code will be incorrect and should be ignored.
+
+If `source` is omitted, `parse` will work in accumulation mode regardless of the value of `accumulate`.
 :::
