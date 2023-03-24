@@ -28,6 +28,12 @@ describe( 'Compiler', () => {
         runTokenize( '{{ null }}', [ new LiteralCompilerToken( null, 'null', 1, 4 ) ] );
         runTokenize( '{{ NULL }}', [ new LiteralCompilerToken( null, 'NULL', 1, 4 ) ] );
 
+        // literal: boolean
+        runTokenize( '{{ true }}', [ new LiteralCompilerToken( true, 'true', 1, 4 ) ] );
+        runTokenize( '{{ TRUE }}', [ new LiteralCompilerToken( true, 'TRUE', 1, 4 ) ] );
+        runTokenize( '{{ false }}', [ new LiteralCompilerToken( false, 'false', 1, 4 ) ] );
+        runTokenize( '{{ FALSE }}', [ new LiteralCompilerToken( false, 'FALSE', 1, 4 ) ] );
+
         // literal: integer
         runTokenize( '{{ 0 }}', [ new LiteralCompilerToken( 0, '0', 1, 4 ) ] );
         runTokenize( '{{ 123 }}', [ new LiteralCompilerToken( 123, '123', 1, 4 ) ] );
@@ -83,6 +89,12 @@ describe( 'Compiler', () => {
         // literal: null
         runCompile( '{{ null }}', `()=>""` );
         runCompile( '{{ NULL }}', `()=>""` );
+
+        // literal: boolean
+        runCompile( '{{ true }}', `()=>""` );
+        runCompile( '{{ TRUE }}', `()=>""` );
+        runCompile( '{{ false }}', `()=>""` );
+        runCompile( '{{ FALSE }}', `()=>""` );
 
         // literal: integer
         runCompile( '{{ 0 }}', `()=>""+0` );

@@ -39,7 +39,7 @@ Creates a new instance.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `value` | `string` \| `number` | The value of the literal. |
+| `value` | `string` \| `number` \| `boolean` | The value of the literal. |
 | `text` | `string` | The full text (content) of the expression. |
 | `line` | `number` | The line number of the expression within the translation message. |
 | `column` | `number` | The column number of the expression within the translation message. |
@@ -88,7 +88,7 @@ ___
 
 ### value
 
-• `Readonly` **value**: `string` \| `number`
+• `Readonly` **value**: `string` \| `number` \| `boolean`
 
 ## Methods
 

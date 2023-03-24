@@ -9,7 +9,7 @@ Token
     = '{{' _ a:( Literal / Expression ) _ '}}' { return a }
 
 Literal
-    = a:( _Null / _String / _Float / _Integer ) { return new LiteralCompilerToken( a, text(), location().start.line, location().start.column ) }
+    = a:( _Null / _Boolean / _String / _Float / _Integer ) { return new LiteralCompilerToken( a, text(), location().start.line, location().start.column ) }
 
 Expression
     = a:Identifier b:( ObjectAccess / ArrayAccess )* { return new ExpressionCompilerToken( a, b, text(), location().start.line, location().start.column ) }
@@ -32,6 +32,12 @@ _Symbol
 _Null
     = 'null' { return null }
     / 'NULL' { return null }
+
+_Boolean
+    = 'true' { return true }
+    / 'TRUE' { return true }
+    / 'false' { return false }
+    / 'FALSE' { return false }
 
 _Integer
     = '0' { return 0 }

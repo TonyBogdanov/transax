@@ -69,9 +69,9 @@ export default class Compiler implements CompilerInterface {
             values.push( value );
         }
 
-        // optimize: replace 'null' entries with empty strings
+        // optimize: replace 'null', 'true' and 'false' entries with empty strings
         for ( let i = 0; i < values.length; i++ ) {
-            if ( 'null' === values[ i ] ) {
+            if ( [ 'null', 'true', 'false' ].includes( values[ i ] ) ) {
                 values[ i ] = '""';
             }
         }

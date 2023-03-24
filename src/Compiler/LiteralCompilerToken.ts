@@ -8,7 +8,7 @@ import CompilerContext from './CompilerContext';
  */
 export default class LiteralCompilerToken extends AbstractCompilerToken {
 
-    readonly value: null | string | number;
+    readonly value: null | boolean | string | number;
 
     /**
      * Creates a new instance.
@@ -18,7 +18,7 @@ export default class LiteralCompilerToken extends AbstractCompilerToken {
      * @param line The line number of the expression within the translation message.
      * @param column The column number of the expression within the translation message.
      */
-    constructor( value: null | string | number, text: string, line: number, column: number ) {
+    constructor( value: null | boolean | string | number, text: string, line: number, column: number ) {
         super( text, line, column );
         this.value = value;
     }

@@ -20,11 +20,15 @@ Expressions (the thing between the curly braces) must follow strict syntax rules
 entire placeholder will be treated as plain text instead.
 
 ### Literals
-Literals are essentially static values. They can be strings, numbers or `null`.
+Literals are essentially static values. They can be booleans, strings, numbers or `null`.
 
 Example:
 
 ```
+{{ true }}
+{{ TRUE }}
+{{ false }}
+{{ FALSE }}
 {{ 123 }}
 {{ -123 }}
 {{ 1.23 }}
