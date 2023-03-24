@@ -1,7 +1,7 @@
 # Class: ArrayAccessCompilerToken
 
-Represents an array access expression usually following an identifier, literal or another array / object
-access expression.
+Represents an array access expression usually following an identifier, literal, array / object access or
+invocation expression.
 
 Example: `[2][1]`.
 

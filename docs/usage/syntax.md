@@ -23,7 +23,6 @@ entire placeholder will be treated as plain text instead.
 Literals are essentially static values. They can be booleans, strings, numbers or `null`.
 
 Example:
-
 ```
 {{ true }}
 {{ TRUE }}
@@ -45,12 +44,11 @@ Example:
 Identifiers are names used to access translation parameters or globals.
 
 They must be at least 1 symbol long and can contain latin letters (`a-z` & `A-Z`), numbers (`0-9`), underscores (`_`)
-and dollar signs (`$`). They cannot start with a number.
+and a dollar signs (`$`). They cannot start with a number.
 
 To reference a global instead of a parameter, prepend the identifier with `@`.
 
 Example:
-
 ```
 {{ foo }}
 {{ foo_bar }}
@@ -67,12 +65,12 @@ Example:
 You can use array accessors to access array elements by their index.
 
 The general syntax is an opening square bracket `[` followed by an expression specifying the index, followed by a
-closing square bracket `]`. The expression must evaluate to a number, but can be any valid expression.
+closing square bracket `]`. The expression should evaluate to a number, but can be any valid expression.
 
-Array accessors must follow an identifier or another array / object accessor, which will be used as the array to access.
+Array accessors must follow an identifier, array / object accessor or an invocation, which will be used as the array
+to access.
 
 Example:
-
 ```
 {{ value[ 12 ] }}
 {{ value[ another_value ] }}
@@ -85,12 +83,28 @@ You can use object accessors to access object elements by their property name.
 
 The general syntax is a dot `.` followed by a property name complying to the syntax rules of [identifiers](#identifiers).
 
-Object accessors must follow an identifier or another array / object accessor, which will be used as the object
+Object accessors must follow an identifier, array / object accessor or an invocation, which will be used as the object
 whose property you want to access.
 
 Example:
-
 ```
 {{ value.foo }}
 {{ value.foo.bar }}
+```
+
+### Invocations
+You can use invocations to call functions or methods.
+
+The general syntax is an opening parenthesis `(` followed by a comma separated list of expressions, followed by a
+closing parenthesis `)`.
+
+Invocations must follow an identifier, array / object accessor or another invocation, which will be used as the function
+or method to call.
+
+Example:
+```
+{{ foo() }}
+{{ foo( 123 ) }}
+{{ foo( 1 )( 2 ) }}
+{{ foo( null, true, 123, .45, "test", bar( baz[0], baf.test() ) ) }}
 ```

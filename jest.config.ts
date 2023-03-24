@@ -5,6 +5,8 @@ const config: Config = {
     verbose: true,
     silent: false,
     preset: 'ts-jest',
+    coverageDirectory: 'coverage',
+    coverageReporters: [ 'json-summary', 'lcov', 'text' ],
     testEnvironment: 'node',
 };
 

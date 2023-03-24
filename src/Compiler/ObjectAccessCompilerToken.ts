@@ -2,7 +2,8 @@ import AbstractCompilerToken from './AbstractCompilerToken';
 import CompilerContext from './CompilerContext';
 
 /**
- * Represents an object access expression usually following an identifier or another array / object access expression.
+ * Represents an object access expression usually following an identifier, array / object access or invocation
+ * expression.
  *
  * Example: `.bar.baz`.
  */

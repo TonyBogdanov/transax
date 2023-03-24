@@ -13,6 +13,7 @@
 - [ExpressionCompilerToken](classes/ExpressionCompilerToken.md)
 - [Generator](classes/Generator.md)
 - [IdentifierCompilerToken](classes/IdentifierCompilerToken.md)
+- [InvocationCompilerToken](classes/InvocationCompilerToken.md)
 - [LiteralCompilerToken](classes/LiteralCompilerToken.md)
 - [Logger](classes/Logger.md)
 - [ObjectAccessCompilerToken](classes/ObjectAccessCompilerToken.md)

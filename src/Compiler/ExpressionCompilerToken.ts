@@ -2,17 +2,19 @@ import AbstractCompilerToken from './AbstractCompilerToken';
 import IdentifierCompilerToken from './IdentifierCompilerToken';
 import ArrayAccessCompilerToken from './ArrayAccessCompilerToken';
 import ObjectAccessCompilerToken from './ObjectAccessCompilerToken';
+import InvocationCompilerToken from './InvocationCompilerToken';
 import CompilerContext from './CompilerContext';
 
 /**
- * Represents a dynamic value expression as an identifier optionally following by a chain of array / object accessors.
+ * Represents a dynamic value expression as an identifier optionally following by a chain of
+ * array / object accessors or invocations.
  *
- * Example: `foo.bar[0].baz`.
+ * Example: `foo.bar[0].baz( 123, true )`.
  */
 export default class ExpressionCompilerToken extends AbstractCompilerToken {
 
     readonly identifier: IdentifierCompilerToken;
-    readonly resolvers: Array<ObjectAccessCompilerToken | ArrayAccessCompilerToken>;
+    readonly resolvers: Array<ObjectAccessCompilerToken | ArrayAccessCompilerToken | InvocationCompilerToken>;
 
     /**
      * Creates a new instance.
@@ -25,7 +27,7 @@ export default class ExpressionCompilerToken extends AbstractCompilerToken {
      */
     constructor(
         identifier: IdentifierCompilerToken,
-        resolvers: Array<ObjectAccessCompilerToken | ArrayAccessCompilerToken>,
+        resolvers: Array<ObjectAccessCompilerToken | ArrayAccessCompilerToken | InvocationCompilerToken>,
         text: string,
         line: number,
         column: number,

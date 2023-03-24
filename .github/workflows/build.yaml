@@ -23,8 +23,8 @@ jobs:
       - name: Setup
         run: npm i
 
-      - name: Run tests
-        run: npm run test
+      - name: Run tests with coverage
+        run: npm run build:coverage
 
       - name: Build docs
         run: npm run build:docs

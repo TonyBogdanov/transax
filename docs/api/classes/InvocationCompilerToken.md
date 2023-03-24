@@ -1,38 +1,38 @@
-# Class: ObjectAccessCompilerToken
+# Class: InvocationCompilerToken
 
-Represents an object access expression usually following an identifier, array / object access or invocation
-expression.
+Represents an invocation expression, usually following an identifier, literal, array / object access or
+invocation expression.
 
-Example: `.bar.baz`.
+Example: `foo( 123 )( 456 )`.
 
 ## Hierarchy
 
 - [`AbstractCompilerToken`](AbstractCompilerToken.md)
 
-  ↳ **`ObjectAccessCompilerToken`**
+  ↳ **`InvocationCompilerToken`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](ObjectAccessCompilerToken.md#constructor)
+- [constructor](InvocationCompilerToken.md#constructor)
 
 ### Properties
 
-- [column](ObjectAccessCompilerToken.md#column)
-- [key](ObjectAccessCompilerToken.md#key)
-- [line](ObjectAccessCompilerToken.md#line)
-- [text](ObjectAccessCompilerToken.md#text)
+- [column](InvocationCompilerToken.md#column)
+- [exprs](InvocationCompilerToken.md#exprs)
+- [line](InvocationCompilerToken.md#line)
+- [text](InvocationCompilerToken.md#text)
 
 ### Methods
 
-- [compile](ObjectAccessCompilerToken.md#compile)
+- [compile](InvocationCompilerToken.md#compile)
 
 ## Constructors
 
 ### constructor
 
-• **new ObjectAccessCompilerToken**(`key`, `text`, `line`, `column`)
+• **new InvocationCompilerToken**(`exprs`, `text`, `line`, `column`)
 
 Creates a new instance.
 
@@ -40,7 +40,7 @@ Creates a new instance.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `key` | `string` | The key to access. |
+| `exprs` | ([`LiteralCompilerToken`](LiteralCompilerToken.md) \| [`ExpressionCompilerToken`](ExpressionCompilerToken.md))[] | A list of expressions to be used as invocation arguments. |
 | `text` | `string` | The full text (content) of the expression. |
 | `line` | `number` | The line number of the expression within the translation message. |
 | `column` | `number` | The column number of the expression within the translation message. |
@@ -63,9 +63,9 @@ The column number of the expression within the translation message.
 
 ___
 
-### key
+### exprs
 
-• `Readonly` **key**: `string`
+• `Readonly` **exprs**: ([`LiteralCompilerToken`](LiteralCompilerToken.md) \| [`ExpressionCompilerToken`](ExpressionCompilerToken.md))[]
 
 ___
 

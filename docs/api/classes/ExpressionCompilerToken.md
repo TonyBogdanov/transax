@@ -1,8 +1,9 @@
 # Class: ExpressionCompilerToken
 
-Represents a dynamic value expression as an identifier optionally following by a chain of array / object accessors.
+Represents a dynamic value expression as an identifier optionally following by a chain of
+array / object accessors or invocations.
 
-Example: `foo.bar[0].baz`.
+Example: `foo.bar[0].baz( 123, true )`.
 
 ## Hierarchy
 
@@ -41,7 +42,7 @@ Creates a new instance.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `identifier` | [`IdentifierCompilerToken`](IdentifierCompilerToken.md) | An identifier expression as the root value of the expression. |
-| `resolvers` | ([`ArrayAccessCompilerToken`](ArrayAccessCompilerToken.md) \| [`ObjectAccessCompilerToken`](ObjectAccessCompilerToken.md))[] | An optional array of array / object accessors. |
+| `resolvers` | ([`ArrayAccessCompilerToken`](ArrayAccessCompilerToken.md) \| [`ObjectAccessCompilerToken`](ObjectAccessCompilerToken.md) \| [`InvocationCompilerToken`](InvocationCompilerToken.md))[] | An optional array of array / object accessors. |
 | `text` | `string` | The full text (content) of the expression. |
 | `line` | `number` | The line number of the expression within the translation message. |
 | `column` | `number` | The column number of the expression within the translation message. |
@@ -84,7 +85,7 @@ ___
 
 ### resolvers
 
-• `Readonly` **resolvers**: ([`ArrayAccessCompilerToken`](ArrayAccessCompilerToken.md) \| [`ObjectAccessCompilerToken`](ObjectAccessCompilerToken.md))[]
+• `Readonly` **resolvers**: ([`ArrayAccessCompilerToken`](ArrayAccessCompilerToken.md) \| [`ObjectAccessCompilerToken`](ObjectAccessCompilerToken.md) \| [`InvocationCompilerToken`](InvocationCompilerToken.md))[]
 
 ___
 

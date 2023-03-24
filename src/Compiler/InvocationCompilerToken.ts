@@ -4,33 +4,33 @@ import LiteralCompilerToken from './LiteralCompilerToken';
 import ExpressionCompilerToken from './ExpressionCompilerToken';
 
 /**
- * Represents an array access expression usually following an identifier, literal, array / object access or
+ * Represents an invocation expression, usually following an identifier, literal, array / object access or
  * invocation expression.
  *
- * Example: `[2][1]`.
+ * Example: `foo( 123 )( 456 )`.
  */
-export default class ArrayAccessCompilerToken extends AbstractCompilerToken {
+export default class InvocationCompilerToken extends AbstractCompilerToken {
 
-    readonly expr: LiteralCompilerToken | ExpressionCompilerToken;
+    readonly exprs: ( LiteralCompilerToken | ExpressionCompilerToken )[];
 
     /**
      * Creates a new instance.
      *
-     * @param expr The expression to be used as the array index.
+     * @param exprs A list of expressions to be used as invocation arguments.
      * @param text The full text (content) of the expression.
      * @param line The line number of the expression within the translation message.
      * @param column The column number of the expression within the translation message.
      */
-    constructor( expr: LiteralCompilerToken | ExpressionCompilerToken, text: string, line: number, column: number ) {
+    constructor( exprs: ( LiteralCompilerToken | ExpressionCompilerToken )[], text: string, line: number, column: number ) {
         super( text, line, column );
-        this.expr = expr;
+        this.exprs = exprs;
     }
 
     /**
      * @inheritDoc
      */
     compile( context: CompilerContext ): string {
-        return '[' + this.expr.compile( context ) + ']';
+        return '(' + this.exprs.map( expr => expr.compile( context ) ).join( ',' ) + ')';
     }
 
 }

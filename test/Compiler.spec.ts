@@ -8,6 +8,7 @@ import ExpressionCompilerToken from '../src/Compiler/ExpressionCompilerToken';
 import IdentifierCompilerToken from '../src/Compiler/IdentifierCompilerToken';
 import ObjectAccessCompilerToken from '../src/Compiler/ObjectAccessCompilerToken';
 import ArrayAccessCompilerToken from '../src/Compiler/ArrayAccessCompilerToken';
+import InvocationCompilerToken from '../src/Compiler/InvocationCompilerToken';
 
 function runTokenize( code: string, expectedTokens: AbstractCompilerToken[] = [] ): void {
     test( code, () => expect( new Compiler().tokenize( code ) ).toStrictEqual( expectedTokens ) );
@@ -78,6 +79,55 @@ describe( 'Compiler', () => {
                 ], '@baz.inner', 1, 25 ), '[ @baz.inner ]', 1, 23 ),
             ], `foo[0]['bar'].mixed[ @baz.inner ]`, 1, 4 ),
         ] );
+
+        // expression: invocation
+        runTokenize( `{{ foo() }}`, [
+            new ExpressionCompilerToken( new IdentifierCompilerToken( 'foo', false, 'foo', 1, 4 ), [
+                new InvocationCompilerToken( [], '()', 1, 7 ),
+            ], 'foo()', 1, 4 ),
+        ] );
+
+        runTokenize( `{{ foo( 123 ) }}`, [
+            new ExpressionCompilerToken( new IdentifierCompilerToken( 'foo', false, 'foo', 1, 4 ), [
+                new InvocationCompilerToken( [
+                    new LiteralCompilerToken( 123, '123', 1, 9 ),
+                ], '( 123 )', 1, 7 ),
+            ], 'foo( 123 )', 1, 4 ),
+        ] );
+
+        runTokenize( `{{ foo( 1 )( 2 ) }}`, [
+            new ExpressionCompilerToken( new IdentifierCompilerToken( 'foo', false, 'foo', 1, 4 ), [
+                new InvocationCompilerToken( [
+                    new LiteralCompilerToken( 1, '1', 1, 9 ),
+                ], '( 1 )', 1, 7 ),
+                new InvocationCompilerToken( [
+                    new LiteralCompilerToken( 2, '2', 1, 14 ),
+                ], '( 2 )', 1, 12 ),
+            ], 'foo( 1 )( 2 )', 1, 4 ),
+        ] );
+
+        runTokenize( `{{ foo( null, true, 123, .45, "test", bar( baz[0], baf.test() ) ) }}`, [
+            new ExpressionCompilerToken( new IdentifierCompilerToken( 'foo', false, 'foo', 1, 4 ), [
+                new InvocationCompilerToken( [
+                    new LiteralCompilerToken( null, 'null', 1, 9 ),
+                    new LiteralCompilerToken( true, 'true', 1, 15 ),
+                    new LiteralCompilerToken( 123, '123', 1, 21 ),
+                    new LiteralCompilerToken( .45, '.45', 1, 26 ),
+                    new LiteralCompilerToken( 'test', `"test"`, 1, 31 ),
+                    new ExpressionCompilerToken( new IdentifierCompilerToken( 'bar', false, 'bar', 1, 39 ), [
+                        new InvocationCompilerToken( [
+                            new ExpressionCompilerToken( new IdentifierCompilerToken( 'baz', false, 'baz', 1, 44 ), [
+                                new ArrayAccessCompilerToken( new LiteralCompilerToken( 0, '0', 1, 48 ), '[0]', 1, 47 ),
+                            ], 'baz[0]', 1, 44 ),
+                            new ExpressionCompilerToken( new IdentifierCompilerToken( 'baf', false, 'baf', 1, 52 ), [
+                                new ObjectAccessCompilerToken( 'test', '.test', 1, 55 ),
+                                new InvocationCompilerToken( [], '()', 1, 60 ),
+                            ], 'baf.test()', 1, 52 ),
+                        ], '( baz[0], baf.test() )', 1, 42 ),
+                    ], 'bar( baz[0], baf.test() )', 1, 39 ),
+                ], '( null, true, 123, .45, "test", bar( baz[0], baf.test() ) )', 1, 7 ),
+            ], 'foo( null, true, 123, .45, "test", bar( baz[0], baf.test() ) )', 1, 4 ),
+        ] );
     } );
 
     describe( 'compile()', () => {
@@ -128,5 +178,12 @@ describe( 'Compiler', () => {
 
         // expression: array access
         runCompile( `{{ foo[0]['bar'].mixed[ @baz.inner ] }}`, `({foo},{baz})=>""+foo[0]["bar"].mixed[baz.inner]` );
+
+        // expression: invocation
+        runCompile( '{{ foo() }}', `({foo})=>""+foo()` );
+        runCompile( '{{ foo( 123 ) }}', `({foo})=>""+foo(123)` );
+        runCompile( '{{ foo( 1 )( 2 ) }}', `({foo})=>""+foo(1)(2)` );
+        runCompile( '{{ foo( null, true, 123, .45, "test", bar( baz[0], baf.test() ) ) }}',
+            `({foo,bar,baz,baf})=>""+foo(null,true,123,0.45,"test",bar(baz[0],baf.test()))` );
     } );
 } );

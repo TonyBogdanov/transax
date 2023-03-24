@@ -16,6 +16,8 @@ An abstract class representing a single evaluable expression within translation 
 
   ↳ [`ObjectAccessCompilerToken`](ObjectAccessCompilerToken.md)
 
+  ↳ [`InvocationCompilerToken`](InvocationCompilerToken.md)
+
   ↳ [`ExpressionCompilerToken`](ExpressionCompilerToken.md)
 
 ## Table of contents
