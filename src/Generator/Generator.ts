@@ -133,7 +133,14 @@ export default class Generator implements GeneratorInterface {
             result += `    ${ quote( locale ) }: {\n`;
 
             for ( const key of Object.keys( this.keys ).filter( key => translations.hasOwnProperty( key ) ) ) {
-                includeMeta && this.keys[ key ].forEach( source => result += `        // ${ source }\n` );
+                if ( includeMeta ) {
+                    if ( '{\n' !== result.slice( -2 ) ) {
+                        result += '\n';
+                    }
+
+                    this.keys[ key ].forEach( source => result += `        // ${ source }\n` );
+                }
+
                 result += `        ${ quote( key ) }: ${ this.options.compiler.compile( translations[ key ] ) },\n`;
             }
 
