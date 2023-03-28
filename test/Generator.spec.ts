@@ -155,10 +155,60 @@ describe( 'Generator', () => {
     describe( 'getCompiledTranslationsDumpAsCJSExport()', () => {
         test( compileInput1, () => expect( new Generator( compileOptions ).parse( compileInput1 )
             .getCompiledTranslationsDumpAsCJSExport() ).toStrictEqual( `module.exports = ${ compileOutput1 };\n` ) );
+
+        test( 'deduplication', () => expect(
+            new Generator( {
+                translations: {
+                    en: { foo: 'bar', bar: 'baz', baz: 'baz' },
+                    de: { foo: 'de_bar', bar: 'de_baz', baz: 'baz' },
+                },
+            } )
+            .parse( `{{ $t( 'foo' ) }} + {{ $t( 'bar' ) }} + {{ $t( 'baz' ) }}` )
+            .getCompiledTranslationsDumpAsCJSExport() ).toStrictEqual(
+                'const _q = ()=>"baz";\n\n' +
+                'module.exports = {\n' +
+                '    en: {\n' +
+                '        foo: ()=>\"bar\",\n' +
+                '        bar: _q,\n' +
+                '        baz: _q,\n' +
+                '    },\n' +
+                '    de: {\n' +
+                '        foo: ()=>\"de_bar\",\n' +
+                '        bar: ()=>\"de_baz\",\n' +
+                '        baz: _q,\n' +
+                '    },\n' +
+                '};\n',
+            ),
+        );
     } );
 
     describe( 'getCompiledTranslationsDumpAsESMExport()', () => {
         test( compileInput1, () => expect( new Generator( compileOptions ).parse( compileInput1 )
             .getCompiledTranslationsDumpAsESMExport() ).toStrictEqual( `export default ${ compileOutput1 };\n` ) );
+
+        test( 'deduplication', () => expect(
+                new Generator( {
+                    translations: {
+                        en: { foo: 'bar', bar: 'baz', baz: 'baz' },
+                        de: { foo: 'de_bar', bar: 'de_baz', baz: 'baz' },
+                    },
+                } )
+                    .parse( `{{ $t( 'foo' ) }} + {{ $t( 'bar' ) }} + {{ $t( 'baz' ) }}` )
+                    .getCompiledTranslationsDumpAsESMExport() ).toStrictEqual(
+                'const _q = ()=>"baz";\n\n' +
+                'export default {\n' +
+                '    en: {\n' +
+                '        foo: ()=>\"bar\",\n' +
+                '        bar: _q,\n' +
+                '        baz: _q,\n' +
+                '    },\n' +
+                '    de: {\n' +
+                '        foo: ()=>\"de_bar\",\n' +
+                '        bar: ()=>\"de_baz\",\n' +
+                '        baz: _q,\n' +
+                '    },\n' +
+                '};\n',
+            ),
+        );
     } );
 } );

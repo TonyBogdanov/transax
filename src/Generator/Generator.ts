@@ -38,6 +38,31 @@ export default class Generator implements GeneratorInterface {
     private readonly options: Options;
     private readonly keys: Record<string, string[]> = {};
 
+    private getDeduplicationDump( deduplicate: string[] ): string {
+        if ( 0 === Object.keys( deduplicate ).length ) {
+            return '';
+        }
+
+        let result = 'const ';
+        for ( let i = 0; i < deduplicate.length; i++ ) {
+            result += ( 0 < i ? '      ' : '' ) + this.getDeduplicationVar( i ) + ' = ' + deduplicate[ i ] + ',\n';
+        }
+
+        return result.substring( 0, result.length - 2 ) + ';\n\n';
+    }
+
+    private getDeduplicationVar( index: number ): string {
+        const baseChars = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+        let result = '';
+
+        do {
+            result = baseChars[ index % 52 ] + result;
+            index = Math.floor( index / 52 );
+        } while ( index > 0 );
+
+        return '_' + result;
+    }
+
     /**
      * Creates a new instance.
      *
@@ -124,15 +149,53 @@ export default class Generator implements GeneratorInterface {
     /**
      * @inheritDoc
      */
-    getCompiledTranslationsDump( includeMeta?: boolean ): string {
+    getCompiledTranslationsDump( includeMeta?: boolean, deduplicate?: string[] ): string {
+        const trackMap: Record<string, number> = {};
+        let filtered = Object.fromEntries( Object.keys( this.options.translations ).map( locale => {
+            const translations = this.options.translations[ locale ];
+            const result: Record<string, string> = {};
+
+            for ( const key of Object.keys( this.keys ).filter( key => translations.hasOwnProperty( key ) ) ) {
+                const dump = this.options.compiler.compile( translations[ key ] );
+                result[ key ] = dump;
+
+                if ( !deduplicate ) {
+                    continue;
+                }
+
+                if ( !trackMap.hasOwnProperty( dump ) ) {
+                    trackMap[ dump ] = 0;
+                }
+
+                trackMap[ dump ]++;
+            }
+
+            return [ locale, result ];
+        } ) );
+
+        if ( deduplicate ) {
+            // we use push instead of assignment, because we want the caller to be able to see the values
+            deduplicate.push( ...Object.keys( trackMap ).filter( dump => 1 < trackMap[ dump ] ) );
+
+            for ( const [ locale, translations ] of Object.entries( filtered ) ) {
+                for ( const [ key, value ] of Object.entries( translations ) ) {
+                    const index = deduplicate.indexOf( value );
+                    if ( -1 === index ) {
+                        continue;
+                    }
+
+                    filtered[ locale ][ key ] = this.getDeduplicationVar( index );
+                }
+            }
+        }
+
         const quote = ( v: string ) => v.match( /^[a-z_$][a-z0-9_$]*$/i ) ? v : JSON.stringify( v );
         let result = `{\n`;
 
-        for ( const locale of Object.keys( this.options.translations ) ) {
-            const translations = this.options.translations[ locale ];
+        for ( const [ locale, translations ] of Object.entries( filtered ) ) {
             result += `    ${ quote( locale ) }: {\n`;
 
-            for ( const key of Object.keys( this.keys ).filter( key => translations.hasOwnProperty( key ) ) ) {
+            for ( const [ key, value ] of Object.entries( translations ) ) {
                 if ( includeMeta ) {
                     if ( '{\n' !== result.slice( -2 ) ) {
                         result += '\n';
@@ -141,7 +204,7 @@ export default class Generator implements GeneratorInterface {
                     this.keys[ key ].forEach( source => result += `        // ${ source }\n` );
                 }
 
-                result += `        ${ quote( key ) }: ${ this.options.compiler.compile( translations[ key ] ) },\n`;
+                result += `        ${ quote( key ) }: ${ value },\n`;
             }
 
             result += `    },\n`;
@@ -154,13 +217,19 @@ export default class Generator implements GeneratorInterface {
      * @inheritDoc
      */
     getCompiledTranslationsDumpAsCJSExport( includeMeta?: boolean ): string {
-        return `module.exports = ${ this.getCompiledTranslationsDump( includeMeta ) };\n`;
+        const dedup: string[] = [];
+        const dump = `module.exports = ${ this.getCompiledTranslationsDump( includeMeta, dedup ) };\n`;
+
+        return this.getDeduplicationDump( dedup ) + dump;
     }
 
     /**
      * @inheritDoc
      */
     getCompiledTranslationsDumpAsESMExport( includeMeta?: boolean ): string {
-        return `export default ${ this.getCompiledTranslationsDump( includeMeta ) };\n`;
+        const dedup: string[] = [];
+        const dump = `export default ${ this.getCompiledTranslationsDump( includeMeta, dedup ) };\n`;
+
+        return this.getDeduplicationDump( dedup ) + dump;
     }
 }

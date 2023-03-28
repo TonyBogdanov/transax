@@ -1,9 +1,10 @@
 {
   "name": "transax",
-  "version": "2.0.0-alpha.13",
+  "version": "2.0.0-alpha.14",
   "description": "Framework-agnostic JavaScript library for content internationalization.",
   "type": "module",
   "scripts": {
+    "gen": "npm run gen:parsers && npm run gen:modules && npm run gen:typedoc",
     "gen:parsers": "esrun bin/build-parsers.ts",
     "gen:modules": "esrun bin/build-modules.ts",
     "gen:typedoc": "typedoc",

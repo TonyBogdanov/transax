@@ -54,9 +54,13 @@ export default interface GeneratorInterface {
     /**
      * Returns an ECMAScript6 code representation of the compiled translations.
      *
+     * If deduplicationMap is provided, the resulting code will be compressed to use variables for repeating entries.
+     * In this case, the deduplicationMap will be populated with the corresponding repeating values.
+     *
      * @param includeMeta Whether to include meta information about the position of extracted keys in the source code.
+     * @param deduplicationMap Optional hashmap to store deduplicated keys.
      */
-    getCompiledTranslationsDump( includeMeta?: boolean ): string;
+    getCompiledTranslationsDump( includeMeta?: boolean, deduplicationMap?: string[] ): string;
 
     /**
      * Returns an ECMAScript6 code representation of the compiled translations as CommonJS module.

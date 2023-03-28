@@ -41,15 +41,19 @@ Creates a new instance.
 
 ### getCompiledTranslationsDump
 
-▸ **getCompiledTranslationsDump**(`includeMeta?`): `string`
+▸ **getCompiledTranslationsDump**(`includeMeta?`, `deduplicate?`): `string`
 
 Returns an ECMAScript6 code representation of the compiled translations.
+
+If deduplicationMap is provided, the resulting code will be compressed to use variables for repeating entries.
+In this case, the deduplicationMap will be populated with the corresponding repeating values.
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `includeMeta?` | `boolean` | Whether to include meta information about the position of extracted keys in the source code. |
+| `deduplicate?` | `string`[] | Optional hashmap to store deduplicated keys. |
 
 #### Returns
 
