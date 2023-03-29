@@ -1,6 +1,6 @@
 {
   "name": "transax",
-  "version": "2.0.0-alpha.15",
+  "version": "2.0.0-alpha.16",
   "description": "Framework-agnostic JavaScript library for content internationalization.",
   "type": "module",
   "typedocMain": "./index.ts",

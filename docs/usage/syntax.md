@@ -40,6 +40,19 @@ Example:
 {{ NULL }}
 ```
 
+::: tip
+Quotes in strings using the same type of quote can be escaped with a backslash `\`:
+```
+{{ "this is a \"string\"" }}
+{{ 'this is a \'string\'' }}
+{{ `this is a \`string\`` }}
+```
+
+You can also escape backslashes:
+```
+{{ "this is a backslash: \\" }}
+:::
+
 ### Identifiers
 Identifiers are names used to access translation parameters or globals.
 

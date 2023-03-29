@@ -57,6 +57,7 @@ describe( 'Compiler', () => {
         runTokenize( `{{ 'is \\'escaped\\'' }}`, [ new LiteralCompilerToken( `is 'escaped'`, `'is \\'escaped\\''`, 1, 4 ) ] );
         runTokenize( `{{ "is \\"escaped\\"" }}`, [ new LiteralCompilerToken( `is "escaped"`, `"is \\"escaped\\""`, 1, 4 ) ] );
         runTokenize( '{{ `is \\`escaped\\`` }}', [ new LiteralCompilerToken( 'is `escaped`', '`is \\`escaped\\``', 1, 4 ) ] );
+        runTokenize( '{{ "a backslash: \\\\" }}', [ new LiteralCompilerToken( 'a backslash: \\', '"a backslash: \\\\"', 1, 4 ) ] );
 
         // expression: identifier
         runTokenize( '{{ foo }}', [ new ExpressionCompilerToken( new IdentifierCompilerToken( 'foo', false, 'foo', 1, 4 ), [], 'foo', 1, 4 ) ] );
@@ -168,6 +169,7 @@ describe( 'Compiler', () => {
         runCompile( `{{ 'is \\'escaped\\'' }}`, `()=>"is 'escaped'"` );
         runCompile( `{{ "is \\"escaped\\"" }}`, `()=>"is \\"escaped\\""` );
         runCompile( '{{ `is \\`escaped\\`` }}', `()=>"is \`escaped\`"` );
+        runCompile( '{{ "a backslash: \\\\" }}', `()=>"a backslash: \\\\"` );
 
         // expression: identifier
         runCompile( '{{ foo }}', `({foo})=>""+foo` );
