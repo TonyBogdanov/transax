@@ -3,11 +3,11 @@ import { promises } from 'fs';
 
 import Generator from '../src/Generator/Generator';
 
-const compileOptions = { translations: { en: { foo: 'foo {{ bar }}' }, de: { bar: 'baz {{ @baz }}' } } };
+const compileOptions = { translations: { en: { foo: 'foo {{ bar }}', bar: 'bar' }, de: { bar: 'baz {{ @baz }}' } } };
 const compileInput1 = `{{ $t( "foo" ) }}`;
 const compileInput2 = `{{ $t( "bar" ) }}`;
 const compileOutput1 = `{\n    en: {\n        foo: ({bar})=>"foo "+bar,\n    },\n    de: {\n    },\n}`;
-const compileOutput2 = `{\n    en: {\n    },\n    de: {\n        bar: (_,{baz})=>"baz "+baz,\n    },\n}`;
+const compileOutput2 = `{\n    en: {\n        bar: ()=>"bar",\n    },\n    de: {\n        bar: (_,{baz})=>"baz "+baz,\n    },\n}`;
 
 describe( 'Generator', () => {
     describe( 'parse()', () => {
@@ -143,6 +143,9 @@ describe( 'Generator', () => {
                 '        // a.js::1:4\n' +
                 '        // c.js::1:4\n' +
                 '        foo: ({bar})=>"foo "+bar,\n' +
+                '\n' +
+                '        // b.js::1:4\n' +
+                '        bar: ()=>"bar",\n' +
                 '    },\n' +
                 '    de: {\n' +
                 '        // b.js::1:4\n' +

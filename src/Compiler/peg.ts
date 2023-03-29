@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import TextCompilerToken from './TextCompilerToken';
 import LiteralCompilerToken from './LiteralCompilerToken';
 import ExpressionCompilerToken from './ExpressionCompilerToken';

@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import AnalyzerToken from './AnalyzerToken';
 
 /* peg:start */

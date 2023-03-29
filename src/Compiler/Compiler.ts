@@ -61,12 +61,7 @@ export default class Compiler implements CompilerInterface {
         const values = [ '""' ];
 
         for ( const token of this.tokenize( value ) ) {
-            const value = token.compile( context );
-            if ( '' === value ) {
-                continue;
-            }
-
-            values.push( value );
+            values.push( token.compile( context ) );
         }
 
         // optimize: replace 'null', 'true' and 'false' entries with empty strings

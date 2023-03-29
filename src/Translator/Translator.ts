@@ -51,11 +51,9 @@ export default class Translator implements TranslatorInterface {
                     );
                 }
 
-                this.options.logger.verbose( `Key "${ key }" does not exist in the catalog for locale: "${
-                    context.locale }", resorting to fallback locale.` );
+                this.options.logger.verbose( `Key "${ key }" does not exist in the catalog for locale: "${ context.locale }", resorting to fallback locale.` );
             } else {
-                this.options.logger.verbose( `Locale: "${
-                    context.locale }" does not exist in the catalog, resorting to fallback locale.` );
+                this.options.logger.verbose( `Locale: "${ context.locale }" does not exist in the catalog, resorting to fallback locale.` );
             }
         } else {
             this.options.logger.verbose( `Locale is not specified, resorting to fallback locale.` );
@@ -70,11 +68,9 @@ export default class Translator implements TranslatorInterface {
                     );
                 }
 
-                this.options.logger.log( `Key: "${ key }" does not exist in the catalog for fallback locale: "${
-                    this.options.fallbackLocale }".` );
+                this.options.logger.log( `Key: "${ key }" does not exist in the catalog for fallback locale: "${ this.options.fallbackLocale }".` );
             } else {
-                this.options.logger.log( `Fallback locale: "${
-                    this.options.fallbackLocale }" does not exist in the catalog.` );
+                this.options.logger.log( `Fallback locale: "${ this.options.fallbackLocale }" does not exist in the catalog.` );
             }
         } else {
             this.options.logger.log( `Fallback locale is not specified.` );
