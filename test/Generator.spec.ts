@@ -7,7 +7,7 @@ const compileOptions = { translations: { en: { foo: 'foo {{ bar }}', bar: 'bar' 
 const compileInput1 = `{{ $t( "foo" ) }}`;
 const compileInput2 = `{{ $t( "bar" ) }}`;
 const compileOutput1 = `{\n    en: {\n        foo: ({bar})=>"foo "+bar,\n    },\n    de: {\n    },\n}`;
-const compileOutput2 = `{\n    en: {\n        bar: ()=>"bar",\n    },\n    de: {\n        bar: (_,{baz})=>"baz "+baz,\n    },\n}`;
+const compileOutput2 = `{\n    en: {\n        bar: "bar",\n    },\n    de: {\n        bar: (_,{baz})=>"baz "+baz,\n    },\n}`;
 
 describe( 'Generator', () => {
     describe( 'parse()', () => {
@@ -145,7 +145,7 @@ describe( 'Generator', () => {
                 '        foo: ({bar})=>"foo "+bar,\n' +
                 '\n' +
                 '        // b.js::1:4\n' +
-                '        bar: ()=>"bar",\n' +
+                '        bar: "bar",\n' +
                 '    },\n' +
                 '    de: {\n' +
                 '        // b.js::1:4\n' +
@@ -168,16 +168,16 @@ describe( 'Generator', () => {
             } )
             .parse( `{{ $t( 'foo' ) }} + {{ $t( 'bar' ) }} + {{ $t( 'baz' ) }}` )
             .getCompiledTranslationsDumpAsCJSExport() ).toStrictEqual(
-                'const _q = ()=>"baz";\n\n' +
+                'const _q = "baz";\n\n' +
                 'module.exports = {\n' +
                 '    en: {\n' +
-                '        foo: ()=>\"bar\",\n' +
+                '        foo: \"bar\",\n' +
                 '        bar: _q,\n' +
                 '        baz: _q,\n' +
                 '    },\n' +
                 '    de: {\n' +
-                '        foo: ()=>\"de_bar\",\n' +
-                '        bar: ()=>\"de_baz\",\n' +
+                '        foo: \"de_bar\",\n' +
+                '        bar: \"de_baz\",\n' +
                 '        baz: _q,\n' +
                 '    },\n' +
                 '};\n',
@@ -198,16 +198,16 @@ describe( 'Generator', () => {
                 } )
                     .parse( `{{ $t( 'foo' ) }} + {{ $t( 'bar' ) }} + {{ $t( 'baz' ) }}` )
                     .getCompiledTranslationsDumpAsESMExport() ).toStrictEqual(
-                'const _q = ()=>"baz";\n\n' +
+                'const _q = "baz";\n\n' +
                 'export default {\n' +
                 '    en: {\n' +
-                '        foo: ()=>\"bar\",\n' +
+                '        foo: \"bar\",\n' +
                 '        bar: _q,\n' +
                 '        baz: _q,\n' +
                 '    },\n' +
                 '    de: {\n' +
-                '        foo: ()=>\"de_bar\",\n' +
-                '        bar: ()=>\"de_baz\",\n' +
+                '        foo: \"de_bar\",\n' +
+                '        bar: \"de_baz\",\n' +
                 '        baz: _q,\n' +
                 '    },\n' +
                 '};\n',

@@ -94,6 +94,11 @@ export default class Compiler implements CompilerInterface {
             args += `,{${ context.globals.join( ',' ) }}`;
         }
 
+        // optimize: use literal strings instead of function if there are no arguments
+        if ( '' === args ) {
+            return values.join( '+' );
+        }
+
         return `(${ args })=>${ values.join( '+' ) }`;
     }
 

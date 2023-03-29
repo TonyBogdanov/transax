@@ -14,7 +14,7 @@ function runTest(
         const compiler = new Compiler();
         const fn = eval( compiler.compile( code ) );
 
-        expect( fn( params, globals ) ).toBe( expectedOutput );
+        expect( 'string' === typeof fn ? fn : fn( params, globals ) ).toBe( expectedOutput );
     } );
 }
 

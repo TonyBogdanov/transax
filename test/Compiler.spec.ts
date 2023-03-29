@@ -133,43 +133,43 @@ describe( 'Compiler', () => {
 
     describe( 'compile()', () => {
         // text tokens
-        runCompile( '', `()=>""` );
-        runCompile( 'foo', `()=>"foo"` );
-        runCompile( '{invalid} {{token} {here}}', `()=>"{invalid} {{token} {here}}"` );
+        runCompile( '', `""` );
+        runCompile( 'foo', `"foo"` );
+        runCompile( '{invalid} {{token} {here}}', `"{invalid} {{token} {here}}"` );
 
         // literal: null
-        runCompile( '{{ null }}', `()=>""` );
-        runCompile( '{{ NULL }}', `()=>""` );
+        runCompile( '{{ null }}', `""` );
+        runCompile( '{{ NULL }}', `""` );
 
         // literal: boolean
-        runCompile( '{{ true }}', `()=>""` );
-        runCompile( '{{ TRUE }}', `()=>""` );
-        runCompile( '{{ false }}', `()=>""` );
-        runCompile( '{{ FALSE }}', `()=>""` );
+        runCompile( '{{ true }}', `""` );
+        runCompile( '{{ TRUE }}', `""` );
+        runCompile( '{{ false }}', `""` );
+        runCompile( '{{ FALSE }}', `""` );
 
         // literal: integer
-        runCompile( '{{ 0 }}', `()=>""+0` );
-        runCompile( '{{ 123 }}', `()=>""+123` );
-        runCompile( '{{ -123 }}', `()=>""+-123` );
+        runCompile( '{{ 0 }}', `""+0` );
+        runCompile( '{{ 123 }}', `""+123` );
+        runCompile( '{{ -123 }}', `""+-123` );
 
         // literal: float
-        runCompile( '{{ 0.0 }}', `()=>""+0` );
-        runCompile( '{{ .0 }}', `()=>""+0` );
-        runCompile( '{{ 0.123 }}', `()=>""+0.123` );
-        runCompile( '{{ .123 }}', `()=>""+0.123` );
-        runCompile( '{{ -0.123 }}', `()=>""+-0.123` );
-        runCompile( '{{ -.123 }}', `()=>""+-0.123` );
-        runCompile( '{{ 1.23000 }}', `()=>""+1.23` );
-        runCompile( '{{ -1.23000 }}', `()=>""+-1.23` );
+        runCompile( '{{ 0.0 }}', `""+0` );
+        runCompile( '{{ .0 }}', `""+0` );
+        runCompile( '{{ 0.123 }}', `""+0.123` );
+        runCompile( '{{ .123 }}', `""+0.123` );
+        runCompile( '{{ -0.123 }}', `""+-0.123` );
+        runCompile( '{{ -.123 }}', `""+-0.123` );
+        runCompile( '{{ 1.23000 }}', `""+1.23` );
+        runCompile( '{{ -1.23000 }}', `""+-1.23` );
 
         // literal: string
-        runCompile( `{{ '' }}`, `()=>""` );
-        runCompile( `{{ "" }}`, `()=>""` );
-        runCompile( '{{ `` }}', `()=>""` );
-        runCompile( `{{ 'is \\'escaped\\'' }}`, `()=>"is 'escaped'"` );
-        runCompile( `{{ "is \\"escaped\\"" }}`, `()=>"is \\"escaped\\""` );
-        runCompile( '{{ `is \\`escaped\\`` }}', `()=>"is \`escaped\`"` );
-        runCompile( '{{ "a backslash: \\\\" }}', `()=>"a backslash: \\\\"` );
+        runCompile( `{{ '' }}`, `""` );
+        runCompile( `{{ "" }}`, `""` );
+        runCompile( '{{ `` }}', `""` );
+        runCompile( `{{ 'is \\'escaped\\'' }}`, `"is 'escaped'"` );
+        runCompile( `{{ "is \\"escaped\\"" }}`, `"is \\"escaped\\""` );
+        runCompile( '{{ `is \\`escaped\\`` }}', `"is \`escaped\`"` );
+        runCompile( '{{ "a backslash: \\\\" }}', `"a backslash: \\\\"` );
 
         // expression: identifier
         runCompile( '{{ foo }}', `({foo})=>""+foo` );

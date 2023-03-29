@@ -102,24 +102,9 @@ ___
 
 ### CompiledValue
 
-Ƭ **CompiledValue**: (`params`: [`ContextParams`](README.md#contextparams), `globals`: [`ContextGlobals`](README.md#contextglobals)) => `string`
-
-#### Type declaration
-
-▸ (`params`, `globals`): `string`
+Ƭ **CompiledValue**: (`params`: [`ContextParams`](README.md#contextparams), `globals`: [`ContextGlobals`](README.md#contextglobals)) => `string` \| `string`
 
 A compiled version of a [Value](README.md#value).
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `params` | [`ContextParams`](README.md#contextparams) |
-| `globals` | [`ContextGlobals`](README.md#contextglobals) |
-
-##### Returns
-
-`string`
 
 ___
 
