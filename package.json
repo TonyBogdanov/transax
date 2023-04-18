@@ -8,7 +8,7 @@
     "gen:parsers": "esrun bin/build-parsers.ts",
     "gen:modules": "esrun bin/build-modules.ts",
     "gen:typedoc": "typedoc",
-    "build:coverage": "rm -rf coverage && node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.ts --collect-coverage && make-coverage-badge",
+    "build:coverage": "rm -rf coverage && node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.ts --collect-coverage && make-coverage-badge && sed -i 's/Coverage/coverage/g' coverage/badge.svg",
     "build:docs": "NODE_OPTIONS=--openssl-legacy-provider vuepress build docs && cp -r coverage/lcov-report docs/.vuepress/dist/coverage && cp coverage/badge.svg docs/.vuepress/dist/coverage",
     "run:docs": "typedoc && NODE_OPTIONS=--openssl-legacy-provider vuepress dev docs",
     "run:test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch --config jest.config.ts"

@@ -1,7 +1,6 @@
 # Installation
 
-`transax` is distributed as a [Node.js](https://nodejs.org) package available on
-[npm](https://www.npmjs.com/package/transax).
+`transax` is distributed as a *zero-dependency* package hosted on [npmjs.com](https://www.npmjs.com/package/transax).
 
 ## npm
 Install it using the [npm](https://www.npmjs.com) package manager:

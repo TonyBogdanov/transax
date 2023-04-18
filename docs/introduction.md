@@ -1,28 +1,34 @@
 # Introduction
 [![release](https://img.shields.io/npm/v/transax.svg)](https://www.npmjs.com/package/transax)
+[![license](https://img.shields.io/github/license/tonybogdanov/transax)](https://github.com/TonyBogdanov/transax/blob/master/LICENSE)
 [![test](https://github.com/tonybogdanov/transax/actions/workflows/build.yaml/badge.svg)](https://github.com/tonybogdanov/transax/actions/workflows/build.yaml)
 [![coverage](https://tonybogdanov.github.io/transax/coverage/badge.svg)](https://tonybogdanov.github.io/transax/coverage)
 
 `transax` is a JavaScript/TypeScript library for content internationalization & localization.
 
-## Features
-- **Framework-agnostic** &ndash; Pure JavaScript solution, so it can be used with any framework or library.
-- **Flexible** &ndash; Written in [TypeScript](https://www.typescriptlang.org), also works with both
-  [CommonJS](https://nodejs.org/api/modules.html) and [ESM](https://nodejs.org/api/esm.html).
+## Framework-agnostic
+The project is a pure [JavaScript](https://www.javascript.com) solution, so it can be used directly, or integrated
+with virtually any framework or library.
 
-[//]: # (- **Extensible** &ndash; Bundled plugins for [React]&#40;https://reactjs.org&#41; and [Vue]&#40;https://vuejs.org&#41;.)
+## Flavor-agnostic
+Due to its simplicity `transax` is able to recognize and extract keys from any JS-like syntax, including
+[JSX](https://legacy.reactjs.org/docs/introducing-jsx.html),
+[TSX](https://www.typescriptlang.org/docs/handbook/jsx.html), [Vue SFCs](https://vuejs.org/guide/scaling-up/sfc.html)
+and maybe even future flavors.
 
-[//]: # (- **Bundleable** &ndash; Bundled plugins for [Webpack]&#40;https://webpack.js.org&#41;, [Rollup]&#40;https://rollupjs.org&#41;,)
-
-[//]: # (  [Vite]&#40;https://vitejs.dev&#41; and [Browserify]&#40;http://browserify.org&#41;.)
-
-[//]: # (- **CLI** &ndash; Powerful, yet easy to use command-line interface.)
+## Flexible
+Originally written in [TypeScript](https://www.typescriptlang.org), the package comes bundled with transpiled
+[JavaScript](https://www.javascript.com) versions for both [CommonJS](https://nodejs.org/api/modules.html) and
+[ESM](https://nodejs.org/api/esm.html) uses.
 
 ## Analysis
-This phase will analyze your source code and look for calls to a global function `$t` with a translation key as the
-first argument. Information about each matching call can then be used to perform analysis on your project, such as
-generating a list of used, unused and untranslated keys.
+Able to analyze your code and look for translation calls, `transax` will then report back with untranslated and
+obsolete keys.
+
+## Compilation
+Once created your translation dictionary is compiled to a highly optimized and highly performant
+[JavaScript](https://www.javascript.com) object, ready to be used in production.
 
 ## Translation
-In this phase you load a dictionary of keys & their translations for each locale you want to support. The translator
-can then be called (via the `$t` global function) to translate a key into your chosen locale.
+At runtime, `transax` uses the compiled dictionary to translate keys into the desired language, performing powerful
+[string interpolation](https://en.wikipedia.org/wiki/String_interpolation) & formatting of passed data.

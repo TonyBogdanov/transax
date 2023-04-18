@@ -7,10 +7,10 @@ actionText: Get Started →
 features:
 - title: Framework-agnostic
   details: Pure JavaScript solution, so it can be used with any framework or library.
-- title: Extensible
-  details: Easy to extend with built-in support for React and Vue.
-- title: CLI
-  details: Powerful, yet easy to use command-line interface.
+- title: Flexible
+  details: Written in TypeScript, transpiled to both CommonJS and ESM.
+- title: Modular
+  details: Mix and match components for a highly customized solution.
 ---
 
 ::: slot footer
