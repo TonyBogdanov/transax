@@ -1,0 +1,1 @@
+import AbstractCompilerToken from"./AbstractCompilerToken";export default class OperatorCompilerToken extends AbstractCompilerToken{constructor(e,o,r,t){super(o,r,t),this.operation=e}compile(e){throw new Error("Method not implemented.")}}

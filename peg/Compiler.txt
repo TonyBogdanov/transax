@@ -6,10 +6,7 @@ Text
     = a:_Symbol { return new TextCompilerToken( text(), location().start.line, location().start.column ) }
 
 Token
-    = '{{' _ a:( Literal / Expression ) _ '}}' { return a }
-
-Literal
-    = a:( _Null / _Boolean / _String / _Float / _Integer ) { return new LiteralCompilerToken( a, text(), location().start.line, location().start.column ) }
+    = '{{' _ a:( Expression / Literal ) _ '}}' { return a }
 
 Expression
     = a:Identifier b:( ObjectAccess / ArrayAccess / Invocation )* { return new ExpressionCompilerToken( a, b, text(), location().start.line, location().start.column ) }
@@ -21,10 +18,13 @@ ObjectAccess
     = _ '.' _ a:_Identifier { return new ObjectAccessCompilerToken( a, text(), location().start.line, location().start.column ) }
 
 ArrayAccess
-    = _ '[' _ a:( Literal / Expression ) _ ']' { return new ArrayAccessCompilerToken( a, text(), location().start.line, location().start.column ) }
+    = _ '[' _ a:( Expression / Literal ) _ ']' { return new ArrayAccessCompilerToken( a, text(), location().start.line, location().start.column ) }
 
 Invocation
     = _ '(' _ a:_ArgumentList? _ ')' { return new InvocationCompilerToken( a ?? [], text(), location().start.line, location().start.column ) }
+
+Literal
+    = a:( _Null / _Boolean / _String / _Float / _Integer ) { return new LiteralCompilerToken( a, text(), location().start.line, location().start.column ) }
 
 _
     = [ \t\r\n]*
@@ -56,10 +56,10 @@ _String
     / "`" a:( ! "${" ( "\\`" / "\\\\" / [^`] ) )* "`" { return a.map( ( [ , v ]: any ) => -1 < [ "\\`", "\\\\" ].indexOf( v ) ? v[1] : v ).join( '' ) }
 
 _Identifier
-    = a:( [a-zA-Z_$] [a-zA-Z0-9_$]* ) { return [ a[0], ... a[1] ].join( '' ) }
+    = !( _Null / _Boolean ) a:( [a-zA-Z_$] [a-zA-Z0-9_$]* ) { return [ a[0], ... a[1] ].join( '' ) }
 
 _ArgumentList
     = a:_Argument b:( _ ',' _ _Argument )* { return [ a, ...b.map( ( [ ,,, v ]: any ) => v ) ] }
 
 _Argument
-    = a:( Literal / Expression ) { return a }
+    = a:( Expression / Literal ) { return a }

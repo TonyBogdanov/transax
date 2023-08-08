@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});const AbstractCompilerToken_1=require("./AbstractCompilerToken");class ComparisonCompilerToken extends AbstractCompilerToken_1.default{constructor(e,o,r,t,s,p){super(t,s,p),this.exprA=e,this.exprB=o,this.operator=r}compile(e){throw new Error("Method not implemented.")}}exports.default=ComparisonCompilerToken;
