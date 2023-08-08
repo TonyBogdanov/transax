@@ -1,7 +1,7 @@
 import fs from 'fs';
-import rimraf from 'rimraf';
 import glob from 'glob';
 import uglify from 'uglify-js';
+import { rimraf } from 'rimraf';
 
 import { resolve, relative } from 'path';
 import { spawn } from 'child_process';

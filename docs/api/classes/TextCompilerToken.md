@@ -32,8 +32,6 @@ Example: `Hello world!`
 
 • **new TextCompilerToken**(`text`, `line`, `column`)
 
-**`Inherit Doc`**
-
 #### Parameters
 
 | Name | Type |
@@ -41,6 +39,8 @@ Example: `Hello world!`
 | `text` | `string` |
 | `line` | `number` |
 | `column` | `number` |
+
+**`Inherit Doc`**
 
 #### Overrides
 
