@@ -1,6 +1,7 @@
+import { LocationRange } from 'peggy';
+
 import CompilerToken from './CompilerToken';
 import CompilerContext from './CompilerContext';
-import { LocationRange } from 'peggy';
 
 /**
  * Represents a call expression accessing an object property.
@@ -61,6 +62,7 @@ export class CallExpressionInvocation {
 
 /**
  * Represents a call expression.
+ *
  * It must be represented by an identifier (local or global) optionally followed by one or more of the following:
  *
  * - Object access: `.` followed by an identifier.

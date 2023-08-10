@@ -1,0 +1,1 @@
+import CompilerToken from"./CompilerToken";export default class BracketSafeExpressionToken extends CompilerToken{constructor(e,r,o){super(r,o),this.expr=e}compile(e){e=this.expr.compile(e);return e.startsWith("(")&&e.endsWith(")")?e:"("+e+")"}}

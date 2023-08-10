@@ -1,0 +1,1 @@
+import CompilerToken from"./CompilerToken";export default class ComparisonExpressionToken extends CompilerToken{constructor(o,e,r,t,i){super(t,i),this.left=o,this.right=e,this.operator=r}compile(o){return"("+this.left.compile(o)+this.operator+this.right.compile(o)+")"}}

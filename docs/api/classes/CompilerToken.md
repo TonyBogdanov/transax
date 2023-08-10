@@ -10,6 +10,10 @@ An abstract class representing a single evaluable expression within translation 
 
   ↳ [`LiteralToken`](LiteralToken.md)
 
+  ↳ [`BracketSafeExpressionToken`](BracketSafeExpressionToken.md)
+
+  ↳ [`ComparisonExpressionToken`](ComparisonExpressionToken.md)
+
   ↳ [`CallExpressionToken`](CallExpressionToken.md)
 
 ## Table of contents

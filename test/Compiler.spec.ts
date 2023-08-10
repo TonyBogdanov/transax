@@ -10,6 +10,7 @@ import CallExpressionToken, {
     CallExpressionInvocation,
     CallExpressionObjectAccess
 } from '../src/Compiler/CallExpressionToken';
+import ComparisonExpressionToken from '../src/Compiler/ComparisonExpressionToken';
 
 function l( line: number, column: number ): LocationRange {
     return { start: { offset: 0, line, column }, end: null, source: null };
@@ -79,6 +80,55 @@ describe( 'Compiler', () => {
         runTokenize( `{{ "is \\"escaped\\"" }}`, [ new LiteralToken( `is "escaped"`, `"is \\"escaped\\""`, l( 1, 4 ) ) ] );
         runTokenize( '{{ `is \\`escaped\\`` }}', [ new LiteralToken( 'is `escaped`', '`is \\`escaped\\``', l( 1, 4 ) ) ] );
         runTokenize( '{{ "a backslash: \\\\" }}', [ new LiteralToken( 'a backslash: \\', '"a backslash: \\\\"', l( 1, 4 ) ) ] );
+
+        // comparison expression
+        runTokenize( '{{ 0 == 1 }}', [ new ComparisonExpressionToken(
+            new LiteralToken( 0, '0', l( 1, 4 ) ),
+            new LiteralToken( 1, '1', l( 1, 9 ) ),
+            '==', '0 == 1', l( 1, 4 ),
+        ) ] );
+
+        runTokenize( '{{ 0 === 1 }}', [ new ComparisonExpressionToken(
+            new LiteralToken( 0, '0', l( 1, 4 ) ),
+            new LiteralToken( 1, '1', l( 1, 10 ) ),
+            '===', '0 === 1', l( 1, 4 ),
+        ) ] );
+
+        runTokenize( '{{ 0 != 1 }}', [ new ComparisonExpressionToken(
+            new LiteralToken( 0, '0', l( 1, 4 ) ),
+            new LiteralToken( 1, '1', l( 1, 9 ) ),
+            '!=', '0 != 1', l( 1, 4 ),
+        ) ] );
+
+        runTokenize( '{{ 0 !== 1 }}', [ new ComparisonExpressionToken(
+            new LiteralToken( 0, '0', l( 1, 4 ) ),
+            new LiteralToken( 1, '1', l( 1, 10 ) ),
+            '!==', '0 !== 1', l( 1, 4 ),
+        ) ] );
+
+        runTokenize( '{{ 0 > 1 }}', [ new ComparisonExpressionToken(
+            new LiteralToken( 0, '0', l( 1, 4 ) ),
+            new LiteralToken( 1, '1', l( 1, 8 ) ),
+            '>', '0 > 1', l( 1, 4 ),
+        ) ] );
+
+        runTokenize( '{{ 0 >= 1 }}', [ new ComparisonExpressionToken(
+            new LiteralToken( 0, '0', l( 1, 4 ) ),
+            new LiteralToken( 1, '1', l( 1, 9 ) ),
+            '>=', '0 >= 1', l( 1, 4 ),
+        ) ] );
+
+        runTokenize( '{{ 0 < 1 }}', [ new ComparisonExpressionToken(
+            new LiteralToken( 0, '0', l( 1, 4 ) ),
+            new LiteralToken( 1, '1', l( 1, 8 ) ),
+            '<', '0 < 1', l( 1, 4 ),
+        ) ] );
+
+        runTokenize( '{{ 0 <= 1 }}', [ new ComparisonExpressionToken(
+            new LiteralToken( 0, '0', l( 1, 4 ) ),
+            new LiteralToken( 1, '1', l( 1, 9 ) ),
+            '<=', '0 <= 1', l( 1, 4 ),
+        ) ] );
 
         // call expression: no tail
         runTokenize( '{{ foo }}', [ new CallExpressionToken( false, 'foo', [], 'foo', l( 1, 4 ) ) ] );
@@ -195,6 +245,17 @@ describe( 'Compiler', () => {
         runCompile( `{{ "is \\"escaped\\"" }}`, `"is \\"escaped\\""` );
         runCompile( '{{ `is \\`escaped\\`` }}', `"is \`escaped\`"` );
         runCompile( '{{ "a backslash: \\\\" }}', `"a backslash: \\\\"` );
+
+        // comparison expression
+        runCompile( '{{ 0 == 1 }}', `""+(0==1)` );
+        runCompile( '{{ 0 === 1 }}', `""+(0===1)` );
+        runCompile( '{{ 0 != 1 }}', `""+(0!=1)` );
+        runCompile( '{{ 0 !== 1 }}', `""+(0!==1)` );
+        runCompile( '{{ 0 < 1 }}', `""+(0<1)` );
+        runCompile( '{{ 0 > 1 }}', `""+(0>1)` );
+        runCompile( '{{ 0 <= 1 }}', `""+(0<=1)` );
+        runCompile( '{{ 0 >= 1 }}', `""+(0>=1)` );
+        runCompile( '{{ ( 0 < ( 1 != 1 ) ) === true }}', `""+((0<(1!=1))===true)` );
 
         // call expression: no tail
         runCompile( '{{ foo }}', `({foo})=>""+foo` );

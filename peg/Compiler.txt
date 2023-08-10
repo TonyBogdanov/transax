@@ -9,14 +9,21 @@ Text
     = . { return new TextToken( text(), location() ) }
 
 Expression
-    = '(' _ a:CallExpression _ ')' { return a }
+    = ComparisonExpression
     / CallExpression
-    / '(' _ a:Literal _ ')' { return a }
     / Literal
 
+BracketSafeExpression
+    = '(' _ a:ComparisonExpression _ ')' { return new BracketSafeExpressionToken( a, text(), location() ) }
+    / CallExpression
+    / Literal
+
+ComparisonExpression
+    = a:BracketSafeExpression _ c:ComparisonOperator _ b:BracketSafeExpression { return new ComparisonExpressionToken( a, b, c, text(), location() ) }
+
 CallExpression
-    = a:'@'? b:IdentifierName c:(
-        _ '.' _ d:IdentifierName { return new CallExpressionObjectAccess( d ) } /
+    = a:'@'? b:Identifier c:(
+        _ '.' _ d:Identifier { return new CallExpressionObjectAccess( d ) } /
         _ '[' _ d:Expression _ ']' { return new CallExpressionArrayAccess( d ) } /
         _ '(' _ d:Arguments? _ ')' { return new CallExpressionInvocation( d ?? [] ) }
       )* { return new CallExpressionToken( '@' === a, b, c, text(), location() ) }
@@ -37,7 +44,7 @@ Literal
 _
     = [ \t\r\n]*
 
-IdentifierName
+Identifier
     = !ReservedWord a:( [a-zA-Z_$] [a-zA-Z0-9_$]* ) { return [ a[0], ... a[1] ].join( '' ) }
 
 Null
@@ -62,6 +69,16 @@ DecimalLiteral
     = [+-]? ( "0" / [1-9] [0-9]* ) "." [0-9]* ( "e"i [+-]? [0-9]+ )? { return parseFloat( text() ) }
     / [+-]? "." [0-9]+ ( "e"i [+-]? [0-9]+ )? { return parseFloat( text() ) }
     / [+-]? ( "0" / [1-9] [0-9]* ) ( "e"i [+-]? [0-9]+ )? { return parseFloat( text() ) }
+
+ComparisonOperator
+    = a:'==' !'=' { return a }
+    / '==='
+    / a:'!=' !'=' { return a }
+    / '!=='
+    / a:'>' !'=' { return a }
+    / '>='
+    / a:'<' !'=' { return a }
+    / '<='
 
 ReservedWord
     = Null

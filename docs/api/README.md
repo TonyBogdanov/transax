@@ -6,10 +6,12 @@
 
 - [Analyzer](classes/Analyzer.md)
 - [AnalyzerToken](classes/AnalyzerToken.md)
+- [BracketSafeExpressionToken](classes/BracketSafeExpressionToken.md)
 - [CallExpressionArrayAccess](classes/CallExpressionArrayAccess.md)
 - [CallExpressionInvocation](classes/CallExpressionInvocation.md)
 - [CallExpressionObjectAccess](classes/CallExpressionObjectAccess.md)
 - [CallExpressionToken](classes/CallExpressionToken.md)
+- [ComparisonExpressionToken](classes/ComparisonExpressionToken.md)
 - [Compiler](classes/Compiler.md)
 - [CompilerContext](classes/CompilerContext.md)
 - [CompilerToken](classes/CompilerToken.md)

@@ -33,6 +33,7 @@ themeConfig:
         - /usage/analysis
         - /usage/compilation
         - /usage/translation
+        - /usage/interpolation
         - /usage/syntax
     - title: Advanced
       path: /advanced
@@ -52,6 +53,8 @@ themeConfig:
         - /api/classes/CompilerToken
         - /api/classes/TextToken
         - /api/classes/LiteralToken
+        - /api/classes/BracketSafeExpressionToken
+        - /api/classes/ComparisonExpressionToken
         - /api/classes/CallExpressionToken
         - /api/classes/Generator
         - /api/classes/Translator

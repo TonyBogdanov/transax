@@ -1,6 +1,7 @@
 # Class: CallExpressionToken
 
 Represents a call expression.
+
 It must be represented by an identifier (local or global) optionally followed by one or more of the following:
 
 - Object access: `.` followed by an identifier.

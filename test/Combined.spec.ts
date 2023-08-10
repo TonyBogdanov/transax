@@ -3,6 +3,7 @@ import { expect } from '@jest/globals';
 import Compiler from '../src/Compiler/Compiler';
 import { ContextParams } from '../src/Type/ContextParams';
 import { ContextGlobals } from '../src/Type/ContextGlobals';
+import LiteralToken from '../src/Compiler/LiteralToken';
 
 function runTest(
     code: string,
@@ -38,7 +39,7 @@ describe( 'Combined', () => {
     runTest( '{{ 0 }}', '0' );
     runTest( '{{ 123 }}', '123' );
     runTest( '{{ -123 }}', '-123' );
-    
+
     // literal: float
     runTest( '{{ 0.0 }}', '0' );
     runTest( '{{ .0 }}', '0' );
@@ -49,6 +50,20 @@ describe( 'Combined', () => {
     runTest( '{{ 1.23000 }}', '1.23' );
     runTest( '{{ -1.23000 }}', '-1.23' );
 
+    // literal: exponent numbers
+    runTest( '{{ 0e1 }}', '0' );
+    runTest( '{{ 1e1 }}', '10' );
+    runTest( '{{ 1e3 }}', '1000' );
+    runTest( '{{ 23e3 }}', '23000' );
+    runTest( '{{ 0e+1 }}', '0' );
+    runTest( '{{ 1e+1 }}', '10' );
+    runTest( '{{ 1e+3 }}', '1000' );
+    runTest( '{{ 23e+3 }}', '23000' );
+    runTest( '{{ 0e-1 }}', '0' );
+    runTest( '{{ 1e-1 }}', '0.1' );
+    runTest( '{{ 1e-3 }}', '0.001' );
+    runTest( '{{ 23e-3 }}', '0.023' );
+
     // literal: string
     runTest( `{{ '' }}`, '' );
     runTest( `{{ "" }}`, '' );
@@ -57,18 +72,29 @@ describe( 'Combined', () => {
     runTest( `{{ "is \\"escaped\\"" }}`, `is "escaped"` );
     runTest( '{{ `is \\`escaped\\`` }}', 'is `escaped`' );
 
-    // expression: identifier
+    // comparison expression
+    runTest( '{{ "1" == 1 }}', 'true' );
+    runTest( '{{ "1" === 1 }}', 'false' );
+    runTest( '{{ "1" != 1 }}', 'false' );
+    runTest( '{{ "1" !== 1 }}', 'true' );
+    runTest( '{{ 0 < 1 }}', 'true' );
+    runTest( '{{ 0 <= 1 }}', 'true' );
+    runTest( '{{ 0 > 1 }}', 'false' );
+    runTest( '{{ 0 >= 1 }}', 'false' );
+    runTest( '{{ ( 0 < ( 1 != 1 ) ) === true }}', 'false' );
+
+    // call expression: no tail
     runTest( '{{ foo }}', 'this is param foo', { foo: 'this is param foo' } );
     runTest( '{{ @foo }}', 'this is global foo', {}, { foo: 'this is global foo' } );
 
-    // expression: object access
+    // call expression: object access
     runTest( '{{ foo.bar.baz }}', 'this is param foo.bar.baz', { foo: { bar: { baz: 'this is param foo.bar.baz' } } } );
 
-    // expression: array access
+    // call expression: array access
     runTest( `{{ foo[0]['bar'].mixed[ @baz.inner ] }}`, 'the prize',
         { foo: [ { bar: { mixed: { the_key: 'the prize' } } } ] }, { baz: { inner: 'the_key' } } );
 
-    // expression: invocation
+    // call expression: invocation
     runTest( '{{ foo() }}', 'this is foo', { foo: () => 'this is foo' } );
     runTest( '{{ foo( 123 ) }}', 'this is foo: 123', { foo: v => 'this is foo: ' + v } );
     runTest( '{{ foo( 1 )( 2 ) }}', 'a:1 + b:2', { foo: a => b => `a:${ a } + b:${ b }` } );

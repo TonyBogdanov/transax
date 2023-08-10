@@ -15,6 +15,8 @@ import Compiler from './src/Compiler/Compiler';
 import CompilerToken from './src/Compiler/CompilerToken';
 import TextToken from './src/Compiler/TextToken';
 import LiteralToken from './src/Compiler/LiteralToken';
+import BracketSafeExpressionToken from './src/Compiler/BracketSafeExpressionToken';
+import ComparisonExpressionToken from './src/Compiler/ComparisonExpressionToken';
 import CallExpressionToken, {
     CallExpressionArrayAccess,
     CallExpressionInvocation,
@@ -60,6 +62,8 @@ export {
     CompilerToken,
     TextToken,
     LiteralToken,
+    BracketSafeExpressionToken,
+    ComparisonExpressionToken,
     CallExpressionToken,
     CallExpressionObjectAccess,
     CallExpressionArrayAccess,
