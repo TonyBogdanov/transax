@@ -9,7 +9,8 @@
     "build:modules": "node bin/build-modules.cjs",
     "build:typedocs": "typedoc --plugin typedoc-plugin-markdown",
     "build:docs": "NODE_OPTIONS=--openssl-legacy-provider vuepress build docs && cp -r coverage/lcov-report docs/.vuepress/dist/coverage && cp coverage/badge.svg docs/.vuepress/dist/coverage",
-    "test": "rm -rf coverage/* && node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.ts --collect-coverage && make-coverage-badge && sed -i 's/Coverage/coverage/g' coverage/badge.svg",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.ts",
+    "test:coverage": "rm -rf coverage/* && node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.ts --collect-coverage && make-coverage-badge && sed -i 's/Coverage/coverage/g' coverage/badge.svg",
     "dev:docs": "NODE_OPTIONS=--openssl-legacy-provider vuepress dev docs",
     "dev:test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.ts --watch"
   },
