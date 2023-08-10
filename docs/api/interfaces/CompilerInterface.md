@@ -35,9 +35,9 @@ ___
 
 ### tokenize
 
-▸ **tokenize**(`value`): [`AbstractCompilerToken`](../classes/AbstractCompilerToken.md)[]
+▸ **tokenize**(`value`): [`CompilerToken`](../classes/CompilerToken.md)[]
 
-Tokenizes the given string converting it into a sequence of [AbstractCompilerToken](../classes/AbstractCompilerToken.md) instances.
+Tokenizes the given string converting it into a sequence of [CompilerToken](../classes/CompilerToken.md) instances.
 
 #### Parameters
 
@@ -47,4 +47,4 @@ Tokenizes the given string converting it into a sequence of [AbstractCompilerTok
 
 #### Returns
 
-[`AbstractCompilerToken`](../classes/AbstractCompilerToken.md)[]
+[`CompilerToken`](../classes/CompilerToken.md)[]

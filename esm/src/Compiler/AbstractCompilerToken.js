@@ -1,1 +1,0 @@
-export default class AbstractCompilerToken{constructor(t,s,e){this.text=t,this.line=s,this.column=e}}

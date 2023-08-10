@@ -1,8 +1,8 @@
 import Logger from '../Logger/Logger';
 import LoggerInterface from '../Logger/LoggerInterface';
 
-import AbstractCompilerToken from './AbstractCompilerToken';
-import TextCompilerToken from './TextCompilerToken';
+import CompilerToken from './CompilerToken';
+import TextToken from './TextToken';
 import CompilerContext from './CompilerContext';
 import CompilerInterface from './CompilerInterface';
 import { CompilerOptions } from './CompilerOptions';
@@ -38,11 +38,11 @@ export default class Compiler implements CompilerInterface {
     /**
      * @inheritDoc
      */
-    tokenize( value: string ): AbstractCompilerToken[] {
-        const result: AbstractCompilerToken[] = [];
+    tokenize( value: string ): CompilerToken[] {
+        const result: CompilerToken[] = [];
         for ( const token of parse( value ) ) {
-            if ( 0 < result.length && token instanceof TextCompilerToken &&
-                result[ result.length - 1 ] instanceof TextCompilerToken ) {
+            if ( 0 < result.length && token instanceof TextToken &&
+                result[ result.length - 1 ] instanceof TextToken ) {
                 result[ result.length - 1 ].text += token.text;
                 continue;
             }

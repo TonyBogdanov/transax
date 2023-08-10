@@ -1,0 +1,1 @@
+export default class CompilerToken{constructor(t,s){this.text=t,this.line=s.start.line,this.column=s.start.column}}

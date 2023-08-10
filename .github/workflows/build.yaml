@@ -37,8 +37,8 @@ jobs:
       - name: Setup project
         run: npm i
 
-      - name: Run tests with coverage
-        run: npm run build:coverage
+      - name: Run tests
+        run: npm run test
 
       - name: Export coverage
         uses: actions/upload-artifact@v3

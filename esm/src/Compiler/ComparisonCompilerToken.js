@@ -1,1 +1,0 @@
-import AbstractCompilerToken from"./AbstractCompilerToken";export default class ComparisonCompilerToken extends AbstractCompilerToken{constructor(e,o,r,t,p,s){super(t,p,s),this.exprA=e,this.exprB=o,this.operator=r}compile(e){throw new Error("Method not implemented.")}}

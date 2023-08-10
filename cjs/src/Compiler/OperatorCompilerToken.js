@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});const AbstractCompilerToken_1=require("./AbstractCompilerToken");class OperatorCompilerToken extends AbstractCompilerToken_1.default{constructor(e,r,o,t){super(r,o,t),this.operation=e}compile(e){throw new Error("Method not implemented.")}}exports.default=OperatorCompilerToken;

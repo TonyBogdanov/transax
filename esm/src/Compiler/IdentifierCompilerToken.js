@@ -1,1 +1,0 @@
-import AbstractCompilerToken from"./AbstractCompilerToken";export default class IdentifierCompilerToken extends AbstractCompilerToken{constructor(e,r,t,o,i){super(t,o,i),this.name=e,this.global=r}compile(e){return this.global?e.requireGlobal(this.name):e.requireParameter(this.name),this.name}}

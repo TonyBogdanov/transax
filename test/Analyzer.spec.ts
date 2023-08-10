@@ -1,8 +1,14 @@
 import { expect, jest } from '@jest/globals';
+import { LocationRange } from 'peggy';
 
 import Analyzer from '../src/Analyzer/Analyzer';
 import AnalyzerToken from '../src/Analyzer/AnalyzerToken';
+
 import { Key } from '../src/Type/Key';
+
+function l( line: number, column: number ): LocationRange {
+    return { start: { offset: 0, line, column }, end: null, source: null };
+}
 
 function run(
     code: string,
@@ -39,41 +45,41 @@ describe( 'Analyzer', () => {
         run( `non-token text` );
 
         // single, double & caret quotes for the key
-        run( `$t( 'key' )`, [ new AnalyzerToken( '$t', 'key', `$t( 'key' )`, 1, 1 ) ] );
-        run( `$t( "key" )`, [ new AnalyzerToken( '$t', 'key', `$t( "key" )`, 1, 1 ) ] );
-        run( '$t( `key` )', [ new AnalyzerToken( '$t', 'key', '$t( `key` )', 1, 1 ) ] );
+        run( `$t( 'key' )`, [ new AnalyzerToken( '$t', 'key', `$t( 'key' )`, l( 1, 1 ) ) ] );
+        run( `$t( "key" )`, [ new AnalyzerToken( '$t', 'key', `$t( "key" )`, l( 1, 1 ) ) ] );
+        run( '$t( `key` )', [ new AnalyzerToken( '$t', 'key', '$t( `key` )', l( 1, 1 ) ) ] );
 
         // single, double & caret quotes for the key with escaped quotes
         run( `$t( 'with \\'escaped\\'' )`, [
-            new AnalyzerToken( '$t', `with 'escaped'`, `$t( 'with \\'escaped\\'' )`, 1, 1 ) ],
+            new AnalyzerToken( '$t', `with 'escaped'`, `$t( 'with \\'escaped\\'' )`, l( 1, 1 ) ) ],
         );
 
         run( `$t( "with \\"escaped\\"" )`, [
-            new AnalyzerToken( '$t', `with "escaped"`, `$t( "with \\"escaped\\"" )`, 1, 1 ),
+            new AnalyzerToken( '$t', `with "escaped"`, `$t( "with \\"escaped\\"" )`, l( 1, 1 ) ),
         ] );
 
         run( '$t( `with \\`escaped\\`` )', [
-            new AnalyzerToken( '$t', 'with `escaped`', '$t( `with \\`escaped\\`` )', 1, 1 ),
+            new AnalyzerToken( '$t', 'with `escaped`', '$t( `with \\`escaped\\`` )', l( 1, 1 ) ),
         ] );
 
         // string interpolation in the key is not supported, but valid tokens within are still detected
         run( 'interpolation: $t( `${ is } not supported` )', [] );
         run( 'interpolation: $t( `is ${ not } supported` )', [] );
         run( 'interpolation: $t( `is supported ${ $t( "nested" ) }` )', [
-            new AnalyzerToken( '$t', 'nested', '$t( "nested" )', 1, 37 ),
+            new AnalyzerToken( '$t', 'nested', '$t( "nested" )', l( 1, 37 ) ),
         ] );
 
         // we can override the default settings as argument to the analyzer constructor
         run( 'now( "valid" )', [
-            new AnalyzerToken( 'now', 'valid', 'now( "valid" )', 1, 1 ),
+            new AnalyzerToken( 'now', 'valid', 'now( "valid" )', l( 1, 1 ) ),
         ], [], { names: [ 'now' ] } );
 
         // surrounding text is not tokenized
-        run( 'prefix.$t( `key` ).suffix', [ new AnalyzerToken( '$t', 'key', '$t( `key` )', 1, 8 ) ] );
+        run( 'prefix.$t( `key` ).suffix', [ new AnalyzerToken( '$t', 'key', '$t( `key` )', l( 1, 8 ) ) ] );
         run( `$t( 'first' )$t( "second", { foo: 'bar' nested: $t( \`baz\`, null ) } )`, [
-            new AnalyzerToken( '$t', 'first', `$t( 'first' )`, 1, 1 ),
-            new AnalyzerToken( '$t', 'second', `$t( "second",`, 1, 14 ),
-            new AnalyzerToken( '$t', 'baz', `$t( \`baz\`,`, 1, 49 ),
+            new AnalyzerToken( '$t', 'first', `$t( 'first' )`, l( 1, 1 ) ),
+            new AnalyzerToken( '$t', 'second', `$t( "second",`, l( 1, 14 ) ),
+            new AnalyzerToken( '$t', 'baz', `$t( \`baz\`,`, l( 1, 49 ) ),
         ] );
 
         // tokens with foreign names are skipped
@@ -87,7 +93,7 @@ describe( 'Analyzer', () => {
             expect( new Analyzer( {
                 keyFormatter: ( key: Key, token: AnalyzerToken ) => token.name + '.' + key.toUpperCase(),
             } ).analyze( `$t( 'key' )` ) ).toStrictEqual( [
-                new AnalyzerToken( '$t', '$t.KEY', `$t( 'key' )`, 1, 1 ),
+                new AnalyzerToken( '$t', '$t.KEY', `$t( 'key' )`, l( 1, 1 ) ),
             ] );
         } );
     } );

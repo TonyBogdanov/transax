@@ -1,1 +1,0 @@
-import AbstractCompilerToken from"./AbstractCompilerToken";export default class ObjectAccessCompilerToken extends AbstractCompilerToken{constructor(e,t,r,o){super(t,r,o),this.key=e}compile(e){return"."+this.key}}

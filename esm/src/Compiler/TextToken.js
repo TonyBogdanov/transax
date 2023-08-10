@@ -1,0 +1,1 @@
+import CompilerToken from"./CompilerToken";export default class TextToken extends CompilerToken{constructor(e,o){super(e,o)}compile(e){return JSON.stringify(this.text)}}

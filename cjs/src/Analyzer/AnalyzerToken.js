@@ -1,1 +1,1 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});class AnalyzerToken{constructor(e,t,s,o,r,i){this.name=e,this.key=t,this.text=s,this.line=o,this.column=r,this.source=i}}exports.default=AnalyzerToken;
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});class AnalyzerToken{constructor(e,t,s,r,n){this.name=e,this.key=t,this.text=s,this.line=r.start.line,this.column=r.start.column,this.source=n}}exports.default=AnalyzerToken;

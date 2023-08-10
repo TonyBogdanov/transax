@@ -12,14 +12,14 @@ import AnalyzerToken from './src/Analyzer/AnalyzerToken';
 import { AnalyzerOptions } from './src/Analyzer/AnalyzerOptions';
 
 import Compiler from './src/Compiler/Compiler';
-import AbstractCompilerToken from './src/Compiler/AbstractCompilerToken';
-import TextCompilerToken from './src/Compiler/TextCompilerToken';
-import LiteralCompilerToken from './src/Compiler/LiteralCompilerToken';
-import IdentifierCompilerToken from './src/Compiler/IdentifierCompilerToken';
-import ArrayAccessCompilerToken from './src/Compiler/ArrayAccessCompilerToken';
-import ObjectAccessCompilerToken from './src/Compiler/ObjectAccessCompilerToken';
-import InvocationCompilerToken from './src/Compiler/InvocationCompilerToken';
-import ExpressionCompilerToken from './src/Compiler/ExpressionCompilerToken';
+import CompilerToken from './src/Compiler/CompilerToken';
+import TextToken from './src/Compiler/TextToken';
+import LiteralToken from './src/Compiler/LiteralToken';
+import CallExpressionToken, {
+    CallExpressionArrayAccess,
+    CallExpressionInvocation,
+    CallExpressionObjectAccess
+} from './src/Compiler/CallExpressionToken';
 import CompilerContext from './src/Compiler/CompilerContext';
 import { CompilerOptions } from './src/Compiler/CompilerOptions';
 
@@ -57,14 +57,13 @@ export {
     AnalyzerOptions,
 
     Compiler,
-    AbstractCompilerToken,
-    TextCompilerToken,
-    LiteralCompilerToken,
-    IdentifierCompilerToken,
-    ArrayAccessCompilerToken,
-    ObjectAccessCompilerToken,
-    InvocationCompilerToken,
-    ExpressionCompilerToken,
+    CompilerToken,
+    TextToken,
+    LiteralToken,
+    CallExpressionToken,
+    CallExpressionObjectAccess,
+    CallExpressionArrayAccess,
+    CallExpressionInvocation,
     CompilerContext,
     CompilerOptions,
 

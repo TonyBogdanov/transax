@@ -1,1 +1,0 @@
-import AbstractCompilerToken from"./AbstractCompilerToken";export default class ArrayAccessCompilerToken extends AbstractCompilerToken{constructor(e,r,o,t){super(r,o,t),this.expr=e}compile(e){return"["+this.expr.compile(e)+"]"}}

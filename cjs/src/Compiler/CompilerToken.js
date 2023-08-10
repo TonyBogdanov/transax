@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});class CompilerToken{constructor(e,t){this.text=e,this.line=t.start.line,this.column=t.start.column}}exports.default=CompilerToken;

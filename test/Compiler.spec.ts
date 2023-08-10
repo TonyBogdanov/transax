@@ -1,16 +1,21 @@
 import { expect } from '@jest/globals';
+import { LocationRange } from 'peggy';
 
 import Compiler from '../src/Compiler/Compiler';
-import AbstractCompilerToken from '../src/Compiler/AbstractCompilerToken';
-import TextCompilerToken from '../src/Compiler/TextCompilerToken';
-import LiteralCompilerToken from '../src/Compiler/LiteralCompilerToken';
-import ExpressionCompilerToken from '../src/Compiler/ExpressionCompilerToken';
-import IdentifierCompilerToken from '../src/Compiler/IdentifierCompilerToken';
-import ObjectAccessCompilerToken from '../src/Compiler/ObjectAccessCompilerToken';
-import ArrayAccessCompilerToken from '../src/Compiler/ArrayAccessCompilerToken';
-import InvocationCompilerToken from '../src/Compiler/InvocationCompilerToken';
+import CompilerToken from '../src/Compiler/CompilerToken';
+import TextToken from '../src/Compiler/TextToken';
+import LiteralToken from '../src/Compiler/LiteralToken';
+import CallExpressionToken, {
+    CallExpressionArrayAccess,
+    CallExpressionInvocation,
+    CallExpressionObjectAccess
+} from '../src/Compiler/CallExpressionToken';
 
-function runTokenize( code: string, expectedTokens: AbstractCompilerToken[] = [] ): void {
+function l( line: number, column: number ): LocationRange {
+    return { start: { offset: 0, line, column }, end: null, source: null };
+}
+
+function runTokenize( code: string, expectedTokens: CompilerToken[] = [] ): void {
     test( code, () => expect( new Compiler().tokenize( code ) ).toStrictEqual( expectedTokens ) );
 }
 
@@ -22,113 +27,119 @@ describe( 'Compiler', () => {
     describe( 'tokenize()', () => {
         // text tokens
         runTokenize( '', [] );
-        runTokenize( 'foo', [ new TextCompilerToken( 'foo', 1, 1 ) ] );
-        runTokenize( '{invalid} {{token} {here}}', [ new TextCompilerToken( '{invalid} {{token} {here}}', 1, 1 ) ] );
+
+        runTokenize( 'foo', [ new TextToken( 'foo', l( 1, 1 ) ) ] );
+        runTokenize( '{invalid} {{token} {here}}', [ new TextToken( '{invalid} {{token} {here}}', l( 1, 1 ) ) ] );
 
         // literal: null
-        runTokenize( '{{ null }}', [ new LiteralCompilerToken( null, 'null', 1, 4 ) ] );
-        runTokenize( '{{ NULL }}', [ new LiteralCompilerToken( null, 'NULL', 1, 4 ) ] );
+        runTokenize( '{{ null }}', [ new LiteralToken( null, 'null', l( 1, 4 ) ) ] );
+        runTokenize( '{{ NULL }}', [ new LiteralToken( null, 'NULL', l( 1, 4 ) ) ] );
 
         // literal: boolean
-        runTokenize( '{{ true }}', [ new LiteralCompilerToken( true, 'true', 1, 4 ) ] );
-        runTokenize( '{{ TRUE }}', [ new LiteralCompilerToken( true, 'TRUE', 1, 4 ) ] );
-        runTokenize( '{{ false }}', [ new LiteralCompilerToken( false, 'false', 1, 4 ) ] );
-        runTokenize( '{{ FALSE }}', [ new LiteralCompilerToken( false, 'FALSE', 1, 4 ) ] );
+        runTokenize( '{{ true }}', [ new LiteralToken( true, 'true', l( 1, 4 ) ) ] );
+        runTokenize( '{{ TRUE }}', [ new LiteralToken( true, 'TRUE', l( 1, 4 ) ) ] );
+        runTokenize( '{{ false }}', [ new LiteralToken( false, 'false', l( 1, 4 ) ) ] );
+        runTokenize( '{{ FALSE }}', [ new LiteralToken( false, 'FALSE', l( 1, 4 ) ) ] );
+        runTokenize( '{{ true }}', [ new LiteralToken( true, 'true', l( 1, 4 ) ) ] );
 
         // literal: integer
-        runTokenize( '{{ 0 }}', [ new LiteralCompilerToken( 0, '0', 1, 4 ) ] );
-        runTokenize( '{{ 123 }}', [ new LiteralCompilerToken( 123, '123', 1, 4 ) ] );
-        runTokenize( '{{ -123 }}', [ new LiteralCompilerToken( -123, '-123', 1, 4 ) ] );
+        runTokenize( '{{ 0 }}', [ new LiteralToken( 0, '0', l( 1, 4 ) ) ] );
+        runTokenize( '{{ 123 }}', [ new LiteralToken( 123, '123', l( 1, 4 ) ) ] );
+        runTokenize( '{{ -123 }}', [ new LiteralToken( -123, '-123', l( 1, 4 ) ) ] );
 
         // literal: float
-        runTokenize( '{{ 0.0 }}', [ new LiteralCompilerToken( 0, '0.0', 1, 4 ) ] );
-        runTokenize( '{{ .0 }}', [ new LiteralCompilerToken( 0, '.0', 1, 4 ) ] );
-        runTokenize( '{{ 0.123 }}', [ new LiteralCompilerToken( 0.123, '0.123', 1, 4 ) ] );
-        runTokenize( '{{ .123 }}', [ new LiteralCompilerToken( 0.123, '.123', 1, 4 ) ] );
-        runTokenize( '{{ -0.123 }}', [ new LiteralCompilerToken( -0.123, '-0.123', 1, 4 ) ] );
-        runTokenize( '{{ -.123 }}', [ new LiteralCompilerToken( -0.123, '-.123', 1, 4 ) ] );
-        runTokenize( '{{ 1.23000 }}', [ new LiteralCompilerToken( 1.23, '1.23000', 1, 4 ) ] );
-        runTokenize( '{{ -1.23000 }}', [ new LiteralCompilerToken( -1.23, '-1.23000', 1, 4 ) ] );
+        runTokenize( '{{ 0.0 }}', [ new LiteralToken( 0, '0.0', l( 1, 4 ) ) ] );
+        runTokenize( '{{ .0 }}', [ new LiteralToken( 0, '.0', l( 1, 4 ) ) ] );
+        runTokenize( '{{ 0.123 }}', [ new LiteralToken( 0.123, '0.123', l( 1, 4 ) ) ] );
+        runTokenize( '{{ .123 }}', [ new LiteralToken( 0.123, '.123', l( 1, 4 ) ) ] );
+        runTokenize( '{{ -0.123 }}', [ new LiteralToken( -0.123, '-0.123', l( 1, 4 ) ) ] );
+        runTokenize( '{{ -.123 }}', [ new LiteralToken( -0.123, '-.123', l( 1, 4 ) ) ] );
+        runTokenize( '{{ 1.23000 }}', [ new LiteralToken( 1.23, '1.23000', l( 1, 4 ) ) ] );
+        runTokenize( '{{ -1.23000 }}', [ new LiteralToken( -1.23, '-1.23000', l( 1, 4 ) ) ] );
+
+        // literal: exponent numbers
+        runTokenize( '{{ 0e1 }}', [ new LiteralToken( 0, '0e1', l( 1, 4 ) ) ] );
+        runTokenize( '{{ 1e1 }}', [ new LiteralToken( 10, '1e1', l( 1, 4 ) ) ] );
+        runTokenize( '{{ 1e3 }}', [ new LiteralToken( 1000, '1e3', l( 1, 4 ) ) ] );
+        runTokenize( '{{ 23e3 }}', [ new LiteralToken( 23000, '23e3', l( 1, 4 ) ) ] );
+        runTokenize( '{{ 0e+1 }}', [ new LiteralToken( 0, '0e+1', l( 1, 4 ) ) ] );
+        runTokenize( '{{ 1e+1 }}', [ new LiteralToken( 10, '1e+1', l( 1, 4 ) ) ] );
+        runTokenize( '{{ 1e+3 }}', [ new LiteralToken( 1000, '1e+3', l( 1, 4 ) ) ] );
+        runTokenize( '{{ 23e+3 }}', [ new LiteralToken( 23000, '23e+3', l( 1, 4 ) ) ] );
+        runTokenize( '{{ 0e-1 }}', [ new LiteralToken( 0, '0e-1', l( 1, 4 ) ) ] );
+        runTokenize( '{{ 1e-1 }}', [ new LiteralToken( 0.1, '1e-1', l( 1, 4 ) ) ] );
+        runTokenize( '{{ 1e-3 }}', [ new LiteralToken( 0.001, '1e-3', l( 1, 4 ) ) ] );
+        runTokenize( '{{ 23e-3 }}', [ new LiteralToken( 0.023, '23e-3', l( 1, 4 ) ) ] );
 
         // literal: string
-        runTokenize( `{{ '' }}`, [ new LiteralCompilerToken( '', `''`, 1, 4 ) ] );
-        runTokenize( `{{ "" }}`, [ new LiteralCompilerToken( '', `""`, 1, 4 ) ] );
-        runTokenize( '{{ `` }}', [ new LiteralCompilerToken( '', '``', 1, 4 ) ] );
-        runTokenize( `{{ 'is \\'escaped\\'' }}`, [ new LiteralCompilerToken( `is 'escaped'`, `'is \\'escaped\\''`, 1, 4 ) ] );
-        runTokenize( `{{ "is \\"escaped\\"" }}`, [ new LiteralCompilerToken( `is "escaped"`, `"is \\"escaped\\""`, 1, 4 ) ] );
-        runTokenize( '{{ `is \\`escaped\\`` }}', [ new LiteralCompilerToken( 'is `escaped`', '`is \\`escaped\\``', 1, 4 ) ] );
-        runTokenize( '{{ "a backslash: \\\\" }}', [ new LiteralCompilerToken( 'a backslash: \\', '"a backslash: \\\\"', 1, 4 ) ] );
+        runTokenize( `{{ '' }}`, [ new LiteralToken( '', `''`, l( 1, 4 ) ) ] );
+        runTokenize( `{{ "" }}`, [ new LiteralToken( '', `""`, l( 1, 4 ) ) ] );
+        runTokenize( '{{ `` }}', [ new LiteralToken( '', '``', l( 1, 4 ) ) ] );
+        runTokenize( `{{ 'is \\'escaped\\'' }}`, [ new LiteralToken( `is 'escaped'`, `'is \\'escaped\\''`, l( 1, 4 ) ) ] );
+        runTokenize( `{{ "is \\"escaped\\"" }}`, [ new LiteralToken( `is "escaped"`, `"is \\"escaped\\""`, l( 1, 4 ) ) ] );
+        runTokenize( '{{ `is \\`escaped\\`` }}', [ new LiteralToken( 'is `escaped`', '`is \\`escaped\\``', l( 1, 4 ) ) ] );
+        runTokenize( '{{ "a backslash: \\\\" }}', [ new LiteralToken( 'a backslash: \\', '"a backslash: \\\\"', l( 1, 4 ) ) ] );
 
-        // expression: identifier
-        runTokenize( '{{ foo }}', [ new ExpressionCompilerToken( new IdentifierCompilerToken( 'foo', false, 'foo', 1, 4 ), [], 'foo', 1, 4 ) ] );
-        runTokenize( '{{ @foo }}', [ new ExpressionCompilerToken( new IdentifierCompilerToken( 'foo', true, '@foo', 1, 4 ), [], '@foo', 1, 4 ) ] );
+        // call expression: no tail
+        runTokenize( '{{ foo }}', [ new CallExpressionToken( false, 'foo', [], 'foo', l( 1, 4 ) ) ] );
+        runTokenize( '{{ @foo }}', [ new CallExpressionToken( true, 'foo', [], '@foo', l( 1, 4 ) ) ] );
 
-        // expression: object access
-        runTokenize( '{{ foo.bar.baz }}', [ new ExpressionCompilerToken( new IdentifierCompilerToken( 'foo', false, 'foo', 1, 4 ), [
-            new ObjectAccessCompilerToken( 'bar', '.bar', 1, 7 ),
-            new ObjectAccessCompilerToken( 'baz', '.baz', 1, 11 ),
-        ], 'foo.bar.baz', 1, 4 ) ] );
+        // call expression: object access
+        runTokenize( '{{ foo.bar.baz }}', [ new CallExpressionToken( false, 'foo', [
+            new CallExpressionObjectAccess( 'bar' ),
+            new CallExpressionObjectAccess( 'baz' ),
+        ], 'foo.bar.baz', l( 1, 4 ) ) ] );
 
-        // expression: array access
-        runTokenize( `{{ foo[0]['bar'].mixed[ @baz.inner ] }}`, [
-            new ExpressionCompilerToken( new IdentifierCompilerToken( 'foo', false, 'foo', 1, 4 ), [
-                new ArrayAccessCompilerToken( new LiteralCompilerToken( 0, '0', 1, 8 ), '[0]', 1, 7 ),
-                new ArrayAccessCompilerToken( new LiteralCompilerToken( 'bar', `'bar'`, 1, 11 ), `['bar']`, 1, 10 ),
-                new ObjectAccessCompilerToken( 'mixed', '.mixed', 1, 17 ),
-                new ArrayAccessCompilerToken( new ExpressionCompilerToken( new IdentifierCompilerToken( 'baz', true, '@baz', 1, 25 ), [
-                    new ObjectAccessCompilerToken( 'inner', '.inner', 1, 29 ),
-                ], '@baz.inner', 1, 25 ), '[ @baz.inner ]', 1, 23 ),
-            ], `foo[0]['bar'].mixed[ @baz.inner ]`, 1, 4 ),
-        ] );
+        // call expression: array access
+        runTokenize( `{{ foo[0]['bar'].mixed[ @baz.inner ] }}`, [ new CallExpressionToken( false, 'foo', [
+            new CallExpressionArrayAccess( new LiteralToken( 0, '0', l( 1, 8 ) ) ),
+            new CallExpressionArrayAccess( new LiteralToken( 'bar', `'bar'`, l( 1, 11 ) ) ),
+            new CallExpressionObjectAccess( 'mixed' ),
+            new CallExpressionArrayAccess( new CallExpressionToken( true, 'baz', [
+                new CallExpressionObjectAccess( 'inner' ),
+            ], '@baz.inner', l( 1, 25 ) ) ),
+        ], `foo[0]['bar'].mixed[ @baz.inner ]`, l( 1, 4 ) ) ] );
 
-        // expression: invocation
-        runTokenize( `{{ foo() }}`, [
-            new ExpressionCompilerToken( new IdentifierCompilerToken( 'foo', false, 'foo', 1, 4 ), [
-                new InvocationCompilerToken( [], '()', 1, 7 ),
-            ], 'foo()', 1, 4 ),
-        ] );
+        // call expression: invocation
+        runTokenize( `{{ foo() }}`, [ new CallExpressionToken( false, 'foo', [
+            new CallExpressionInvocation( [] ),
+        ], 'foo()', l( 1, 4 ) ) ] );
 
-        runTokenize( `{{ foo( 123 ) }}`, [
-            new ExpressionCompilerToken( new IdentifierCompilerToken( 'foo', false, 'foo', 1, 4 ), [
-                new InvocationCompilerToken( [
-                    new LiteralCompilerToken( 123, '123', 1, 9 ),
-                ], '( 123 )', 1, 7 ),
-            ], 'foo( 123 )', 1, 4 ),
-        ] );
+        runTokenize( `{{ foo( 123 ) }}`, [ new CallExpressionToken( false, 'foo', [
+            new CallExpressionInvocation( [
+                new LiteralToken( 123, '123', l( 1, 9 ) ),
+            ] ),
+        ], 'foo( 123 )', l( 1, 4 ) ) ] );
 
-        runTokenize( `{{ foo( 1 )( 2 ) }}`, [
-            new ExpressionCompilerToken( new IdentifierCompilerToken( 'foo', false, 'foo', 1, 4 ), [
-                new InvocationCompilerToken( [
-                    new LiteralCompilerToken( 1, '1', 1, 9 ),
-                ], '( 1 )', 1, 7 ),
-                new InvocationCompilerToken( [
-                    new LiteralCompilerToken( 2, '2', 1, 14 ),
-                ], '( 2 )', 1, 12 ),
-            ], 'foo( 1 )( 2 )', 1, 4 ),
-        ] );
+        runTokenize( `{{ foo( 1 )( 2 ) }}`, [ new CallExpressionToken( false, 'foo', [
+            new CallExpressionInvocation( [
+                new LiteralToken( 1, '1', l( 1, 9 ) ),
+            ] ),
+            new CallExpressionInvocation( [
+                new LiteralToken( 2, '2', l( 1, 14 ) ),
+            ] ),
+        ], 'foo( 1 )( 2 )', l( 1, 4 ) ) ] );
 
-        runTokenize( `{{ foo( null, true, 123, .45, "test", bar( baz[0], baf.test() ) ) }}`, [
-            new ExpressionCompilerToken( new IdentifierCompilerToken( 'foo', false, 'foo', 1, 4 ), [
-                new InvocationCompilerToken( [
-                    new LiteralCompilerToken( null, 'null', 1, 9 ),
-                    new LiteralCompilerToken( true, 'true', 1, 15 ),
-                    new LiteralCompilerToken( 123, '123', 1, 21 ),
-                    new LiteralCompilerToken( .45, '.45', 1, 26 ),
-                    new LiteralCompilerToken( 'test', `"test"`, 1, 31 ),
-                    new ExpressionCompilerToken( new IdentifierCompilerToken( 'bar', false, 'bar', 1, 39 ), [
-                        new InvocationCompilerToken( [
-                            new ExpressionCompilerToken( new IdentifierCompilerToken( 'baz', false, 'baz', 1, 44 ), [
-                                new ArrayAccessCompilerToken( new LiteralCompilerToken( 0, '0', 1, 48 ), '[0]', 1, 47 ),
-                            ], 'baz[0]', 1, 44 ),
-                            new ExpressionCompilerToken( new IdentifierCompilerToken( 'baf', false, 'baf', 1, 52 ), [
-                                new ObjectAccessCompilerToken( 'test', '.test', 1, 55 ),
-                                new InvocationCompilerToken( [], '()', 1, 60 ),
-                            ], 'baf.test()', 1, 52 ),
-                        ], '( baz[0], baf.test() )', 1, 42 ),
-                    ], 'bar( baz[0], baf.test() )', 1, 39 ),
-                ], '( null, true, 123, .45, "test", bar( baz[0], baf.test() ) )', 1, 7 ),
-            ], 'foo( null, true, 123, .45, "test", bar( baz[0], baf.test() ) )', 1, 4 ),
-        ] );
+        runTokenize( `{{ foo( null, true, 123, .45, "test", bar( baz[0], baf.test() ) ) }}`, [ new CallExpressionToken( false, 'foo', [
+            new CallExpressionInvocation( [
+                new LiteralToken( null, 'null', l( 1, 9 ) ),
+                new LiteralToken( true, 'true', l( 1, 15 ) ),
+                new LiteralToken( 123, '123', l( 1, 21 ) ),
+                new LiteralToken( .45, '.45', l( 1, 26 ) ),
+                new LiteralToken( 'test', `"test"`, l( 1, 31 ) ),
+                new CallExpressionToken( false, 'bar', [
+                    new CallExpressionInvocation( [
+                        new CallExpressionToken( false, 'baz', [
+                            new CallExpressionArrayAccess( new LiteralToken( 0, '0', l( 1, 48 ) ) ),
+                        ], 'baz[0]', l( 1, 44 ) ),
+                        new CallExpressionToken( false, 'baf', [
+                            new CallExpressionObjectAccess( 'test' ),
+                            new CallExpressionInvocation( [] ),
+                        ], 'baf.test()', l( 1, 52 ) ),
+                    ] ),
+                ], 'bar( baz[0], baf.test() )', l( 1, 39 ) ),
+            ] ),
+        ], 'foo( null, true, 123, .45, "test", bar( baz[0], baf.test() ) )', l( 1, 4 ) ) ] );
     } );
 
     describe( 'compile()', () => {
@@ -162,6 +173,20 @@ describe( 'Compiler', () => {
         runCompile( '{{ 1.23000 }}', `""+1.23` );
         runCompile( '{{ -1.23000 }}', `""+-1.23` );
 
+        // literal: exponent numbers
+        runCompile( '{{ 0e1 }}', `""+0` );
+        runCompile( '{{ 1e1 }}', `""+10` );
+        runCompile( '{{ 1e3 }}', `""+1000` );
+        runCompile( '{{ 23e3 }}', `""+23000` );
+        runCompile( '{{ 0e+1 }}', `""+0` );
+        runCompile( '{{ 1e+1 }}', `""+10` );
+        runCompile( '{{ 1e+3 }}', `""+1000` );
+        runCompile( '{{ 23e+3 }}', `""+23000` );
+        runCompile( '{{ 0e-1 }}', `""+0` );
+        runCompile( '{{ 1e-1 }}', `""+0.1` );
+        runCompile( '{{ 1e-3 }}', `""+0.001` );
+        runCompile( '{{ 23e-3 }}', `""+0.023` );
+
         // literal: string
         runCompile( `{{ '' }}`, `""` );
         runCompile( `{{ "" }}`, `""` );
@@ -171,17 +196,17 @@ describe( 'Compiler', () => {
         runCompile( '{{ `is \\`escaped\\`` }}', `"is \`escaped\`"` );
         runCompile( '{{ "a backslash: \\\\" }}', `"a backslash: \\\\"` );
 
-        // expression: identifier
+        // call expression: no tail
         runCompile( '{{ foo }}', `({foo})=>""+foo` );
         runCompile( '{{ @foo }}', `(_,{foo})=>""+foo` );
 
-        // expression: object access
+        // call expression: object access
         runCompile( '{{ foo.bar.baz }}', `({foo})=>""+foo.bar.baz` );
 
-        // expression: array access
+        // call expression: array access
         runCompile( `{{ foo[0]['bar'].mixed[ @baz.inner ] }}`, `({foo},{baz})=>""+foo[0]["bar"].mixed[baz.inner]` );
 
-        // expression: invocation
+        // call expression: invocation
         runCompile( '{{ foo() }}', `({foo})=>""+foo()` );
         runCompile( '{{ foo( 123 ) }}', `({foo})=>""+foo(123)` );
         runCompile( '{{ foo( 1 )( 2 ) }}', `({foo})=>""+foo(1)(2)` );

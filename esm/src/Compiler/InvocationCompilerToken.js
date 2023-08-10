@@ -1,1 +1,0 @@
-import AbstractCompilerToken from"./AbstractCompilerToken";export default class InvocationCompilerToken extends AbstractCompilerToken{constructor(e,o,r,t){super(o,r,t),this.exprs=e}compile(o){return"("+this.exprs.map(e=>e.compile(o)).join(",")+")"}}
