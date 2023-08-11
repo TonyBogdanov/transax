@@ -1,1 +1,1 @@
-export default class CompilerToken{constructor(t,s){this.text=t,this.line=s.start.line,this.column=s.start.column}}
+export default class CompilerToken{constructor(t,o){this.text=t,this.line=o.start.line,this.column=o.start.column}compileWrap(t,o){var r=this.compile(t);for(const e of o)if(this instanceof e)return"("+r+")";return r}}

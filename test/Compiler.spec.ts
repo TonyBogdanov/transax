@@ -12,7 +12,6 @@ import CallExpressionToken, {
 } from '../src/Compiler/CallExpressionToken';
 import ComparisonExpressionToken from '../src/Compiler/ComparisonExpressionToken';
 import TernaryExpressionToken from '../src/Compiler/TernaryExpressionToken';
-import BracketSafeExpressionToken from '../src/Compiler/BracketSafeExpressionToken';
 
 function l( line: number, column: number ): LocationRange {
     return { start: { offset: 0, line, column }, end: null, source: null };
@@ -91,18 +90,31 @@ describe( 'Compiler', () => {
             'true ? 1 : 0', l( 1, 4 ),
         ) ] );
 
-        runTokenize( '{{ ( 0 < 1 ) ? a : b }}', [ new TernaryExpressionToken(
-            new BracketSafeExpressionToken(
+        runTokenize( '{{ 0 < 1 ? a : b }}', [ new TernaryExpressionToken(
+            new ComparisonExpressionToken(
+                new LiteralToken( 0, '0', l( 1, 4 ) ),
+                new LiteralToken( 1, '1', l( 1, 8 ) ),
+                '<', '0 < 1', l( 1, 4 ),
+            ),
+            new CallExpressionToken( false, 'a', [], 'a', l( 1, 12 ) ),
+            new CallExpressionToken( false, 'b', [], 'b', l( 1, 16 ) ),
+            '0 < 1 ? a : b', l( 1, 4 ),
+        ) ] );
+
+        runTokenize( '{{ ( 0 < 1 ? true : false ) ? a : b }}', [ new TernaryExpressionToken(
+            new TernaryExpressionToken(
                 new ComparisonExpressionToken(
                     new LiteralToken( 0, '0', l( 1, 6 ) ),
                     new LiteralToken( 1, '1', l( 1, 10 ) ),
                     '<', '0 < 1', l( 1, 6 ),
                 ),
-                '( 0 < 1 )', l( 1, 4 ),
+                new LiteralToken( true, 'true', l( 1, 14 ) ),
+                new LiteralToken( false, 'false', l( 1, 21 ) ),
+                '0 < 1 ? true : false', l( 1, 6 ),
             ),
-            new CallExpressionToken( false, 'a', [], 'a', l( 1, 16 ) ),
-            new CallExpressionToken( false, 'b', [], 'b', l( 1, 20 ) ),
-            '( 0 < 1 ) ? a : b', l( 1, 4 ),
+            new CallExpressionToken( false, 'a', [], 'a', l( 1, 31 ) ),
+            new CallExpressionToken( false, 'b', [], 'b', l( 1, 35 ) ),
+            '( 0 < 1 ? true : false ) ? a : b', l( 1, 4 ),
         ) ] );
 
         // comparison expression
@@ -272,7 +284,8 @@ describe( 'Compiler', () => {
 
         // ternary expression
         runCompile( '{{ true ? 1 : 0 }}', '""+(true?1:0)' );
-        runCompile( '{{ ( 0 < 1 ) ? a : b }}', '({a,b})=>""+((0<1)?a:b)' );
+        runCompile( '{{ 0 < 1 ? a : b }}', '({a,b})=>""+(0<1?a:b)' );
+        runCompile( '{{ ( 0 < 1 ? true : false ) ? a : b }}', '({a,b})=>""+((0<1?true:false)?a:b)' );
 
         // comparison expression
         runCompile( '{{ 0 == 1 }}', `""+(0==1)` );

@@ -15,7 +15,6 @@ import Compiler from './src/Compiler/Compiler';
 import CompilerToken from './src/Compiler/CompilerToken';
 import TextToken from './src/Compiler/TextToken';
 import LiteralToken from './src/Compiler/LiteralToken';
-import BracketSafeExpressionToken from './src/Compiler/BracketSafeExpressionToken';
 import TernaryExpressionToken from './src/Compiler/TernaryExpressionToken';
 import ComparisonExpressionToken from './src/Compiler/ComparisonExpressionToken';
 import CallExpressionToken, {
@@ -63,7 +62,6 @@ export {
     CompilerToken,
     TextToken,
     LiteralToken,
-    BracketSafeExpressionToken,
     TernaryExpressionToken,
     ComparisonExpressionToken,
     CallExpressionToken,

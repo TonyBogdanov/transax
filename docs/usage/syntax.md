@@ -13,9 +13,25 @@ One of the following:
 - [Call expression](#call)
 - [Literal expression](#literal)
 
-### Bracket-Safe
-A bracket-safe expression is an [Expression](#expression) that *may* be wrapped in brackets in order to avoid syntax
-conflicts in special cases such as in operands of the [Comparison expression](#comparison).
+### Ternary-Safe
+A ternary-safe expression is an [Expression](#expression) that *may* be wrapped in brackets (depending on the type)
+in order to avoid syntax conflicts when used as an operand of a [Ternary expression](#ternary).
+
+#### Syntax
+One of the following:
+- `(` followed by [Ternary expression](#ternary) followed by `)`
+- [Comparison expression](#comparison)
+- [Call expression](#call)
+- [Literal expression](#literal)
+
+#### Example
+```
+{{ ( true ? a : b ) ? 'yes' : 'no' }}
+```
+
+### Comparison-Safe
+A comparison-safe expression is an [Expression](#expression) that *may* be wrapped in brackets (depending on the type)
+in order to avoid syntax conflicts when used as an operand of a [Comparison expression](#comparison).
 
 #### Syntax
 One of the following:
@@ -24,12 +40,19 @@ One of the following:
 - [Call expression](#call)
 - [Literal expression](#literal)
 
+#### Example
+```
+{{ ( true ? 0 : 1 ) < 1 }}
+{{ ( 0 < 1 ) === true }}
+```
+
 ### Ternary
 A ternary expression is used to return one of two values depending on the result of a comparison.
 
 #### Syntax
-[Bracket-Safe expression](#bracket-safe) followed by `?` followed by [Bracket-Safe expression](#bracket-safe) followed by `:` followed by
-[Bracket-Safe expression](#bracket-safe)
+[Ternary-Safe expression](#ternary-safe) followed by `?` followed by
+[Ternary-Safe expression](#ternary-safe) followed by `:` followed by
+[Ternary-Safe expression](#ternary-safe)
 
 #### Example
 ```
@@ -41,8 +64,9 @@ A ternary expression is used to return one of two values depending on the result
 A comparison expression is used to compare two values using a comparison operator.
 
 #### Syntax
-[Bracket-Safe expression](#bracket-safe) followed by [Comparison Operator primitive](#comparison-operator)
-followed by [Bracket-Safe expression](#bracket-safe)
+[Comparison-Safe expression](#comparison-safe) followed by
+[Comparison Operator primitive](#comparison-operator) followed by
+[Comparison-Safe expression](#comparison-safe)
 
 #### Example
 ```

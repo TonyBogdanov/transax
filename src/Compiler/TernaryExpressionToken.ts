@@ -44,8 +44,13 @@ export default class TernaryExpressionToken extends CompilerToken {
      * @inheritDoc
      */
     compile( context: CompilerContext ): string {
-        return '(' + this.test.compile( context ) + '?' +
-            this.truthy.compile( context ) + ':' + this.falsy.compile( context ) + ')';
+        const wrap = [ TernaryExpressionToken ];
+
+        return (
+            this.test.compileWrap( context, wrap ) + '?' +
+            this.truthy.compileWrap( context, wrap ) + ':' +
+            this.falsy.compileWrap( context, wrap )
+        );
     }
 
 }

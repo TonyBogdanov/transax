@@ -1,1 +1,1 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});class CompilerToken{constructor(e,t){this.text=e,this.line=t.start.line,this.column=t.start.column}}exports.default=CompilerToken;
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});class CompilerToken{constructor(t,e){this.text=t,this.line=e.start.line,this.column=e.start.column}compileWrap(t,e){var o=this.compile(t);for(const r of e)if(this instanceof r)return"("+o+")";return o}}exports.default=CompilerToken;

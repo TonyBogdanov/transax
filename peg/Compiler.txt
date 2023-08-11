@@ -14,17 +14,23 @@ Expression
     / CallExpression
     / Literal
 
-BracketSafeExpression
-    = '(' _ a:TernaryExpression _ ')' { return new BracketSafeExpressionToken( a, text(), location() ) }
-    / '(' _ a:ComparisonExpression _ ')' { return new BracketSafeExpressionToken( a, text(), location() ) }
+TernarySafeExpression
+    = '(' _ a:TernaryExpression _ ')' { return a }
+    / ComparisonExpression
+    / CallExpression
+    / Literal
+
+ComparisonSafeExpression
+    = '(' _ a:TernaryExpression _ ')' { return a }
+    / '(' _ a:ComparisonExpression _ ')' { return a }
     / CallExpression
     / Literal
 
 TernaryExpression
-    = a:BracketSafeExpression _ '?' _ b:BracketSafeExpression _ ':' _ c:BracketSafeExpression { return new TernaryExpressionToken( a, b, c, text(), location() ) }
+    = a:TernarySafeExpression _ '?' _ b:TernarySafeExpression _ ':' _ c:TernarySafeExpression { return new TernaryExpressionToken( a, b, c, text(), location() ) }
 
 ComparisonExpression
-    = a:BracketSafeExpression _ c:ComparisonOperator _ b:BracketSafeExpression { return new ComparisonExpressionToken( a, b, c, text(), location() ) }
+    = a:ComparisonSafeExpression _ c:ComparisonOperator _ b:ComparisonSafeExpression { return new ComparisonExpressionToken( a, b, c, text(), location() ) }
 
 CallExpression
     = a:'@'? b:Identifier c:(

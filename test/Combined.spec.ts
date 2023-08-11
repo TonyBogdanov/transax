@@ -1,9 +1,9 @@
 import { expect } from '@jest/globals';
 
 import Compiler from '../src/Compiler/Compiler';
+
 import { ContextParams } from '../src/Type/ContextParams';
 import { ContextGlobals } from '../src/Type/ContextGlobals';
-import LiteralToken from '../src/Compiler/LiteralToken';
 
 function runTest(
     code: string,
@@ -13,6 +13,7 @@ function runTest(
 ): void {
     test( code, () => {
         const compiler = new Compiler();
+        console.log( compiler.compile( code ) );
         const fn = eval( compiler.compile( code ) );
 
         expect( 'string' === typeof fn ? fn : fn( params, globals ) ).toBe( expectedOutput );
@@ -74,7 +75,8 @@ describe( 'Combined', () => {
 
     // ternary expression
     runTest( '{{ true ? 1 : 0 }}', '1' );
-    runTest( '{{ ( 0 < 1 ) ? a : b }}', 'a', { a: 'a', b: 'b' } );
+    runTest( '{{ 0 < 1 ? a : b }}', 'a', { a: 'a', b: 'b' } );
+    runTest( '{{ ( 0 < 1 ? true : false ) ? a : b }}', 'a', { a: 'a', b: 'b' } );
 
     // comparison expression
     runTest( '{{ "1" == 1 }}', 'true' );

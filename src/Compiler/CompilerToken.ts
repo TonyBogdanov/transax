@@ -42,4 +42,24 @@ export default abstract class CompilerToken {
      */
     abstract compile( context: CompilerContext ): string;
 
+    /**
+     * Same as `compile()` except that it wraps the compiled expression in parentheses if the current token is an
+     * instance of the specified types.
+     *
+     * @param context The context to use for compiling the expression.
+     * @param instanceOfs The types to check for.
+     * @protected
+     */
+    compileWrap( context: CompilerContext, instanceOfs: Function[] ): string {
+        const compiled = this.compile( context );
+
+        for ( const instanceOf of instanceOfs ) {
+            if ( this instanceof instanceOf ) {
+                return '(' + compiled + ')';
+            }
+        }
+
+        return compiled;
+    }
+
 }

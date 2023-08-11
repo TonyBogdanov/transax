@@ -2,6 +2,7 @@ import { LocationRange } from 'peggy';
 
 import CompilerToken from './CompilerToken';
 import CompilerContext from './CompilerContext';
+import TernaryExpressionToken from './TernaryExpressionToken';
 
 /**
  * Represents a comparison expression.
@@ -51,7 +52,8 @@ export default class ComparisonExpressionToken extends CompilerToken {
      * @inheritDoc
      */
     compile( context: CompilerContext ): string {
-        return '(' + this.left.compile( context ) + this.operator + this.right.compile( context ) + ')';
+        const wrap = [ TernaryExpressionToken, ComparisonExpressionToken ];
+        return this.left.compileWrap( context, wrap ) + this.operator + this.right.compileWrap( context, wrap );
     }
 
 }

@@ -53,7 +53,7 @@ themeConfig:
         - /api/classes/CompilerToken
         - /api/classes/TextToken
         - /api/classes/LiteralToken
-        - /api/classes/BracketSafeExpressionToken
+        - /api/classes/TernaryExpressionToken
         - /api/classes/ComparisonExpressionToken
         - /api/classes/CallExpressionToken
         - /api/classes/Generator

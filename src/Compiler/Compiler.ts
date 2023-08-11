@@ -8,6 +8,8 @@ import CompilerInterface from './CompilerInterface';
 import { CompilerOptions } from './CompilerOptions';
 
 import parse from './peg';
+import TernaryExpressionToken from './TernaryExpressionToken';
+import ComparisonExpressionToken from './ComparisonExpressionToken';
 
 class Options {
 
@@ -61,7 +63,14 @@ export default class Compiler implements CompilerInterface {
         const values = [ '""' ];
 
         for ( const token of this.tokenize( value ) ) {
-            values.push( token.compile( context ) );
+            // some expressions need to be wrapped in parentheses in order to be concatenated
+            const wrap = (
+                token instanceof TernaryExpressionToken ||
+                token instanceof ComparisonExpressionToken
+            );
+
+            const compiled = token.compile( context );
+            values.push( wrap ? `(${ compiled })` : compiled );
         }
 
         // optimize: replace 'null', 'true' and 'false' entries with empty strings

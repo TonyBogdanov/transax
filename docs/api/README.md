@@ -6,7 +6,6 @@
 
 - [Analyzer](classes/Analyzer.md)
 - [AnalyzerToken](classes/AnalyzerToken.md)
-- [BracketSafeExpressionToken](classes/BracketSafeExpressionToken.md)
 - [CallExpressionArrayAccess](classes/CallExpressionArrayAccess.md)
 - [CallExpressionInvocation](classes/CallExpressionInvocation.md)
 - [CallExpressionObjectAccess](classes/CallExpressionObjectAccess.md)
