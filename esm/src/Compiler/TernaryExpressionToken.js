@@ -1,0 +1,1 @@
+import CompilerToken from"./CompilerToken";export default class TernaryExpressionToken extends CompilerToken{constructor(e,t,o,s,r){super(s,r),this.test=e,this.truthy=t,this.falsy=o}compile(e){return"("+this.test.compile(e)+"?"+this.truthy.compile(e)+":"+this.falsy.compile(e)+")"}}

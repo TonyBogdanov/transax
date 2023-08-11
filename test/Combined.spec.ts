@@ -72,6 +72,10 @@ describe( 'Combined', () => {
     runTest( `{{ "is \\"escaped\\"" }}`, `is "escaped"` );
     runTest( '{{ `is \\`escaped\\`` }}', 'is `escaped`' );
 
+    // ternary expression
+    runTest( '{{ true ? 1 : 0 }}', '1' );
+    runTest( '{{ ( 0 < 1 ) ? a : b }}', 'a', { a: 'a', b: 'b' } );
+
     // comparison expression
     runTest( '{{ "1" == 1 }}', 'true' );
     runTest( '{{ "1" === 1 }}', 'false' );

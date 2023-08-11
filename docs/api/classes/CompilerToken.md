@@ -12,6 +12,8 @@ An abstract class representing a single evaluable expression within translation 
 
   ↳ [`BracketSafeExpressionToken`](BracketSafeExpressionToken.md)
 
+  ↳ [`TernaryExpressionToken`](TernaryExpressionToken.md)
+
   ↳ [`ComparisonExpressionToken`](ComparisonExpressionToken.md)
 
   ↳ [`CallExpressionToken`](CallExpressionToken.md)

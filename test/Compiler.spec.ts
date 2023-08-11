@@ -11,6 +11,8 @@ import CallExpressionToken, {
     CallExpressionObjectAccess
 } from '../src/Compiler/CallExpressionToken';
 import ComparisonExpressionToken from '../src/Compiler/ComparisonExpressionToken';
+import TernaryExpressionToken from '../src/Compiler/TernaryExpressionToken';
+import BracketSafeExpressionToken from '../src/Compiler/BracketSafeExpressionToken';
 
 function l( line: number, column: number ): LocationRange {
     return { start: { offset: 0, line, column }, end: null, source: null };
@@ -80,6 +82,28 @@ describe( 'Compiler', () => {
         runTokenize( `{{ "is \\"escaped\\"" }}`, [ new LiteralToken( `is "escaped"`, `"is \\"escaped\\""`, l( 1, 4 ) ) ] );
         runTokenize( '{{ `is \\`escaped\\`` }}', [ new LiteralToken( 'is `escaped`', '`is \\`escaped\\``', l( 1, 4 ) ) ] );
         runTokenize( '{{ "a backslash: \\\\" }}', [ new LiteralToken( 'a backslash: \\', '"a backslash: \\\\"', l( 1, 4 ) ) ] );
+
+        // ternary expression
+        runTokenize( '{{ true ? 1 : 0 }}', [ new TernaryExpressionToken(
+            new LiteralToken( true, 'true', l( 1, 4 ) ),
+            new LiteralToken( 1, '1', l( 1, 11 ) ),
+            new LiteralToken( 0, '0', l( 1, 15 ) ),
+            'true ? 1 : 0', l( 1, 4 ),
+        ) ] );
+
+        runTokenize( '{{ ( 0 < 1 ) ? a : b }}', [ new TernaryExpressionToken(
+            new BracketSafeExpressionToken(
+                new ComparisonExpressionToken(
+                    new LiteralToken( 0, '0', l( 1, 6 ) ),
+                    new LiteralToken( 1, '1', l( 1, 10 ) ),
+                    '<', '0 < 1', l( 1, 6 ),
+                ),
+                '( 0 < 1 )', l( 1, 4 ),
+            ),
+            new CallExpressionToken( false, 'a', [], 'a', l( 1, 16 ) ),
+            new CallExpressionToken( false, 'b', [], 'b', l( 1, 20 ) ),
+            '( 0 < 1 ) ? a : b', l( 1, 4 ),
+        ) ] );
 
         // comparison expression
         runTokenize( '{{ 0 == 1 }}', [ new ComparisonExpressionToken(
@@ -245,6 +269,10 @@ describe( 'Compiler', () => {
         runCompile( `{{ "is \\"escaped\\"" }}`, `"is \\"escaped\\""` );
         runCompile( '{{ `is \\`escaped\\`` }}', `"is \`escaped\`"` );
         runCompile( '{{ "a backslash: \\\\" }}', `"a backslash: \\\\"` );
+
+        // ternary expression
+        runCompile( '{{ true ? 1 : 0 }}', '""+(true?1:0)' );
+        runCompile( '{{ ( 0 < 1 ) ? a : b }}', '({a,b})=>""+((0<1)?a:b)' );
 
         // comparison expression
         runCompile( '{{ 0 == 1 }}', `""+(0==1)` );

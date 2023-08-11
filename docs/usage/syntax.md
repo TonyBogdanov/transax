@@ -8,6 +8,7 @@ Any value (between the curly braces) you are trying to interpolate must be and c
 
 #### Syntax
 One of the following:
+- [Ternary expression](#ternary)
 - [Comparison expression](#comparison)
 - [Call expression](#call)
 - [Literal expression](#literal)
@@ -18,16 +19,30 @@ conflicts in special cases such as in operands of the [Comparison expression](#c
 
 #### Syntax
 One of the following:
-- `(` followed by a [Comparison expression](#comparison) followed by `)`
+- `(` followed by [Ternary expression](#ternary) followed by `)`
+- `(` followed by [Comparison expression](#comparison) followed by `)`
 - [Call expression](#call)
 - [Literal expression](#literal)
+
+### Ternary
+A ternary expression is used to return one of two values depending on the result of a comparison.
+
+#### Syntax
+[Bracket-Safe expression](#bracket-safe) followed by `?` followed by [Bracket-Safe expression](#bracket-safe) followed by `:` followed by
+[Bracket-Safe expression](#bracket-safe)
+
+#### Example
+```
+{{ 1 < 2 ? 'yes' : 'no' }}
+{{ ( 1 < 2 ) !== false ? 'yes' : 'no' }}
+```
 
 ### Comparison
 A comparison expression is used to compare two values using a comparison operator.
 
 #### Syntax
-[Bracket-Safe expression](#bracket-safe) followed by a [Comparison Operator primitive](#comparison-operator)
-followed by another [Bracket-Safe expression](#bracket-safe)
+[Bracket-Safe expression](#bracket-safe) followed by [Comparison Operator primitive](#comparison-operator)
+followed by [Bracket-Safe expression](#bracket-safe)
 
 #### Example
 ```
@@ -40,10 +55,10 @@ A call expression is used to evaluate the value of a translation parameter or gl
 as a function, access its properties (if object), or access its items (if array).
 
 #### Syntax
-Optional `@` symbol followed by an [Identifier primitive](#identifier) followed by zero or more of the following:
+Optional `@` followed by [Identifier primitive](#identifier) followed by zero or more of the following:
 
-- `.` followed by an [Identifier primitive](#identifier)
-- `[` followed by an [Expression](#expression) followed by `]`
+- `.` followed by [Identifier primitive](#identifier)
+- `[` followed by [Expression](#expression) followed by `]`
 - `(` followed by [Arguments](#arguments) followed by `)`
 
 #### Example

@@ -9,14 +9,19 @@ Text
     = . { return new TextToken( text(), location() ) }
 
 Expression
-    = ComparisonExpression
+    = TernaryExpression
+    / ComparisonExpression
     / CallExpression
     / Literal
 
 BracketSafeExpression
-    = '(' _ a:ComparisonExpression _ ')' { return new BracketSafeExpressionToken( a, text(), location() ) }
+    = '(' _ a:TernaryExpression _ ')' { return new BracketSafeExpressionToken( a, text(), location() ) }
+    / '(' _ a:ComparisonExpression _ ')' { return new BracketSafeExpressionToken( a, text(), location() ) }
     / CallExpression
     / Literal
+
+TernaryExpression
+    = a:BracketSafeExpression _ '?' _ b:BracketSafeExpression _ ':' _ c:BracketSafeExpression { return new TernaryExpressionToken( a, b, c, text(), location() ) }
 
 ComparisonExpression
     = a:BracketSafeExpression _ c:ComparisonOperator _ b:BracketSafeExpression { return new ComparisonExpressionToken( a, b, c, text(), location() ) }

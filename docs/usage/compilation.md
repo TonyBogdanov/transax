@@ -19,7 +19,7 @@ Under the hood you can use any flavor or format you like, but once loaded into y
 it as a JavaScript object in the above format.
 
 ::: tip
-Check the full specification here: [TranslationDictionary](../api/#translationdictionary).
+Check the full specification here: [Dictionary](../api/#dictionary).
 :::
 
 This format, while readable, does not provide the best possible performance, so during translation (at runtime)
@@ -29,7 +29,7 @@ This format, while readable, does not provide the best possible performance, so 
 Use the provided [Generator](../api/classes/Generator.md) class to compile your dictionary and save it to a file:
 
 ```js
-import { writeFileSync } from 'fs';
+import { writeFileSync } from 'node:fs';
 import { Generator } from 'transax';
 
 const generator = new Generator( { translations } );
@@ -81,5 +81,6 @@ accumulate extracted keys instead. To do this, pass `true` as the third argument
 Keep in mind that `parse` only analyzes the passed source code during each call, which means that meta information about
 extracted keys in accumulation code will be incorrect and should be ignored.
 
-If `source` is omitted, `parse` will work in accumulation mode regardless of the value of `accumulate`.
+If `source` is omitted, `parse` will work in accumulation mode regardless of the value of `accumulate`
+(the third argument).
 :::

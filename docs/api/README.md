@@ -18,6 +18,7 @@
 - [Generator](classes/Generator.md)
 - [LiteralToken](classes/LiteralToken.md)
 - [Logger](classes/Logger.md)
+- [TernaryExpressionToken](classes/TernaryExpressionToken.md)
 - [TextToken](classes/TextToken.md)
 - [Translator](classes/Translator.md)
 
