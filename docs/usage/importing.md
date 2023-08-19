@@ -4,26 +4,25 @@ will be resolved automatically.
 
 If you are using [TypeScript](https://www.typescriptlang.org), you can even import directly from the source files.
 
-:::: tabs
-::: tab ESM
+::: code-tabs#import
+@tab ESM
 ```js
 import { Generator } from 'transax';
 import { Generator } from 'transax/esm'; // or this to be explicit
 ```
-:::
-::: tab CommonJS
+
+@tab CommonJS
 ```js
 const { Generator } = require( 'transax' );
 const { Generator } = require( 'transax/cjs' ); // or this to be explicit
 ```
-:::
-::: tab TypeScript
+
+@tab TypeScript
 ```ts
 import { Generator } from 'transax';
 import Generator from 'transax/src/Generator/Generator'; // or this to be explicit
 ```
 :::
-::::
 
 ::: warning
 From this point on the documentation will assume you are using the ES6 Module syntax.
