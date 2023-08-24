@@ -42,7 +42,6 @@
     "@digitak/esrun": "^3.2.24",
     "@jest/globals": "^29.6.2",
     "@types/chai": "^4.3.5",
-    "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "^20.4.9",
     "@vuepress/client": "^2.0.0-beta.66",
