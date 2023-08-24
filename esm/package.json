@@ -1,10 +1,10 @@
 {
   "name": "transax",
-  "version": "2.3.1",
+  "version": "2.3.3",
   "description": "Framework-agnostic JavaScript library for content internationalization.",
   "type": "module",
   "typedocMain": "./index.ts",
-  "module": "index.js",
+  "module": "index.mjs",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TonyBogdanov/transax.git"

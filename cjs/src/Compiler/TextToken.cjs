@@ -1,1 +1,1 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});const CompilerToken_1=require("./CompilerToken");class TextToken extends CompilerToken_1.default{constructor(e,t){super(e,t)}compile(e){return JSON.stringify(this.text)}}exports.default=TextToken;
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});const CompilerToken_1=require("./CompilerToken.cjs");class TextToken extends CompilerToken_1.default{constructor(e,t){super(e,t)}compile(e){return JSON.stringify(this.text)}}exports.default=TextToken;

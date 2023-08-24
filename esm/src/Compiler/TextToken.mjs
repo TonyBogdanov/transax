@@ -1,1 +1,1 @@
-import CompilerToken from"./CompilerToken";export default class TextToken extends CompilerToken{constructor(e,o){super(e,o)}compile(e){return JSON.stringify(this.text)}}
+import CompilerToken from"./CompilerToken.mjs";export default class TextToken extends CompilerToken{constructor(e,o){super(e,o)}compile(e){return JSON.stringify(this.text)}}

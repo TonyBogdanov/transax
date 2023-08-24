@@ -1,1 +1,1 @@
-import CompilerToken from"./CompilerToken";export default class LiteralToken extends CompilerToken{constructor(e,l,o){super(l,o),this.value=e}compile(e){return null===this.value?"null":JSON.stringify(this.value)}}
+import CompilerToken from"./CompilerToken.mjs";export default class LiteralToken extends CompilerToken{constructor(e,l,o){super(l,o),this.value=e}compile(e){return null===this.value?"null":JSON.stringify(this.value)}}
