@@ -15,12 +15,12 @@
     "dev:test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.ts --watch"
   },
   "typedocMain": "./index.ts",
-  "module": "./esm/index.js",
-  "main": "./cjs/index.js",
+  "module": "./esm/index.mjs",
+  "main": "./cjs/index.cjs",
   "exports": {
     ".": {
-      "import": "./esm/index.js",
-      "require": "./cjs/index.js"
+      "import": "./esm/index.mjs",
+      "require": "./cjs/index.cjs"
     },
     "./package.json": "./package.json"
   },
