@@ -1,3 +1,5 @@
+import { str } from 'crc-32';
+
 import { Catalog } from '../Type/Catalog';
 
 import Analyzer from '../Analyzer/Analyzer';
@@ -118,6 +120,13 @@ export default class Generator implements GeneratorInterface {
         }
 
         return this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    getTranslationsChecksum(): number {
+        return str( JSON.stringify( this.options.translations ) );
     }
 
     /**

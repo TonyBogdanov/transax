@@ -88,6 +88,19 @@ describe( 'Generator', () => {
         } );
     } );
 
+    describe( 'getTranslationsChecksum()', () => {
+        const en = { foo: 'bar' };
+        const de = { bar: 'baz' };
+
+        test( 'update', () => {
+            const generator = new Generator( { translations: { en } } );
+
+            expect( generator.getTranslationsChecksum() ).toBe( -1210785783 );
+            expect( generator.setTranslations( 'en', en ).getTranslationsChecksum() ).toStrictEqual( -1210785783 );
+            expect( generator.setTranslations( 'en', de ).getTranslationsChecksum() ).toStrictEqual( -247409977 );
+        } );
+    } );
+
     describe( 'getMissingTranslationKeys()', () => {
         const options = { translations: { en: { foo: 'bar' }, de: { bar: 'baz' } } };
 

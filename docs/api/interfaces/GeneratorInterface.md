@@ -14,6 +14,7 @@ Defines an interface for **Generator** classes.
 - [getCompiledTranslationsDumpAsCJSExport](GeneratorInterface.md#getcompiledtranslationsdumpascjsexport)
 - [getCompiledTranslationsDumpAsESMExport](GeneratorInterface.md#getcompiledtranslationsdumpasesmexport)
 - [getMissingTranslationKeys](GeneratorInterface.md#getmissingtranslationkeys)
+- [getTranslationsChecksum](GeneratorInterface.md#gettranslationschecksum)
 - [getUnusedTranslationKeys](GeneratorInterface.md#getunusedtranslationkeys)
 - [parse](GeneratorInterface.md#parse)
 - [removeTranslations](GeneratorInterface.md#removetranslations)
@@ -89,6 +90,19 @@ Those are keys that are extracted from source code, but not present in the trans
 #### Returns
 
 `Record`<`string`, `string`[]\>
+
+___
+
+### getTranslationsChecksum
+
+▸ **getTranslationsChecksum**(): `number`
+
+Returns a CRC32 checksum of the current translation dictionaries.
+This can be used to determine whether the translations have changed since the last compilation.
+
+#### Returns
+
+`number`
 
 ___
 

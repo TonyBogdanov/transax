@@ -18,6 +18,7 @@ Default implementation of the [GeneratorInterface](../interfaces/GeneratorInterf
 - [getCompiledTranslationsDumpAsCJSExport](Generator.md#getcompiledtranslationsdumpascjsexport)
 - [getCompiledTranslationsDumpAsESMExport](Generator.md#getcompiledtranslationsdumpasesmexport)
 - [getMissingTranslationKeys](Generator.md#getmissingtranslationkeys)
+- [getTranslationsChecksum](Generator.md#gettranslationschecksum)
 - [getUnusedTranslationKeys](Generator.md#getunusedtranslationkeys)
 - [parse](Generator.md#parse)
 - [removeTranslations](Generator.md#removetranslations)
@@ -123,6 +124,23 @@ Those are keys that are extracted from source code, but not present in the trans
 #### Implementation of
 
 [GeneratorInterface](../interfaces/GeneratorInterface.md).[getMissingTranslationKeys](../interfaces/GeneratorInterface.md#getmissingtranslationkeys)
+
+___
+
+### getTranslationsChecksum
+
+▸ **getTranslationsChecksum**(): `number`
+
+Returns a CRC32 checksum of the current translation dictionaries.
+This can be used to determine whether the translations have changed since the last compilation.
+
+#### Returns
+
+`number`
+
+#### Implementation of
+
+[GeneratorInterface](../interfaces/GeneratorInterface.md).[getTranslationsChecksum](../interfaces/GeneratorInterface.md#gettranslationschecksum)
 
 ___
 

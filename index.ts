@@ -31,6 +31,8 @@ import { GeneratorOptions } from './src/Generator/GeneratorOptions';
 import Translator from './src/Translator/Translator';
 import { TranslatorOptions } from './src/Translator/TranslatorOptions';
 
+// import VitePlugin from './src/Plugin/Vite/VitePlugin';
+
 import { Locale } from './src/Type/Locale';
 import { Catalog } from './src/Type/Catalog';
 import { Dictionary } from './src/Type/Dictionary';
@@ -76,6 +78,8 @@ export {
 
     Translator,
     TranslatorOptions,
+
+    // VitePlugin,
 
     Locale,
     Catalog,

@@ -40,6 +40,12 @@ export default interface GeneratorInterface {
     removeTranslations( locale: Locale ): this;
 
     /**
+     * Returns a CRC32 checksum of the current translation dictionaries.
+     * This can be used to determine whether the translations have changed since the last compilation.
+     */
+    getTranslationsChecksum(): number;
+
+    /**
      * Returns a hashmap of locale keys and corresponding lists of missing translation keys.
      * Those are keys that are extracted from source code, but not present in the translation catalog.
      */
