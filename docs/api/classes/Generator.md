@@ -20,6 +20,7 @@ Default implementation of the [GeneratorInterface](../interfaces/GeneratorInterf
 - [getMissingTranslationKeys](Generator.md#getmissingtranslationkeys)
 - [getTranslationsChecksum](Generator.md#gettranslationschecksum)
 - [getUnusedTranslationKeys](Generator.md#getunusedtranslationkeys)
+- [mergeTranslations](Generator.md#mergetranslations)
 - [parse](Generator.md#parse)
 - [removeTranslations](Generator.md#removetranslations)
 - [setTranslations](Generator.md#settranslations)
@@ -36,7 +37,7 @@ Creates a new instance.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | [`GeneratorOptions`](../README.md#generatoroptions) | Customizes the generator. |
+| `options` | [`GeneratorOptionsType`](../README.md#generatoroptionstype) | Customizes the generator. |
 
 ## Methods
 
@@ -112,14 +113,14 @@ ___
 
 ### getMissingTranslationKeys
 
-▸ **getMissingTranslationKeys**(): `Record`<`string`, `string`[]\>
+▸ **getMissingTranslationKeys**(): `Record`\<`string`, `string`[]\>
 
 Returns a hashmap of locale keys and corresponding lists of missing translation keys.
 Those are keys that are extracted from source code, but not present in the translation catalog.
 
 #### Returns
 
-`Record`<`string`, `string`[]\>
+`Record`\<`string`, `string`[]\>
 
 #### Implementation of
 
@@ -146,18 +147,36 @@ ___
 
 ### getUnusedTranslationKeys
 
-▸ **getUnusedTranslationKeys**(): `Record`<`string`, `string`[]\>
+▸ **getUnusedTranslationKeys**(): `Record`\<`string`, `string`[]\>
 
 Returns a hashmap of locale keys and corresponding lists of unused translation keys.
 Those are keys that are present in the translation catalog, but not in the extracted source code.
 
 #### Returns
 
-`Record`<`string`, `string`[]\>
+`Record`\<`string`, `string`[]\>
 
 #### Implementation of
 
 [GeneratorInterface](../interfaces/GeneratorInterface.md).[getUnusedTranslationKeys](../interfaces/GeneratorInterface.md#getunusedtranslationkeys)
+
+___
+
+### mergeTranslations
+
+▸ **mergeTranslations**(`catalog`): [`Generator`](Generator.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `catalog` | [`CatalogType`](../README.md#catalogtype) |
+
+#### Returns
+
+[`Generator`](Generator.md)
+
+**`Inherit Doc`**
 
 ___
 
@@ -227,7 +246,7 @@ Adds or replaces the current translation dictionary for the specified locale.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `locale` | `string` | Target translation locale. |
-| `dictionary` | [`Dictionary`](../README.md#dictionary) | Target translation dictionary. |
+| `dictionary` | [`DictionaryType`](../README.md#dictionarytype) | Target translation dictionary. |
 
 #### Returns
 

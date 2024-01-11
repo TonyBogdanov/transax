@@ -1,5 +1,5 @@
-import { Locale } from '../Type/Locale';
-import { Dictionary } from '../Type/Dictionary';
+import { LocaleType } from '../Type/LocaleType';
+import { DictionaryType } from '../Type/DictionaryType';
 
 /**
  * Defines an interface for **Generator** classes.
@@ -30,14 +30,14 @@ export default interface GeneratorInterface {
      * @param locale Target translation locale.
      * @param dictionary Target translation dictionary.
      */
-    setTranslations( locale: Locale, dictionary: Dictionary ): this;
+    setTranslations( locale: LocaleType, dictionary: DictionaryType ): this;
 
     /**
      * Removes the current translation dictionary for the specified locale.
      *
      * @param locale Target translation locale.
      */
-    removeTranslations( locale: Locale ): this;
+    removeTranslations( locale: LocaleType ): this;
 
     /**
      * Returns a CRC32 checksum of the current translation dictionaries.

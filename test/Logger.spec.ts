@@ -26,6 +26,9 @@ describe( 'Logger', () => {
 
         test( 'logs when verbose = true', () =>
             testOutput( new Logger( { verbose: true } ), logger => logger.log( 'test' ) ) );
+
+        test( 'does not log when quiet = true', () =>
+            testNoOutput( new Logger( { quiet: true } ), logger => logger.log( 'test' ) ) );
     } );
 
     describe( 'verbose()', () => {
@@ -34,5 +37,8 @@ describe( 'Logger', () => {
 
         test( 'logs when verbose = true', () =>
             testOutput( new Logger( { verbose: true } ), logger => logger.verbose( 'test' ) ) );
+
+        test( 'does not log when quiet = true', () =>
+            testNoOutput( new Logger( { quiet: true, verbose: true } ), logger => logger.verbose( 'test' ) ) );
     } );
 } );

@@ -30,7 +30,7 @@ Creates a new instance.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | [`LoggerOptions`](../README.md#loggeroptions) | Customizes the logger. |
+| `options` | [`LoggerOptionsType`](../README.md#loggeroptionstype) | Customizes the logger. |
 
 ## Methods
 

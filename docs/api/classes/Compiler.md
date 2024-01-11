@@ -29,7 +29,7 @@ Creates a new instance.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | [`CompilerOptions`](../README.md#compileroptions) | Customizes the compiler. |
+| `options` | [`CompilerOptionsType`](../README.md#compileroptionstype) | Customizes the compiler. |
 
 ## Methods
 

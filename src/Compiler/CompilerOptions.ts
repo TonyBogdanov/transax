@@ -1,14 +1,34 @@
+import { CompilerOptionsType } from '../Type/CompilerOptionsType';
+
 import LoggerInterface from '../Logger/LoggerInterface';
+
+import Logger from '../Logger/Logger';
 
 /**
  * Options for the {@link Compiler}.
  */
-export type CompilerOptions = {
+export default class CompilerOptions implements CompilerOptionsType {
+
+    /** @inheritDoc */
+    logger: LoggerInterface;
 
     /**
-     * Optional logger instance.
-     * Defaults to `new Logger( { namespace: 'TRANSAX:COMPILER' } )`.
+     * Creates a new instance.
+     *
+     * @param options
      */
-    logger?: LoggerInterface;
+    constructor( options: CompilerOptionsType = {} ) {
+        if ( null === options || 'object' !== typeof options ) {
+            throw new TypeError( 'Expected options to be an object.' );
+        }
+
+        if ( 'undefined' === typeof options.logger ) {
+            this.logger = new Logger( { namespace: 'TRANSAX:COMPILER' } );
+        } else if ( options.logger instanceof Logger ) { // should be LoggerInterface, but currently not possible in TS
+            this.logger = options.logger;
+        } else {
+            throw new TypeError( 'Expected options.logger to be an instance of LoggerInterface.' );
+        }
+    }
 
 }

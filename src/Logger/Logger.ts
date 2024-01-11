@@ -1,17 +1,8 @@
+import { LoggerOptionsType } from '../Type/LoggerOptionsType';
+
 import LoggerInterface from './LoggerInterface';
-import { LoggerOptions } from './LoggerOptions';
 
-class Options {
-
-    namespace: string;
-    verbose: boolean;
-
-    constructor( data: LoggerOptions = {} ) {
-        this.namespace = data.namespace ?? 'TRANSAX';
-        this.verbose = data.verbose ?? false;
-    }
-
-}
+import LoggerOptions from './LoggerOptions';
 
 /**
  * Default implementation of the {@link LoggerInterface}.
@@ -19,29 +10,34 @@ class Options {
  */
 export default class Logger implements LoggerInterface {
 
-    private readonly options: Options;
+    /**
+     * The options.
+     *
+     * @private
+     */
+    private readonly options: LoggerOptions;
 
     /**
      * Creates a new instance.
      *
      * @param options Customizes the logger.
      */
-    constructor( options: LoggerOptions = {} ) {
-        this.options = new Options( options );
+    constructor( options: LoggerOptionsType = {} ) {
+        this.options = options instanceof LoggerOptions ? options : new LoggerOptions( options );
     }
 
     /**
      * @inheritDoc
      */
-    public log( ...args: any[] ): void {
-        console.log( `[${ this.options.namespace }]`, ...args );
+    log( ...args: any[] ): void {
+        !this.options.quiet && console.log( `[${ this.options.namespace }]`, ...args );
     }
 
     /**
      * @inheritDoc
      */
     verbose( ...args: any[] ): void {
-        this.options.verbose && console.log( `[${ this.options.namespace }]`, ...args );
+        !this.options.quiet && this.options.verbose && console.log( `[${ this.options.namespace }]`, ...args );
     }
 
 }

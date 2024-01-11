@@ -4,7 +4,7 @@ import { LocationRange } from 'peggy';
 import Analyzer from '../src/Analyzer/Analyzer';
 import AnalyzerToken from '../src/Analyzer/AnalyzerToken';
 
-import { Key } from '../src/Type/Key';
+import { KeyType } from '../src/Type/KeyType';
 
 function l( line: number, column: number ): LocationRange {
     return { start: { offset: 0, line, column }, end: null, source: null };
@@ -91,7 +91,7 @@ describe( 'Analyzer', () => {
         // use a configured key formatter
         test( 'option: keyFormatter', () => {
             expect( new Analyzer( {
-                keyFormatter: ( key: Key, token: AnalyzerToken ) => token.name + '.' + key.toUpperCase(),
+                keyFormatter: ( key: KeyType, token: AnalyzerToken ) => token.name + '.' + key.toUpperCase(),
             } ).analyze( `$t( 'key' )` ) ).toStrictEqual( [
                 new AnalyzerToken( '$t', '$t.KEY', `$t( 'key' )`, l( 1, 1 ) ),
             ] );

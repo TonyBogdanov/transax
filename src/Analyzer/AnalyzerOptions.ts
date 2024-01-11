@@ -1,28 +1,58 @@
-import LoggerInterface from '../Logger/LoggerInterface';
+import { AnalyzerOptionsType } from '../Type/AnalyzerOptionsType';
+import { KeyFormatterType } from '../Type/KeyFormatterType';
 
-import { KeyFormatter } from '../Type/KeyFormatter';
+import LoggerInterface from '../Logger/LoggerInterface';
+import Logger from '../Logger/Logger';
 
 /**
  * Options for the {@link Analyzer}.
  */
-export type AnalyzerOptions = {
+export default class AnalyzerOptions implements AnalyzerOptionsType {
+
+    /** @inheritDoc */
+    names: string[];
+
+    /** @inheritDoc */
+    keyFormatter: KeyFormatterType;
+
+    /** @inheritDoc */
+    logger: LoggerInterface;
 
     /**
-     * The names of the functions to analyze.
-     * Defaults to `[ '$t' ]`.
+     * Creates a new instance.
+     *
+     * @param options
      */
-    names?: string[];
+    constructor( options: AnalyzerOptionsType = {} ) {
+        if ( null === options || 'object' !== typeof options ) {
+            throw new TypeError( 'Expected options to be an object.' );
+        }
 
-    /**
-     * A function to format the translation key based on the context.
-     * Defaults to `( key => key )`.
-     */
-    keyFormatter?: KeyFormatter;
+        if ( 'undefined' === typeof options.names ) {
+            this.names = [ '$t' ];
+        } else if ( 'string' === typeof options.names && 0 < options.names.length ) {
+            this.names = [ options.names ];
+        } else if ( Array.isArray( options.names ) && 0 < options.names.length ) {
+            this.names = options.names;
+        } else {
+            throw new TypeError( 'Expected options.names to be a non-empty string or an non-empty array.' );
+        }
 
-    /**
-     * Optional logger instance.
-     * Defaults to `new Logger( { namespace: 'TRANSAX:ANALYZER' } )`.
-     */
-    logger?: LoggerInterface;
+        if ( 'undefined' === typeof options.keyFormatter ) {
+            this.keyFormatter = ( key: string ): string => key;
+        } else if ( 'function' === typeof options.keyFormatter ) {
+            this.keyFormatter = options.keyFormatter;
+        } else {
+            throw new TypeError( 'Expected options.keyFormatter to be a function.' );
+        }
+
+        if ( 'undefined' === typeof options.logger ) {
+            this.logger = new Logger( { namespace: 'TRANSAX:ANALYZER' } );
+        } else if ( options.logger instanceof Logger ) { // should be LoggerInterface, but not possible in TS
+            this.logger = options.logger;
+        } else {
+            throw new TypeError( 'Expected options.logger to be an instance of LoggerInterface.' );
+        }
+    }
 
 }

@@ -1,45 +1,36 @@
-import { str } from 'crc-32';
-
-import { Catalog } from '../Type/Catalog';
-
-import Analyzer from '../Analyzer/Analyzer';
-import AnalyzerInterface from '../Analyzer/AnalyzerInterface';
-
-import Compiler from '../Compiler/Compiler';
-import CompilerInterface from '../Compiler/CompilerInterface';
-
-import Logger from '../Logger/Logger';
-import LoggerInterface from '../Logger/LoggerInterface';
+import { GeneratorOptionsType } from '../Type/GeneratorOptionsType';
+import { LocaleType } from '../Type/LocaleType';
+import { DictionaryType } from '../Type/DictionaryType';
+import { CatalogType } from '../Type/CatalogType';
 
 import GeneratorInterface from './GeneratorInterface';
-import { GeneratorOptions } from './GeneratorOptions';
-import { Locale } from '../Type/Locale';
-import { Dictionary } from '../Type/Dictionary';
 
-class Options {
-
-    translations: Catalog;
-    analyzer: AnalyzerInterface;
-    compiler: CompilerInterface;
-    logger: LoggerInterface;
-
-    constructor( data: GeneratorOptions = {} ) {
-        this.translations = data.translations ?? {};
-        this.analyzer = data.analyzer ?? new Analyzer();
-        this.compiler = data.compiler ?? new Compiler();
-        this.logger = data.logger ?? new Logger( { namespace: 'TRANSAX:GENERATOR' } );
-    }
-
-}
+import GeneratorOptions from './GeneratorOptions';
+import CRC32 from '../Util/CRC32';
 
 /**
  * Default implementation of the {@link GeneratorInterface}.
  */
 export default class Generator implements GeneratorInterface {
 
-    private readonly options: Options;
+    /**
+     * The options.
+     *
+     * @private
+     */
+    private readonly options: GeneratorOptions;
+
+    /**
+     * Detected translation keys.
+     *
+     * @private
+     */
     private readonly keys: Record<string, string[]> = {};
 
+    /**
+     * @param deduplicate
+     * @private
+     */
     private getDeduplicationDump( deduplicate: string[] ): string {
         if ( 0 === Object.keys( deduplicate ).length ) {
             return '';
@@ -53,6 +44,10 @@ export default class Generator implements GeneratorInterface {
         return result.substring( 0, result.length - 2 ) + ';\n\n';
     }
 
+    /**
+     * @param index
+     * @private
+     */
     private getDeduplicationVar( index: number ): string {
         const baseChars = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
         let result = '';
@@ -70,8 +65,8 @@ export default class Generator implements GeneratorInterface {
      *
      * @param options Customizes the generator.
      */
-    constructor( options: GeneratorOptions = {} ) {
-        this.options = new Options( options );
+    constructor( options: GeneratorOptionsType = {} ) {
+        this.options = options instanceof GeneratorOptions ? options : new GeneratorOptions( options );
     }
 
     /**
@@ -80,7 +75,7 @@ export default class Generator implements GeneratorInterface {
     parse( code: string, source?: string, accumulate: boolean = false ): this {
         if ( !accumulate && !!source ) {
             for ( const [ key, sources ] of Object.entries( this.keys ) ) {
-                this.keys[ key ] = sources.filter( candidate => candidate.split( '::' )[0] !== source );
+                this.keys[ key ] = sources.filter( candidate => candidate.split( '::' )[ 0 ] !== source );
 
                 if ( 0 === this.keys[ key ].length ) {
                     delete this.keys[ key ];
@@ -106,7 +101,7 @@ export default class Generator implements GeneratorInterface {
     /**
      * @inheritDoc
      */
-    setTranslations( locale: Locale, dictionary: Dictionary ): this {
+    setTranslations( locale: LocaleType, dictionary: DictionaryType ): this {
         this.options.translations[ locale ] = dictionary;
         return this;
     }
@@ -114,7 +109,18 @@ export default class Generator implements GeneratorInterface {
     /**
      * @inheritDoc
      */
-    removeTranslations( locale: Locale ): this {
+    mergeTranslations( catalog: CatalogType ): this {
+        for ( const [ locale, dictionary ] of Object.entries( catalog ) ) {
+            this.setTranslations( locale, dictionary );
+        }
+
+        return this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    removeTranslations( locale: LocaleType ): this {
         if ( this.options.translations.hasOwnProperty( locale ) ) {
             delete this.options.translations[ locale ];
         }
@@ -126,7 +132,7 @@ export default class Generator implements GeneratorInterface {
      * @inheritDoc
      */
     getTranslationsChecksum(): number {
-        return str( JSON.stringify( this.options.translations ) );
+        return CRC32.checksum( JSON.stringify( this.options.translations ) );
     }
 
     /**

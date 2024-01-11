@@ -8,7 +8,7 @@
     "exp": "esrun --send-code-mode=temporaryFile exp.ts",
     "build:parsers": "node bin/build-parsers.cjs",
     "build:modules": "node bin/build-modules.cjs",
-    "build:typedocs": "typedoc --plugin typedoc-plugin-markdown",
+    "build:typedocs": "typedoc --plugin typedoc-plugin-markdown && node bin/update-typedoc-navigation.cjs",
     "build:docs": "NODE_OPTIONS=--openssl-legacy-provider vuepress build docs && cp -r coverage/lcov-report docs/.vuepress/dist/coverage && cp coverage/badge.svg docs/.vuepress/dist/coverage",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.ts",
     "test:coverage": "rm -rf coverage/* && node --experimental-vm-modules node_modules/jest/bin/jest.js --config jest.config.ts --collect-coverage && make-coverage-badge && sed -i 's/Coverage/coverage/g' coverage/badge.svg",
@@ -59,16 +59,14 @@
     "typedoc-plugin-markdown": "^3.15.4",
     "typescript": "^5.1.6",
     "uglify-js": "^3.17.4",
-    "vite": "^4.4.9",
+    "vite": "^5.0.11",
     "vue": "^3.3.4",
     "vuepress": "^2.0.0-beta.66",
-    "vuepress-plugin-search-pro": "^2.0.0-beta.235",
     "vuepress-theme-hope": "^2.0.0-beta.235",
     "yaml": "^2.3.1"
   },
   "dependencies": {
     "chokidar": "^3.5.3",
-    "crc-32": "^1.2.2",
     "peggy": "^3.0.2"
   }
 }

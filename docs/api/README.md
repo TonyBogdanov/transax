@@ -5,6 +5,7 @@
 ### Classes
 
 - [Analyzer](classes/Analyzer.md)
+- [AnalyzerOptions](classes/AnalyzerOptions.md)
 - [AnalyzerToken](classes/AnalyzerToken.md)
 - [CallExpressionArrayAccess](classes/CallExpressionArrayAccess.md)
 - [CallExpressionInvocation](classes/CallExpressionInvocation.md)
@@ -13,13 +14,17 @@
 - [ComparisonExpressionToken](classes/ComparisonExpressionToken.md)
 - [Compiler](classes/Compiler.md)
 - [CompilerContext](classes/CompilerContext.md)
+- [CompilerOptions](classes/CompilerOptions.md)
 - [CompilerToken](classes/CompilerToken.md)
 - [Generator](classes/Generator.md)
+- [GeneratorOptions](classes/GeneratorOptions.md)
 - [LiteralToken](classes/LiteralToken.md)
 - [Logger](classes/Logger.md)
+- [LoggerOptions](classes/LoggerOptions.md)
 - [TernaryExpressionToken](classes/TernaryExpressionToken.md)
 - [TextToken](classes/TextToken.md)
 - [Translator](classes/Translator.md)
+- [TranslatorOptions](classes/TranslatorOptions.md)
 
 ### Interfaces
 
@@ -31,29 +36,29 @@
 
 ### Type Aliases
 
-- [AnalyzerOptions](README.md#analyzeroptions)
-- [Catalog](README.md#catalog)
-- [CompiledCatalog](README.md#compiledcatalog)
-- [CompiledDictionary](README.md#compileddictionary)
-- [CompiledValue](README.md#compiledvalue)
-- [CompilerOptions](README.md#compileroptions)
-- [Context](README.md#context)
-- [ContextGlobals](README.md#contextglobals)
-- [ContextParams](README.md#contextparams)
-- [Dictionary](README.md#dictionary)
-- [GeneratorOptions](README.md#generatoroptions)
-- [Key](README.md#key)
-- [KeyFormatter](README.md#keyformatter)
-- [Locale](README.md#locale)
-- [LoggerOptions](README.md#loggeroptions)
-- [TranslatorOptions](README.md#translatoroptions)
-- [Value](README.md#value)
+- [AnalyzerOptionsType](README.md#analyzeroptionstype)
+- [CatalogType](README.md#catalogtype)
+- [CompiledCatalogType](README.md#compiledcatalogtype)
+- [CompiledDictionaryType](README.md#compileddictionarytype)
+- [CompiledValueType](README.md#compiledvaluetype)
+- [CompilerOptionsType](README.md#compileroptionstype)
+- [ContextGlobalsType](README.md#contextglobalstype)
+- [ContextParamsType](README.md#contextparamstype)
+- [ContextType](README.md#contexttype)
+- [DictionaryType](README.md#dictionarytype)
+- [GeneratorOptionsType](README.md#generatoroptionstype)
+- [KeyFormatterType](README.md#keyformattertype)
+- [KeyType](README.md#keytype)
+- [LocaleType](README.md#localetype)
+- [LoggerOptionsType](README.md#loggeroptionstype)
+- [TranslatorOptionsType](README.md#translatoroptionstype)
+- [ValueType](README.md#valuetype)
 
 ## Type Aliases
 
-### AnalyzerOptions
+### AnalyzerOptionsType
 
-Ƭ **AnalyzerOptions**: `Object`
+Ƭ **AnalyzerOptionsType**: `Object`
 
 Options for the [Analyzer](classes/Analyzer.md).
 
@@ -61,15 +66,15 @@ Options for the [Analyzer](classes/Analyzer.md).
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `keyFormatter?` | [`KeyFormatter`](README.md#keyformatter) | A function to format the translation key based on the context. Defaults to `( key => key )`. |
+| `keyFormatter?` | [`KeyFormatterType`](README.md#keyformattertype) | A function to format the translation key based on the context. Defaults to `( key => key )`. |
 | `logger?` | [`LoggerInterface`](interfaces/LoggerInterface.md) | Optional logger instance. Defaults to `new Logger( { namespace: 'TRANSAX:ANALYZER' } )`. |
-| `names?` | `string`[] | The names of the functions to analyze. Defaults to `[ '$t' ]`. |
+| `names?` | `string`[] \| `string` | The name(s) of the function(s) to analyze. Defaults to `[ '$t' ]`. |
 
 ___
 
-### Catalog
+### CatalogType
 
-Ƭ **Catalog**: `Record`<[`Locale`](README.md#locale), [`Dictionary`](README.md#dictionary)\>
+Ƭ **CatalogType**: `Record`\<[`LocaleType`](README.md#localetype), [`DictionaryType`](README.md#dictionarytype)\>
 
 Catalog of translation entries, keyed by locale.
 
@@ -85,33 +90,33 @@ Catalog of translation entries, keyed by locale.
 
 ___
 
-### CompiledCatalog
+### CompiledCatalogType
 
-Ƭ **CompiledCatalog**: `Record`<[`Locale`](README.md#locale), [`CompiledDictionary`](README.md#compileddictionary)\>
+Ƭ **CompiledCatalogType**: `Record`\<[`LocaleType`](README.md#localetype), [`CompiledDictionaryType`](README.md#compileddictionarytype)\>
 
-A compiled version of a [Catalog](README.md#catalog).
-
-___
-
-### CompiledDictionary
-
-Ƭ **CompiledDictionary**: `Record`<[`Key`](README.md#key), [`CompiledValue`](README.md#compiledvalue)\>
-
-A compiled version of a [Dictionary](README.md#dictionary).
+A compiled version of a [CatalogType](README.md#catalogtype).
 
 ___
 
-### CompiledValue
+### CompiledDictionaryType
 
-Ƭ **CompiledValue**: (`params`: [`ContextParams`](README.md#contextparams), `globals`: [`ContextGlobals`](README.md#contextglobals)) => `string` \| `string`
+Ƭ **CompiledDictionaryType**: `Record`\<[`KeyType`](README.md#keytype), [`CompiledValueType`](README.md#compiledvaluetype)\>
 
-A compiled version of a [Value](README.md#value).
+A compiled version of a [DictionaryType](README.md#dictionarytype).
 
 ___
 
-### CompilerOptions
+### CompiledValueType
 
-Ƭ **CompilerOptions**: `Object`
+Ƭ **CompiledValueType**: (`params`: [`ContextParamsType`](README.md#contextparamstype), `globals`: [`ContextGlobalsType`](README.md#contextglobalstype)) => `string` \| `string`
+
+A compiled version of a [ValueType](README.md#valuetype).
+
+___
+
+### CompilerOptionsType
+
+Ƭ **CompilerOptionsType**: `Object`
 
 Options for the [Compiler](classes/Compiler.md).
 
@@ -123,9 +128,25 @@ Options for the [Compiler](classes/Compiler.md).
 
 ___
 
-### Context
+### ContextGlobalsType
 
-Ƭ **Context**: `Object`
+Ƭ **ContextGlobalsType**: `Record`\<`string`, `any`\>
+
+Hashmap of context globals to be used during translation.
+
+___
+
+### ContextParamsType
+
+Ƭ **ContextParamsType**: `Record`\<`string`, `any`\>
+
+Hashmap of context parameters to be used during translation.
+
+___
+
+### ContextType
+
+Ƭ **ContextType**: `Object`
 
 Runtime context to be used during translation.
 
@@ -133,31 +154,15 @@ Runtime context to be used during translation.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `globals?` | [`ContextGlobals`](README.md#contextglobals) | Hashmap of globals available to translation expressions. |
-| `locale?` | [`Locale`](README.md#locale) | The locale to translate to. If not specified, the default locale specified in the translator options will be used. |
-| `params?` | [`ContextParams`](README.md#contextparams) | Hashmap of parameters available to translation expressions. |
+| `globals?` | [`ContextGlobalsType`](README.md#contextglobalstype) | Hashmap of globals available to translation expressions. |
+| `locale?` | [`LocaleType`](README.md#localetype) | The locale to translate to. If not specified, the default locale specified in the translator options will be used. |
+| `params?` | [`ContextParamsType`](README.md#contextparamstype) | Hashmap of parameters available to translation expressions. |
 
 ___
 
-### ContextGlobals
+### DictionaryType
 
-Ƭ **ContextGlobals**: `Record`<`string`, `any`\>
-
-Hashmap of context globals to be used during translation.
-
-___
-
-### ContextParams
-
-Ƭ **ContextParams**: `Record`<`string`, `any`\>
-
-Hashmap of context parameters to be used during translation.
-
-___
-
-### Dictionary
-
-Ƭ **Dictionary**: `Record`<[`Key`](README.md#key), [`Value`](README.md#value)\>
+Ƭ **DictionaryType**: `Record`\<[`KeyType`](README.md#keytype), [`ValueType`](README.md#valuetype)\>
 
 Translation dictionary as a hashmap of key-value pairs.
 
@@ -169,9 +174,9 @@ Translation dictionary as a hashmap of key-value pairs.
 
 ___
 
-### GeneratorOptions
+### GeneratorOptionsType
 
-Ƭ **GeneratorOptions**: `Object`
+Ƭ **GeneratorOptionsType**: `Object`
 
 Options for the [Generator](classes/Generator.md).
 
@@ -182,27 +187,13 @@ Options for the [Generator](classes/Generator.md).
 | `analyzer?` | [`AnalyzerInterface`](interfaces/AnalyzerInterface.md) | Optional analyzer instance. Defaults to `new Analyzer()`. |
 | `compiler?` | [`CompilerInterface`](interfaces/CompilerInterface.md) | Optional compiler instance. Defaults to `new Compiler()`. |
 | `logger?` | [`LoggerInterface`](interfaces/LoggerInterface.md) | Optional logger instance. Defaults to `new Logger( { namespace: 'TRANSAX:GENERATOR' } )`. |
-| `translations?` | [`Catalog`](README.md#catalog) | Optional translation catalog. Defaults to `{}`. |
+| `translations?` | [`CatalogType`](README.md#catalogtype) | Optional translation catalog. Defaults to `{}`. |
 
 ___
 
-### Key
+### KeyFormatterType
 
-Ƭ **Key**: `string`
-
-Translation key as a string used to identify a translation.
-
-**`Example`**
-
-```typescript
-"my.translation.key"
-```
-
-___
-
-### KeyFormatter
-
-Ƭ **KeyFormatter**: (`key`: [`Key`](README.md#key), `token`: [`AnalyzerToken`](classes/AnalyzerToken.md)) => `string`
+Ƭ **KeyFormatterType**: (`key`: [`KeyType`](README.md#keytype), `token`: [`AnalyzerToken`](classes/AnalyzerToken.md)) => `string`
 
 #### Type declaration
 
@@ -214,7 +205,7 @@ A function to format the translation key based on the context.
 
 | Name | Type |
 | :------ | :------ |
-| `key` | [`Key`](README.md#key) |
+| `key` | [`KeyType`](README.md#keytype) |
 | `token` | [`AnalyzerToken`](classes/AnalyzerToken.md) |
 
 ##### Returns
@@ -223,9 +214,23 @@ A function to format the translation key based on the context.
 
 ___
 
-### Locale
+### KeyType
 
-Ƭ **Locale**: `string`
+Ƭ **KeyType**: `string`
+
+Translation key as a string used to identify a translation.
+
+**`Example`**
+
+```typescript
+"my.translation.key"
+```
+
+___
+
+### LocaleType
+
+Ƭ **LocaleType**: `string`
 
 Translation locale as a string representing a unique language.
 
@@ -237,9 +242,9 @@ Translation locale as a string representing a unique language.
 
 ___
 
-### LoggerOptions
+### LoggerOptionsType
 
-Ƭ **LoggerOptions**: `Object`
+Ƭ **LoggerOptionsType**: `Object`
 
 Options for [Logger](classes/Logger.md).
 
@@ -247,14 +252,15 @@ Options for [Logger](classes/Logger.md).
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `namespace?` | `string` | Specifies a namespace for identifying the purpose of the logger (e.g. `Analysis`). Defaults to `LOG`. |
+| `namespace?` | `string` | Specifies a namespace for identifying the purpose of the logger (e.g. `Analysis`). Defaults to `TRANSAX`. |
+| `quiet?` | `boolean` | Disables all logging. Defaults to `false`. |
 | `verbose?` | `boolean` | Enables verbose logging. Defaults to `false`. |
 
 ___
 
-### TranslatorOptions
+### TranslatorOptionsType
 
-Ƭ **TranslatorOptions**: `Object`
+Ƭ **TranslatorOptionsType**: `Object`
 
 Options for the [Translator](classes/Translator.md).
 
@@ -262,15 +268,15 @@ Options for the [Translator](classes/Translator.md).
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `fallbackLocale?` | [`Locale`](README.md#locale) | Optional fallback locale. Defaults to `undefined`. |
+| `fallbackLocale?` | [`LocaleType`](README.md#localetype) | Optional fallback locale. Defaults to `undefined`. |
 | `logger?` | [`LoggerInterface`](interfaces/LoggerInterface.md) | Optional logger instance. Defaults to `new Logger( { namespace: 'TRANSAX:TRANSLATOR' } )`. |
-| `translations?` | [`CompiledCatalog`](README.md#compiledcatalog) | Optional compiled translation catalog. Defaults to `{}`. |
+| `translations?` | [`CompiledCatalogType`](README.md#compiledcatalogtype) | Optional compiled translation catalog. Defaults to `{}`. |
 
 ___
 
-### Value
+### ValueType
 
-Ƭ **Value**: `string`
+Ƭ **ValueType**: `string`
 
 Translation value as a string translation of its corresponding key.
 

@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":""}
+{"version":3,"sources":["0"],"names":["Logger","CompilerOptions","constructor","options","TypeError","logger","this","namespace"],"mappings":"OAAOA,WAAY,4CAIEC,gBAMjBC,YAAYC,EAAU,IAIlB,GAAI,QAFAA,EADA,KAAA,IAAuBA,EACb,GAEDA,IAAW,UAAa,OAAOA,EACxC,MAAM,IAAIC,UAAU,mCAAmC,EAE3D,GAAI,KAAA,IAAuBD,EAAQE,OAC/BC,KAAKD,OAAS,IAAIL,OAAO,CAAEO,UAAW,kBAAmB,CAAC,MAEzD,CAAA,GAAIJ,EAAAA,EAAQE,kBAAkBL,QAI/B,MAAM,IAAII,UAAU,+DAA+D,EAHnFE,KAAKD,OAASF,EAAQE,MAI1B,CACJ,CACJ"}

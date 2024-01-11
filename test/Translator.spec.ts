@@ -2,7 +2,7 @@ import { expect, jest } from '@jest/globals';
 
 import Translator from '../src/Translator/Translator';
 import Logger from '../src/Logger/Logger';
-import { TranslatorOptions } from '../src/Translator/TranslatorOptions';
+import { TranslatorOptionsType } from '../src/Type/TranslatorOptionsType';
 
 const translations = {
     en: {
@@ -19,7 +19,7 @@ const opMissingFallback = { fallbackLocale: 'bg', logger: new Logger( { verbose:
 const opUndefinedFallback = { logger: new Logger( { verbose: true } ) };
 
 function runTest(
-    options: TranslatorOptions,
+    options: TranslatorOptionsType,
     test: ( translator: Translator ) => void,
     expectLog?: string,
     expectVerbose?: string,

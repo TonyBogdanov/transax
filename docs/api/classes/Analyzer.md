@@ -28,7 +28,7 @@ Creates a new instance.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | [`AnalyzerOptions`](../README.md#analyzeroptions) | Customizes the analyzer. |
+| `options` | [`AnalyzerOptionsType`](../README.md#analyzeroptionstype) | Customizes the analyzer. |
 
 ## Methods
 

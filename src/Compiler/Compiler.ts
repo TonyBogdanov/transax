@@ -1,40 +1,34 @@
-import Logger from '../Logger/Logger';
-import LoggerInterface from '../Logger/LoggerInterface';
+import { CompilerOptionsType } from '../Type/CompilerOptionsType';
+
+import CompilerInterface from './CompilerInterface';
 
 import CompilerToken from './CompilerToken';
 import TextToken from './TextToken';
 import CompilerContext from './CompilerContext';
-import CompilerInterface from './CompilerInterface';
-import { CompilerOptions } from './CompilerOptions';
-
-import parse from './peg';
 import TernaryExpressionToken from './TernaryExpressionToken';
 import ComparisonExpressionToken from './ComparisonExpressionToken';
-
-class Options {
-
-    logger: LoggerInterface;
-
-    constructor( data: CompilerOptions = {} ) {
-        this.logger = data.logger ?? new Logger( { namespace: 'TRANSAX:COMPILER' } );
-    }
-
-}
+import CompilerOptions from './CompilerOptions';
+import parse from './peg';
 
 /**
  * Default implementation of the {@link CompilerInterface}.
  */
 export default class Compiler implements CompilerInterface {
 
-    private readonly options: Options;
+    /**
+     * The options.
+     *
+     * @private
+     */
+    private readonly options: CompilerOptions;
 
     /**
      * Creates a new instance.
      *
      * @param options Customizes the compiler.
      */
-    constructor( options: CompilerOptions = {} ) {
-        this.options = new Options( options );
+    constructor( options: CompilerOptionsType = {} ) {
+        this.options = options instanceof CompilerOptions ? options : new CompilerOptions( options );
     }
 
     /**
@@ -59,6 +53,8 @@ export default class Compiler implements CompilerInterface {
      * @inheritDoc
      */
     compile( value: string ): string {
+        this.options.logger.log( `Compiling: ${ value }.` );
+
         const context = new CompilerContext();
         const values = [ '""' ];
 

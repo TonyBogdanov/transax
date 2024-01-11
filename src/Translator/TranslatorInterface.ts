@@ -1,5 +1,5 @@
-import { Key } from '../Type/Key';
-import { Context } from '../Type/Context';
+import { KeyType } from '../Type/KeyType';
+import { ContextType } from '../Type/ContextType';
 
 /**
  Defines an interface for **Translator** classes.
@@ -21,6 +21,6 @@ export default interface TranslatorInterface {
      * @param key The key to translate.
      * @param context Optional translation context.
      */
-    translate( key: Key, context?: Context ): string
+    translate( key: KeyType, context?: ContextType ): string
 
 }

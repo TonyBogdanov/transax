@@ -79,6 +79,17 @@ describe( 'Generator', () => {
         } );
     } );
 
+    describe( 'mergeTranslations()', () => {
+        const en = { foo: 'bar' };
+        const de = { bar: 'baz' };
+        const generator = new Generator( { translations: { en } } );
+
+        test( 'merge', () => {
+            // @ts-ignore
+            expect( generator.mergeTranslations( { de } ).options.translations ).toStrictEqual( { en, de } );
+        } );
+    } );
+
     describe( 'removeTranslations()', () => {
         const options = { translations: { en: { foo: 'bar' } } };
 

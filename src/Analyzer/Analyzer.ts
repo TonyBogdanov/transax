@@ -1,35 +1,30 @@
-import Logger from '../Logger/Logger';
-import LoggerInterface from '../Logger/LoggerInterface';
+import { AnalyzerOptionsType } from '../Type/AnalyzerOptionsType';
+
+import AnalyzerInterface from './AnalyzerInterface';
 
 import AnalyzerToken from './AnalyzerToken';
-import AnalyzerInterface from './AnalyzerInterface';
-import { AnalyzerOptions } from './AnalyzerOptions';
-
-import { KeyFormatter } from '../Type/KeyFormatter';
-
+import AnalyzerOptions from './AnalyzerOptions';
 import parse from './peg';
-
-class Options {
-
-    names: string[];
-    keyFormatter: KeyFormatter;
-    logger: LoggerInterface;
-
-    constructor( data: AnalyzerOptions = {} ) {
-        this.names = data.names ?? [ '$t' ];
-        this.keyFormatter = data.keyFormatter ?? ( key => key );
-        this.logger = data.logger ?? new Logger( { namespace: 'TRANSAX:ANALYZER' } );
-    }
-
-}
 
 /**
  * Default implementation of the {@link AnalyzerInterface}.
  */
 export default class Analyzer implements AnalyzerInterface {
 
-    private readonly options: Options;
+    /**
+     * The options.
+     *
+     * @private
+     */
+    private readonly options: AnalyzerOptions;
 
+    /**
+     * Skips the token.
+     *
+     * @param token
+     * @param source
+     * @private
+     */
     private skip( token: AnalyzerToken, source?: string ): void {
         const allowed = source ?
             `in: ${ source }::${ token.line }:${ token.column }.` :
@@ -44,8 +39,8 @@ export default class Analyzer implements AnalyzerInterface {
      *
      * @param options Customizes the analyzer.
      */
-    constructor( options: AnalyzerOptions = {} ) {
-        this.options = new Options( options );
+    constructor( options: AnalyzerOptionsType = {} ) {
+        this.options = options instanceof AnalyzerOptions ? options : new AnalyzerOptions( options );
     }
 
     /**
