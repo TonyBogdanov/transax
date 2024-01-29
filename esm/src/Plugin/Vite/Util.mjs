@@ -1,0 +1,1 @@
+import{basename,extname}from"node:path";export default class Util{static localeFromPath(e){return(e=basename(e)).substring(0,e.length-extname(e).length)}}

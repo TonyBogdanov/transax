@@ -19,7 +19,7 @@ export default class LoggerOptions implements LoggerOptionsType {
      *
      * @param options
      */
-    constructor( options: LoggerOptionsType = {} ) {
+    constructor( options: LoggerOptionsType ) {
         if ( null === options || 'object' !== typeof options ) {
             throw new TypeError( 'Expected options to be an object.' );
         }

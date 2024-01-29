@@ -15,12 +15,12 @@ import { ValueType } from './src/Type/ValueType';
 import { ContextType } from './src/Type/ContextType';
 import { ContextParamsType } from './src/Type/ContextParamsType';
 import { ContextGlobalsType } from './src/Type/ContextGlobalsType';
-// import { VitePluginOptionsType } from './src/Type/VitePluginOptionsType';
-// import { VitePluginDictionaryType } from './src/Type/VitePluginDictionaryType';
-// import { VitePluginInputType } from './src/Type/VitePluginInputType';
-// import { VitePluginOutputType } from './src/Type/VitePluginOutputType';
-// import { VitePluginOutputAnalysisType } from './src/Type/VitePluginOutputAnalysisType';
-// import { VitePluginOutputCompilationType } from './src/Type/VitePluginOutputCompilationType';
+import { VitePluginOptionsType } from './src/Type/VitePluginOptionsType';
+import { VitePluginDictionaryType } from './src/Type/VitePluginDictionaryType';
+import { VitePluginInputType } from './src/Type/VitePluginInputType';
+import { VitePluginOutputType } from './src/Type/VitePluginOutputType';
+import { VitePluginOutputAnalysisType } from './src/Type/VitePluginOutputAnalysisType';
+import { VitePluginOutputCompilationType } from './src/Type/VitePluginOutputCompilationType';
 
 import LoggerInterface from './src/Logger/LoggerInterface';
 import AnalyzerInterface from './src/Analyzer/AnalyzerInterface';
@@ -50,7 +50,7 @@ import Generator from './src/Generator/Generator';
 import GeneratorOptions from './src/Generator/GeneratorOptions';
 import Translator from './src/Translator/Translator';
 import TranslatorOptions from './src/Translator/TranslatorOptions';
-// import VitePlugin from './src/Plugin/Vite/VitePlugin';
+import VitePlugin from './src/Plugin/Vite/VitePlugin';
 
 export {
     AnalyzerOptionsType,
@@ -70,12 +70,12 @@ export {
     ContextType,
     ContextParamsType,
     ContextGlobalsType,
-    // VitePluginOptionsType,
-    // VitePluginDictionaryType,
-    // VitePluginInputType,
-    // VitePluginOutputType,
-    // VitePluginOutputAnalysisType,
-    // VitePluginOutputCompilationType,
+    VitePluginOptionsType,
+    VitePluginDictionaryType,
+    VitePluginInputType,
+    VitePluginOutputType,
+    VitePluginOutputAnalysisType,
+    VitePluginOutputCompilationType,
 
     LoggerInterface,
     AnalyzerInterface,
@@ -104,5 +104,5 @@ export {
     GeneratorOptions,
     Translator,
     TranslatorOptions,
-    // VitePlugin,
+    VitePlugin,
 };
