@@ -1,45 +1,29 @@
-import { basename, extname } from 'node:path';
-import { readFile, writeFile } from 'node:fs/promises';
-import { watch } from 'chokidar';
-import { parse as parseYaml, stringify as stringifyYaml } from 'yaml';
+// import { basename, extname } from 'node:path';
+// import { readFile, writeFile } from 'node:fs/promises';
+// import { watch } from 'chokidar';
+// import { parse as parseYaml, stringify as stringifyYaml } from 'yaml';
 
 import { VitePluginOptionsType } from '../../Type/VitePluginOptionsType';
 import VitePluginOptions from './VitePluginOptions';
 import PathError from '../../Util/PathError';
 
-function flatten( items: object, tail: string[] = [] ): Record<string, string> {
-    const result: Record<string, string> = {};
-    for ( const [ key, value ] of Object.entries( items ) ) {
-        if ( 'object' === typeof value ) {
-            Object.assign( result, flatten( value, tail.concat( key ) ) );
-        } else {
-            result[ tail.concat( key ).join( '.' ) ] = value;
-        }
-    }
-
-    return result;
-}
+// function flatten( items: object, tail: string[] = [] ): Record<string, string> {
+//     const result: Record<string, string> = {};
+//     for ( const [ key, value ] of Object.entries( items ) ) {
+//         if ( 'object' === typeof value ) {
+//             Object.assign( result, flatten( value, tail.concat( key ) ) );
+//         } else {
+//             result[ tail.concat( key ).join( '.' ) ] = value;
+//         }
+//     }
+//
+//     return result;
+// }
 
 export default function VitePlugin( options: VitePluginOptionsType ) {
-    console.log( options );
     options = PathError.wrap( 'options', () => new VitePluginOptions( options ) );
-
     console.log( options );
 
-    // const
-    //     dictionaryPattern = configureDictionaryPattern( options ),
-    //     dictionaryHandler = configureDictionaryHandler( options ),
-    //     inputPattern = configureInputPattern( options ),
-    //     inputKeyword = configureInputKeyword( options ),
-    //     inputKeyFormatter = configureInputKeyFormatter( options ),
-    //     outputCompiledPath = configureOutputCompiledPath( options ),
-    //     outputCompiledIncludeMeta = configureOutputCompiledIncludeMeta( options ),
-    //     outputCompiledHandler = configureOutputCompiledHandler( options, outputCompiledPath, outputCompiledIncludeMeta ),
-    //     outputMissingPath = configureOutputMissingPath( options ),
-    //     outputMissingHandler = configureOutputMissingHandler( options, outputMissingPath ),
-    //     outputUnusedPath = configureOutputUnusedPath( options ),
-    //     outputUnusedHandler = configureOutputUnusedHandler( options, outputUnusedPath );
-    //
     // const generator = new Generator( {
     //     analyzer: new Analyzer( {
     //         names: inputKeyword,
