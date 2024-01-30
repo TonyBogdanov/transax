@@ -12,6 +12,9 @@ const { rimraf } = require( 'rimraf' );
 const { relative, extname } = require( 'path' );
 const { spawn } = require( 'child_process' );
 
+// for debugging purposes
+const minify = true;
+
 const execute = ( command, args, env = {} ) => new Promise(
     ( resolve, reject ) => spawn( command, args, { stdio: 'inherit', env: { ...process.env, ...env } } )
         .on( 'close', code => 0 === code ? resolve() : reject( code ) )
@@ -59,13 +62,22 @@ const run = async ( target, type, ext, patch ) => {
     await writeFile( resolve( __dirname, '..', target, 'package.json' ), JSON.stringify( cfg, null, 2 ) );
 
     await Promise.all( glob.sync( resolve( __dirname, '..', target, '**/*.js' ) ).map( async path => {
-        const min = uglify.minify( patch( await readFile( path, 'utf8' ) ), { sourceMap: {} } );
         const newPath = path.substring( 0, path.length - extname( path ).length ) + ext;
+
+        let code = patch( await readFile( path, 'utf8' ) ),
+            map = '';
+
+        if ( minify ) {
+            const min = uglify.minify( code, { sourceMap: {} } );
+
+            code = min.code;
+            map = min.map;
+        }
 
         return Promise.all( [
             unlink( path ),
-            writeFile( newPath, min.code ),
-            writeFile( newPath + '.map', min.map ),
+            writeFile( newPath, code ),
+            writeFile( newPath + '.map', map ),
         ] );
     } ) );
 };

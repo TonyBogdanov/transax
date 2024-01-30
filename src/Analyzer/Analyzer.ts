@@ -19,19 +19,39 @@ export default class Analyzer implements AnalyzerInterface {
     private readonly options: AnalyzerOptions;
 
     /**
-     * Skips the token.
+     * Returns the suffix explanation for the token.
+     *
+     * @param token
+     * @param source
+     * @private
+     */
+    private suffix( token: AnalyzerToken, source?: string ): string {
+        return source ?
+            `in: ${ source }::${ token.line }:${ token.column }.` :
+            `at: ${ token.line }:${ token.column }.`;
+    }
+
+    /**
+     * Logs a skipped token.
      *
      * @param token
      * @param source
      * @private
      */
     private skip( token: AnalyzerToken, source?: string ): void {
-        const allowed = source ?
-            `in: ${ source }::${ token.line }:${ token.column }.` :
-            `at: ${ token.line }:${ token.column }.`;
-
         this.options.logger.verbose( `Skipping ${ token.text } because: "${
-            token.name }" isn't in the list of allowed names ${ allowed }` );
+            token.name }" isn't in the list of allowed names ${ this.suffix( token, source ) }` );
+    }
+
+    /**
+     * Logs a registered token.
+     *
+     * @param token
+     * @param source
+     * @private
+     */
+    private register( token: AnalyzerToken, source?: string ): void {
+        this.options.logger.verbose( `Registering ${ token.text } ${ this.suffix( token, source ) }` );
     }
 
     /**
@@ -59,6 +79,7 @@ export default class Analyzer implements AnalyzerInterface {
             token.source = source;
             token.key = this.options.keyFormatter( token.key, token );
 
+            this.register( token, source );
             result.push( token );
         }
 

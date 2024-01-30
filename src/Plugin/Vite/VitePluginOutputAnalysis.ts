@@ -2,7 +2,11 @@ import { extname } from 'node:path';
 import { writeFile } from 'node:fs/promises';
 import { stringify as stringifyYaml } from 'yaml';
 
-import { VitePluginOutputAnalysisType } from '../../Type/VitePluginOutputAnalysisType';
+import {
+    VitePluginOutputAnalysisFlavorMissing,
+    VitePluginOutputAnalysisFlavorUnused,
+    VitePluginOutputAnalysisType
+} from '../../Type/VitePluginOutputAnalysisType';
 
 import VitePlugin from './VitePlugin';
 import Generator from '../../Generator/Generator';
@@ -14,10 +18,13 @@ import PathError from '../../Util/PathError';
 export default class VitePluginOutputAnalysis implements VitePluginOutputAnalysisType {
 
     /** @inheritDoc */
+    flavor: string;
+
+    /** @inheritDoc */
     path: string;
 
     /** @inheritDoc */
-    handler?: ( ( path: string, generator: Generator ) => Promise<void> | void ) | string;
+    handler: ( path: string, generator: Generator ) => Promise<void> | void;
 
     /**
      * Creates a new instance.
@@ -28,6 +35,17 @@ export default class VitePluginOutputAnalysis implements VitePluginOutputAnalysi
         if ( !options || 'object' !== typeof options ) {
             throw new PathError( 'Expected {{ path }} to be an object.' );
         }
+
+        this.flavor = PathError.wrap( 'flavor', () => {
+            if ( [
+                VitePluginOutputAnalysisFlavorMissing,
+                VitePluginOutputAnalysisFlavorUnused,
+            ].includes( options.flavor ) ) {
+                return options.flavor;
+            }
+
+            throw new PathError( `Expected {{ path }} to be a valid string value.` );
+        } );
 
         this.path = PathError.wrap( 'path', () => {
             if ( 'string' === typeof options.path && 0 < options.path.length ) {
@@ -55,16 +73,30 @@ export default class VitePluginOutputAnalysis implements VitePluginOutputAnalysi
         }
 
         this.handler = PathError.wrap( 'handler', () => {
+            let getter = ( generator: Generator ): Record<string, string[]> => ( {} );
+
+            if ( VitePluginOutputAnalysisFlavorMissing === this.flavor ) {
+                getter = ( generator: Generator ): Record<string, string[]> => generator.getMissingTranslationKeys();
+            } else if ( VitePluginOutputAnalysisFlavorUnused === this.flavor ) {
+                getter = ( generator: Generator ): Record<string, string[]> => generator.getUnusedTranslationKeys();
+            }
+
             if ( 'txt' === options.handler ) {
-                return ( path: string, generator: Generator ): Promise<void> => writeFile( path,
-                    Object.entries( generator.getMissingTranslationKeys() ).map( ( [ locale, keys ] ) =>
-                        '## ' + locale + '\n' + keys.join( '\n' ) + '\n\n' ) );
+                return ( path: string, generator: Generator ): Promise<void> => {
+                    const mapper = ( [ locale, keys ]: [ string, string[] ] ) => {
+                        return '## ' + locale + '\n' + keys.join( '\n' ) + '\n\n';
+                    };
+
+                    return writeFile( path, Object.entries( getter( generator ) ).map( mapper ) );
+                };
             } else if ( 'yaml' === options.handler ) {
-                return ( path: string, generator: Generator ): Promise<void> => writeFile( path,
-                    stringifyYaml( generator.getMissingTranslationKeys() ) );
+                return ( path: string, generator: Generator ): Promise<void> => {
+                    return writeFile( path, stringifyYaml( getter( generator ) ) );
+                };
             } else if ( 'json' === options.handler ) {
-                return ( path: string, generator: Generator ): Promise<void> => writeFile( path,
-                    JSON.stringify( generator.getMissingTranslationKeys(), null, 2 ) );
+                return ( path: string, generator: Generator ): Promise<void> => {
+                    return writeFile( path, JSON.stringify( getter( generator ), null, 2 ) );
+                };
             } else if ( 'function' === typeof options.handler ) {
                 return options.handler;
             }

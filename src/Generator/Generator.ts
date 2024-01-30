@@ -102,6 +102,9 @@ export default class Generator implements GeneratorInterface {
      * @inheritDoc
      */
     setTranslations( locale: LocaleType, dictionary: DictionaryType ): this {
+        this.options.logger.verbose( `Updating translations for locale: ${ locale } (dict size=${
+            Object.keys( dictionary ).length }).` );
+
         this.options.translations[ locale ] = dictionary;
         return this;
     }
@@ -122,6 +125,7 @@ export default class Generator implements GeneratorInterface {
      */
     removeTranslations( locale: LocaleType ): this {
         if ( this.options.translations.hasOwnProperty( locale ) ) {
+            this.options.logger.verbose( `Removing translations for locale: ${ locale }.` );
             delete this.options.translations[ locale ];
         }
 
@@ -139,6 +143,8 @@ export default class Generator implements GeneratorInterface {
      * @inheritDoc
      */
     getMissingTranslationKeys(): Record<string, string[]> {
+        this.options.logger.log( `Generating missing translations.` );
+
         const result: Record<string, string[]> = {};
         for ( const locale of Object.keys( this.options.translations ) ) {
             const translations = this.options.translations[ locale ];
@@ -152,6 +158,8 @@ export default class Generator implements GeneratorInterface {
      * @inheritDoc
      */
     getUnusedTranslationKeys(): Record<string, string[]> {
+        this.options.logger.log( `Generating unused translations.` );
+
         const result: Record<string, string[]> = {};
         for ( const locale of Object.keys( this.options.translations ) ) {
             const translations = this.options.translations[ locale ];
@@ -165,6 +173,8 @@ export default class Generator implements GeneratorInterface {
      * @inheritDoc
      */
     getCompiledTranslationsDump( includeMeta?: boolean, deduplicate?: string[] ): string {
+        this.options.logger.log( `Generating translation dump.` );
+
         const trackMap: Record<string, number> = {};
         let filtered = Object.fromEntries( Object.keys( this.options.translations ).map( locale => {
             const translations = this.options.translations[ locale ];

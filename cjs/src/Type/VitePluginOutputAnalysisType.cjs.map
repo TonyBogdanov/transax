@@ -1,1 +1,1 @@
-{"version":3,"sources":["0"],"names":["Object","defineProperty","exports","value"],"mappings":"AAAA,aACAA,OAAOC,eAAeC,QAAS,aAAc,CAAEC,MAAO,CAAA,CAAK,CAAC"}
+{"version":3,"sources":["0"],"names":["Object","defineProperty","exports","value","VitePluginOutputAnalysisFlavorUnused","VitePluginOutputAnalysisFlavorMissing"],"mappings":"AAAA,aACAA,OAAOC,eAAeC,QAAS,aAAc,CAAEC,MAAO,CAAA,CAAK,CAAC,EAC5DD,QAAQE,qCAAuCF,QAAQG,sCAAwC,KAAA,EAC/FH,QAAQG,sCAAwC,4BAChDH,QAAQE,qCAAuC"}

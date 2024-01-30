@@ -19,7 +19,7 @@ export default class VitePluginOutputCompilation implements VitePluginOutputComp
     includeMeta: boolean;
 
     /** @inheritDoc */
-    handler: ( ( path: string, generator: Generator ) => Promise<void> | void ) | string;
+    handler: ( path: string, generator: Generator ) => Promise<void> | void;
 
     /**
      * Creates a new instance.

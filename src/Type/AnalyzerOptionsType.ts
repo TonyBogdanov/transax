@@ -1,6 +1,7 @@
 import { KeyFormatterType } from './KeyFormatterType';
 
 import LoggerInterface from '../Logger/LoggerInterface';
+import { LoggerOptionsType } from './LoggerOptionsType';
 
 /**
  * Options for the {@link Analyzer}.
@@ -23,6 +24,6 @@ export type AnalyzerOptionsType = {
      * Optional logger instance.
      * Defaults to `new Logger( { namespace: 'TRANSAX:ANALYZER' } )`.
      */
-    logger?: LoggerInterface;
+    logger?: LoggerInterface | LoggerOptionsType;
 
 }

@@ -24,4 +24,14 @@ export type VitePluginOptionsType = {
      */
     output: VitePluginOutputType;
 
+    /**
+     * Specifies whether to suppress logging.
+     */
+    quiet: boolean;
+
+    /**
+     * Specifies whether to log verbose information.
+     */
+    verbose: boolean;
+
 }

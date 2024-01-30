@@ -3,6 +3,7 @@ import { KeyFormatterType } from '../Type/KeyFormatterType';
 
 import LoggerInterface from '../Logger/LoggerInterface';
 import Logger from '../Logger/Logger';
+import { LoggerOptionsType } from '../Type/LoggerOptionsType';
 
 /**
  * Options for the {@link Analyzer}.
@@ -50,8 +51,10 @@ export default class AnalyzerOptions implements AnalyzerOptionsType {
             this.logger = new Logger( { namespace: 'TRANSAX:ANALYZER' } );
         } else if ( options.logger instanceof Logger ) { // should be LoggerInterface, but not possible in TS
             this.logger = options.logger;
+        } else if ( null !== options.logger && 'object' === typeof options.logger ) {
+            this.logger = new Logger( options.logger as LoggerOptionsType );
         } else {
-            throw new TypeError( 'Expected options.logger to be an instance of LoggerInterface.' );
+            throw new TypeError( 'Expected options.logger to be an instance of LoggerInterface or LoggerOptionsType.' );
         }
     }
 
