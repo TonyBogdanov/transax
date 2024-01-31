@@ -16,7 +16,7 @@ Represents a call expression invocation.
 
 ### constructor
 
-• **new CallExpressionInvocation**(`exprs`)
+• **new CallExpressionInvocation**(`exprs`): [`CallExpressionInvocation`](CallExpressionInvocation.md)
 
 Creates a new instance.
 
@@ -25,6 +25,10 @@ Creates a new instance.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `exprs` | [`CompilerToken`](CompilerToken.md)[] | An array of expressions to be used as arguments. |
+
+#### Returns
+
+[`CallExpressionInvocation`](CallExpressionInvocation.md)
 
 ## Properties
 

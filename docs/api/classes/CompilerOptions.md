@@ -20,7 +20,7 @@ Options for the [Compiler](Compiler.md).
 
 ### constructor
 
-• **new CompilerOptions**(`options?`)
+• **new CompilerOptions**(`options?`): [`CompilerOptions`](CompilerOptions.md)
 
 Creates a new instance.
 
@@ -29,6 +29,10 @@ Creates a new instance.
 | Name | Type |
 | :------ | :------ |
 | `options` | [`CompilerOptionsType`](../README.md#compileroptionstype) |
+
+#### Returns
+
+[`CompilerOptions`](CompilerOptions.md)
 
 ## Properties
 

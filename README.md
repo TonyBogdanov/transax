@@ -3,7 +3,7 @@
 [![release](https://img.shields.io/npm/v/transax.svg)](https://www.npmjs.com/package/transax)
 [![license](https://img.shields.io/github/license/tonybogdanov/transax)](https://github.com/TonyBogdanov/transax/blob/master/LICENSE)
 [![test](https://github.com/tonybogdanov/transax/actions/workflows/build.yaml/badge.svg)](https://github.com/tonybogdanov/transax/actions/workflows/build.yaml)
-[![coverage](https://tonybogdanov.github.io/transax/coverage/badge.svg)](https://tonybogdanov.github.io/transax/coverage)
+[![coverage](https://tonybogdanov.github.io/transax/coverage.svg)](https://tonybogdanov.github.io/transax/coverage.html)
 
 Get started with the [documentation](https://tonybogdanov.github.io/transax).
 

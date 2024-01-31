@@ -23,7 +23,11 @@ This should be used to keep track of the parameters and globals that are used in
 
 ### constructor
 
-• **new CompilerContext**()
+• **new CompilerContext**(): [`CompilerContext`](CompilerContext.md)
+
+#### Returns
+
+[`CompilerContext`](CompilerContext.md)
 
 ## Properties
 
@@ -45,7 +49,7 @@ A list of parameter names used in the message.
 
 ### requireGlobal
 
-▸ **requireGlobal**(`name`): [`CompilerContext`](CompilerContext.md)
+▸ **requireGlobal**(`name`): `this`
 
 Adds a global variable / function name to the list of referenced globals unless already present.
 
@@ -57,13 +61,13 @@ Adds a global variable / function name to the list of referenced globals unless 
 
 #### Returns
 
-[`CompilerContext`](CompilerContext.md)
+`this`
 
 ___
 
 ### requireParameter
 
-▸ **requireParameter**(`name`): [`CompilerContext`](CompilerContext.md)
+▸ **requireParameter**(`name`): `this`
 
 Adds a parameter name to the list of referenced parameters unless already present.
 
@@ -75,4 +79,4 @@ Adds a parameter name to the list of referenced parameters unless already presen
 
 #### Returns
 
-[`CompilerContext`](CompilerContext.md)
+`this`

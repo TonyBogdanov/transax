@@ -1,8 +1,14 @@
+import { viteBundler } from '@vuepress/bundler-vite';
 import { defineUserConfig } from 'vuepress';
 import { hopeTheme } from 'vuepress-theme-hope';
 
+import pack from '../../package.json';
+
+const base = `/transax/v${ pack.version }/`;
+
 export default defineUserConfig( {
-    base: '/transax/',
+    base,
+    bundler: viteBundler( {} ),
 
     title: 'Transax',
     description: 'Framework-agnostic JavaScript library for content internationalization.',
@@ -15,11 +21,13 @@ export default defineUserConfig( {
             rel: 'stylesheet'
         } ],
 
-        [ 'link', { rel: 'icon', href: '/assets/favicon.ico' } ],
-        [ 'link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/assets/apple-touch-icon.png' } ],
-        [ 'link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/assets/favicon-32x32.png' } ],
-        [ 'link', { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/assets/favicon-16x16.png' } ],
-        [ 'link', { rel: 'manifest', href: '/assets/site.webmanifest' } ],
+        [ 'link', { rel: 'icon', href: `${ base }/assets/favicon.ico` } ],
+        [ 'link', { rel: 'apple-touch-icon', sizes: '180x180', href: `${ base }/assets/apple-touch-icon.png` } ],
+        [ 'link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: `${ base }/assets/favicon-32x32.png` } ],
+        [ 'link', { rel: 'icon', type: 'image/png', sizes: '16x16', href: `${ base }/assets/favicon-16x16.png` } ],
+        [ 'link', { rel: 'manifest', href: `${ base }assets/site.webmanifest` } ],
+
+        [ 'script', { src: `${ base }assets/versioning.js` } ],
     ],
 
     theme: hopeTheme( {
@@ -52,6 +60,11 @@ export default defineUserConfig( {
                 ]
             },
             { text: 'Advanced', link: '/advanced' },
+            {
+                text: 'Plugins', link: '/plugins/vite', collapsible: true, children: [
+                    '/plugins/vite',
+                ],
+            },
             {
                 text: 'API Reference', link: '/api', collapsible: true, children: [
                     /* typedoc:classes:start - do not remove or edit below this line */

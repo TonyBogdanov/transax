@@ -22,7 +22,7 @@ Options for the [Analyzer](Analyzer.md).
 
 ### constructor
 
-• **new AnalyzerOptions**(`options?`)
+• **new AnalyzerOptions**(`options?`): [`AnalyzerOptions`](AnalyzerOptions.md)
 
 Creates a new instance.
 
@@ -31,6 +31,10 @@ Creates a new instance.
 | Name | Type |
 | :------ | :------ |
 | `options` | [`AnalyzerOptionsType`](../README.md#analyzeroptionstype) |
+
+#### Returns
+
+[`AnalyzerOptions`](AnalyzerOptions.md)
 
 ## Properties
 

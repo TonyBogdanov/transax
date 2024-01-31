@@ -19,7 +19,7 @@ Under the hood you can use any flavor or format you like, but once loaded into y
 it as a JavaScript object in the above format.
 
 ::: tip
-Check the full specification here: [Dictionary](../api/#dictionary).
+Check the full specification here: [DictionaryType](../api/#dictionarytype).
 :::
 
 This format, while readable, does not provide the best possible performance, so during translation (at runtime)

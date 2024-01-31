@@ -31,7 +31,7 @@ Example: `Hello world!`
 
 ### constructor
 
-• **new TextToken**(`text`, `location`)
+• **new TextToken**(`text`, `location`): [`TextToken`](TextToken.md)
 
 #### Parameters
 
@@ -39,6 +39,10 @@ Example: `Hello world!`
 | :------ | :------ |
 | `text` | `string` |
 | `location` | `LocationRange` |
+
+#### Returns
+
+[`TextToken`](TextToken.md)
 
 **`Inherit Doc`**
 
@@ -108,7 +112,7 @@ ___
 
 ### compileWrap
 
-▸ `Protected` **compileWrap**(`context`, `instanceOfs`): `string`
+▸ **compileWrap**(`context`, `instanceOfs`): `string`
 
 Same as `compile()` except that it wraps the compiled expression in parentheses if the current token is an
 instance of the specified types.

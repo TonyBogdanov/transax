@@ -20,7 +20,7 @@ Default implementation of the [AnalyzerInterface](../interfaces/AnalyzerInterfac
 
 ### constructor
 
-• **new Analyzer**(`options?`)
+• **new Analyzer**(`options?`): [`Analyzer`](Analyzer.md)
 
 Creates a new instance.
 
@@ -29,6 +29,10 @@ Creates a new instance.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | [`AnalyzerOptionsType`](../README.md#analyzeroptionstype) | Customizes the analyzer. |
+
+#### Returns
+
+[`Analyzer`](Analyzer.md)
 
 ## Methods
 

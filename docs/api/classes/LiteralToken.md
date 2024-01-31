@@ -32,7 +32,7 @@ Example: `"foo"`, `123`, `null`.
 
 ### constructor
 
-• **new LiteralToken**(`value`, `text`, `location`)
+• **new LiteralToken**(`value`, `text`, `location`): [`LiteralToken`](LiteralToken.md)
 
 Creates a new instance.
 
@@ -43,6 +43,10 @@ Creates a new instance.
 | `value` | `string` \| `number` \| `boolean` | The value of the literal. |
 | `text` | `string` | The full text (content) of the expression. |
 | `location` | `LocationRange` | The location of the invocation within the source code. |
+
+#### Returns
+
+[`LiteralToken`](LiteralToken.md)
 
 #### Overrides
 
@@ -116,7 +120,7 @@ ___
 
 ### compileWrap
 
-▸ `Protected` **compileWrap**(`context`, `instanceOfs`): `string`
+▸ **compileWrap**(`context`, `instanceOfs`): `string`
 
 Same as `compile()` except that it wraps the compiled expression in parentheses if the current token is an
 instance of the specified types.

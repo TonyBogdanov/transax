@@ -22,7 +22,7 @@ Options for the [Translator](Translator.md).
 
 ### constructor
 
-• **new TranslatorOptions**(`options?`)
+• **new TranslatorOptions**(`options?`): [`TranslatorOptions`](TranslatorOptions.md)
 
 Creates a new instance.
 
@@ -31,6 +31,10 @@ Creates a new instance.
 | Name | Type |
 | :------ | :------ |
 | `options` | [`TranslatorOptionsType`](../README.md#translatoroptionstype) |
+
+#### Returns
+
+[`TranslatorOptions`](TranslatorOptions.md)
 
 ## Properties
 

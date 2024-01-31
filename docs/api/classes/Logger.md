@@ -22,7 +22,7 @@ Logs all messages to the console.
 
 ### constructor
 
-• **new Logger**(`options?`)
+• **new Logger**(`options?`): [`Logger`](Logger.md)
 
 Creates a new instance.
 
@@ -31,6 +31,10 @@ Creates a new instance.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | [`LoggerOptionsType`](../README.md#loggeroptionstype) | Customizes the logger. |
+
+#### Returns
+
+[`Logger`](Logger.md)
 
 ## Methods
 

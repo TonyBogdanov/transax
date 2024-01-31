@@ -29,7 +29,7 @@ Default implementation of the [GeneratorInterface](../interfaces/GeneratorInterf
 
 ### constructor
 
-• **new Generator**(`options?`)
+• **new Generator**(`options?`): [`Generator`](Generator.md)
 
 Creates a new instance.
 
@@ -38,6 +38,10 @@ Creates a new instance.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | [`GeneratorOptionsType`](../README.md#generatoroptionstype) | Customizes the generator. |
+
+#### Returns
+
+[`Generator`](Generator.md)
 
 ## Methods
 
@@ -164,7 +168,7 @@ ___
 
 ### mergeTranslations
 
-▸ **mergeTranslations**(`catalog`): [`Generator`](Generator.md)
+▸ **mergeTranslations**(`catalog`): `this`
 
 #### Parameters
 
@@ -174,7 +178,7 @@ ___
 
 #### Returns
 
-[`Generator`](Generator.md)
+`this`
 
 **`Inherit Doc`**
 
@@ -182,7 +186,7 @@ ___
 
 ### parse
 
-▸ **parse**(`code`, `source?`, `accumulate?`): [`Generator`](Generator.md)
+▸ **parse**(`code`, `source?`, `accumulate?`): `this`
 
 Parses the given source code extracting translation keys and saves them in the current context.
 
@@ -205,7 +209,7 @@ If `source` is not set, `parse` will accumulate keys regardless of the value of 
 
 #### Returns
 
-[`Generator`](Generator.md)
+`this`
 
 #### Implementation of
 
@@ -215,7 +219,7 @@ ___
 
 ### removeTranslations
 
-▸ **removeTranslations**(`locale`): [`Generator`](Generator.md)
+▸ **removeTranslations**(`locale`): `this`
 
 Removes the current translation dictionary for the specified locale.
 
@@ -227,7 +231,7 @@ Removes the current translation dictionary for the specified locale.
 
 #### Returns
 
-[`Generator`](Generator.md)
+`this`
 
 #### Implementation of
 
@@ -237,7 +241,7 @@ ___
 
 ### setTranslations
 
-▸ **setTranslations**(`locale`, `dictionary`): [`Generator`](Generator.md)
+▸ **setTranslations**(`locale`, `dictionary`): `this`
 
 Adds or replaces the current translation dictionary for the specified locale.
 
@@ -250,7 +254,7 @@ Adds or replaces the current translation dictionary for the specified locale.
 
 #### Returns
 
-[`Generator`](Generator.md)
+`this`
 
 #### Implementation of
 

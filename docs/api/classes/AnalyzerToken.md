@@ -21,7 +21,7 @@ A class representing a single translation invocation within some source code.
 
 ### constructor
 
-• **new AnalyzerToken**(`name`, `key`, `text`, `location`, `source?`)
+• **new AnalyzerToken**(`name`, `key`, `text`, `location`, `source?`): [`AnalyzerToken`](AnalyzerToken.md)
 
 Creates a new instance.
 
@@ -34,6 +34,10 @@ Creates a new instance.
 | `text` | `string` | The full text of the invocation, e.g. `$t( 'Hello world!' )`. |
 | `location` | `LocationRange` | The location of the invocation within the source code. |
 | `source?` | `string` | The origin of the source code, usually a path to the source file. |
+
+#### Returns
+
+[`AnalyzerToken`](AnalyzerToken.md)
 
 ## Properties
 

@@ -121,7 +121,7 @@ ___
 
 ### parse
 
-▸ **parse**(`code`, `source?`, `accumulate?`): [`GeneratorInterface`](GeneratorInterface.md)
+▸ **parse**(`code`, `source?`, `accumulate?`): `this`
 
 Parses the given source code extracting translation keys and saves them in the current context.
 
@@ -144,13 +144,13 @@ If `source` is not set, `parse` will accumulate keys regardless of the value of 
 
 #### Returns
 
-[`GeneratorInterface`](GeneratorInterface.md)
+`this`
 
 ___
 
 ### removeTranslations
 
-▸ **removeTranslations**(`locale`): [`GeneratorInterface`](GeneratorInterface.md)
+▸ **removeTranslations**(`locale`): `this`
 
 Removes the current translation dictionary for the specified locale.
 
@@ -162,13 +162,13 @@ Removes the current translation dictionary for the specified locale.
 
 #### Returns
 
-[`GeneratorInterface`](GeneratorInterface.md)
+`this`
 
 ___
 
 ### setTranslations
 
-▸ **setTranslations**(`locale`, `dictionary`): [`GeneratorInterface`](GeneratorInterface.md)
+▸ **setTranslations**(`locale`, `dictionary`): `this`
 
 Adds or replaces the current translation dictionary for the specified locale.
 
@@ -181,4 +181,4 @@ Adds or replaces the current translation dictionary for the specified locale.
 
 #### Returns
 
-[`GeneratorInterface`](GeneratorInterface.md)
+`this`

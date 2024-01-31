@@ -37,7 +37,7 @@ An abstract class representing a single evaluable expression within translation 
 
 ### constructor
 
-• `Protected` **new CompilerToken**(`text`, `location`)
+• **new CompilerToken**(`text`, `location`): [`CompilerToken`](CompilerToken.md)
 
 Creates a new instance.
 
@@ -47,6 +47,10 @@ Creates a new instance.
 | :------ | :------ | :------ |
 | `text` | `string` | The full text (content) of the expression. |
 | `location` | `LocationRange` | The location of the invocation within the source code. |
+
+#### Returns
+
+[`CompilerToken`](CompilerToken.md)
 
 ## Properties
 
@@ -76,7 +80,7 @@ The full text (content) of the expression.
 
 ### compile
 
-▸ `Abstract` **compile**(`context`): `string`
+▸ **compile**(`context`): `string`
 
 Compiles the expression into an executable ECMAScript6 string.
 
@@ -94,7 +98,7 @@ ___
 
 ### compileWrap
 
-▸ `Protected` **compileWrap**(`context`, `instanceOfs`): `string`
+▸ **compileWrap**(`context`, `instanceOfs`): `string`
 
 Same as `compile()` except that it wraps the compiled expression in parentheses if the current token is an
 instance of the specified types.

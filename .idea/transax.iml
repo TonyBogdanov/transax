@@ -6,6 +6,8 @@
       <excludeFolder url="file://$MODULE_DIR$/cjs" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
       <excludeFolder url="file://$MODULE_DIR$/esm" />
+      <excludeFolder url="file://$MODULE_DIR$/docs/.vuepress/.temp" />
+      <excludeFolder url="file://$MODULE_DIR$/docs/.vuepress/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

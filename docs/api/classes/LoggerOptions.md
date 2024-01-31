@@ -22,7 +22,7 @@ Options for the [Logger](Logger.md).
 
 ### constructor
 
-• **new LoggerOptions**(`options?`)
+• **new LoggerOptions**(`options`): [`LoggerOptions`](LoggerOptions.md)
 
 Creates a new instance.
 
@@ -31,6 +31,10 @@ Creates a new instance.
 | Name | Type |
 | :------ | :------ |
 | `options` | [`LoggerOptionsType`](../README.md#loggeroptionstype) |
+
+#### Returns
+
+[`LoggerOptions`](LoggerOptions.md)
 
 ## Properties
 

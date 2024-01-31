@@ -21,7 +21,7 @@ Default implementation of the [CompilerInterface](../interfaces/CompilerInterfac
 
 ### constructor
 
-• **new Compiler**(`options?`)
+• **new Compiler**(`options?`): [`Compiler`](Compiler.md)
 
 Creates a new instance.
 
@@ -30,6 +30,10 @@ Creates a new instance.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | [`CompilerOptionsType`](../README.md#compileroptionstype) | Customizes the compiler. |
+
+#### Returns
+
+[`Compiler`](Compiler.md)
 
 ## Methods
 

@@ -44,7 +44,7 @@ Examples:
 
 ### constructor
 
-• **new ComparisonExpressionToken**(`left`, `right`, `operator`, `text`, `location`)
+• **new ComparisonExpressionToken**(`left`, `right`, `operator`, `text`, `location`): [`ComparisonExpressionToken`](ComparisonExpressionToken.md)
 
 Creates a new instance.
 
@@ -57,6 +57,10 @@ Creates a new instance.
 | `operator` | `string` | The comparison operator. |
 | `text` | `string` | The full text (content) of the expression. |
 | `location` | `LocationRange` | The location of the invocation within the source code. |
+
+#### Returns
+
+[`ComparisonExpressionToken`](ComparisonExpressionToken.md)
 
 #### Overrides
 
@@ -142,7 +146,7 @@ ___
 
 ### compileWrap
 
-▸ `Protected` **compileWrap**(`context`, `instanceOfs`): `string`
+▸ **compileWrap**(`context`, `instanceOfs`): `string`
 
 Same as `compile()` except that it wraps the compiled expression in parentheses if the current token is an
 instance of the specified types.

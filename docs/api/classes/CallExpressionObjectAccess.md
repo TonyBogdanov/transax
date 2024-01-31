@@ -16,7 +16,7 @@ Represents a call expression accessing an object property.
 
 ### constructor
 
-• **new CallExpressionObjectAccess**(`name`)
+• **new CallExpressionObjectAccess**(`name`): [`CallExpressionObjectAccess`](CallExpressionObjectAccess.md)
 
 Creates a new instance.
 
@@ -25,6 +25,10 @@ Creates a new instance.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `name` | `string` | The name of the property to access. |
+
+#### Returns
+
+[`CallExpressionObjectAccess`](CallExpressionObjectAccess.md)
 
 ## Properties
 

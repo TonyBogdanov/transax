@@ -16,7 +16,7 @@ Represents a call expression accessing an array element.
 
 ### constructor
 
-• **new CallExpressionArrayAccess**(`expr`)
+• **new CallExpressionArrayAccess**(`expr`): [`CallExpressionArrayAccess`](CallExpressionArrayAccess.md)
 
 Creates a new instance.
 
@@ -25,6 +25,10 @@ Creates a new instance.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `expr` | [`CompilerToken`](CompilerToken.md) | The expression to be used as array index. |
+
+#### Returns
+
+[`CallExpressionArrayAccess`](CallExpressionArrayAccess.md)
 
 ## Properties
 

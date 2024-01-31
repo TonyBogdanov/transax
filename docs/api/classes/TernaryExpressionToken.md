@@ -37,7 +37,7 @@ Examples:
 
 ### constructor
 
-• **new TernaryExpressionToken**(`test`, `truthy`, `falsy`, `text`, `location`)
+• **new TernaryExpressionToken**(`test`, `truthy`, `falsy`, `text`, `location`): [`TernaryExpressionToken`](TernaryExpressionToken.md)
 
 Creates a new instance.
 
@@ -50,6 +50,10 @@ Creates a new instance.
 | `falsy` | [`CompilerToken`](CompilerToken.md) | The falsy expression. |
 | `text` | `string` | The full text (content) of the expression. |
 | `location` | `LocationRange` | The location of the invocation within the source code. |
+
+#### Returns
+
+[`TernaryExpressionToken`](TernaryExpressionToken.md)
 
 #### Overrides
 
@@ -135,7 +139,7 @@ ___
 
 ### compileWrap
 
-▸ `Protected` **compileWrap**(`context`, `instanceOfs`): `string`
+▸ **compileWrap**(`context`, `instanceOfs`): `string`
 
 Same as `compile()` except that it wraps the compiled expression in parentheses if the current token is an
 instance of the specified types.

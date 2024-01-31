@@ -20,7 +20,7 @@ Default implementation of the [TranslatorInterface](../interfaces/TranslatorInte
 
 ### constructor
 
-• **new Translator**(`options?`)
+• **new Translator**(`options?`): [`Translator`](Translator.md)
 
 Creates a new instance.
 
@@ -29,6 +29,10 @@ Creates a new instance.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `options` | [`TranslatorOptionsType`](../README.md#translatoroptionstype) | Customizes the translator. |
+
+#### Returns
+
+[`Translator`](Translator.md)
 
 ## Methods
 

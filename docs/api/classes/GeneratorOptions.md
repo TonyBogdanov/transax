@@ -23,7 +23,7 @@ Options for the [Generator](Generator.md).
 
 ### constructor
 
-• **new GeneratorOptions**(`options?`)
+• **new GeneratorOptions**(`options?`): [`GeneratorOptions`](GeneratorOptions.md)
 
 Creates a new instance.
 
@@ -32,6 +32,10 @@ Creates a new instance.
 | Name | Type |
 | :------ | :------ |
 | `options` | [`GeneratorOptionsType`](../README.md#generatoroptionstype) |
+
+#### Returns
+
+[`GeneratorOptions`](GeneratorOptions.md)
 
 ## Properties
 

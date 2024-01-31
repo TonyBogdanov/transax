@@ -14,6 +14,8 @@ const config: Config = {
         '!src/Generator/GeneratorOptions.ts',
         '!src/Logger/LoggerOptions.ts',
         '!src/Translator/TranslatorOptions.ts',
+        '!src/Plugin/*.ts',
+        '!src/Type/*.ts',
         '!src/Util/*.ts',
     ],
     testEnvironment: 'node',

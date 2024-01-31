@@ -52,7 +52,7 @@ Examples:
 
 ### constructor
 
-• **new CallExpressionToken**(`global`, `name`, `tail`, `text`, `location`)
+• **new CallExpressionToken**(`global`, `name`, `tail`, `text`, `location`): [`CallExpressionToken`](CallExpressionToken.md)
 
 Creates a new instance.
 
@@ -65,6 +65,10 @@ Creates a new instance.
 | `tail` | ([`CallExpressionObjectAccess`](CallExpressionObjectAccess.md) \| [`CallExpressionArrayAccess`](CallExpressionArrayAccess.md) \| [`CallExpressionInvocation`](CallExpressionInvocation.md))[] | An array of object accesses, array accesses or invocations. |
 | `text` | `string` | The full text (content) of the expression. |
 | `location` | `LocationRange` | The location of the invocation within the source code. |
+
+#### Returns
+
+[`CallExpressionToken`](CallExpressionToken.md)
 
 #### Overrides
 
@@ -150,7 +154,7 @@ ___
 
 ### compileWrap
 
-▸ `Protected` **compileWrap**(`context`, `instanceOfs`): `string`
+▸ **compileWrap**(`context`, `instanceOfs`): `string`
 
 Same as `compile()` except that it wraps the compiled expression in parentheses if the current token is an
 instance of the specified types.
