@@ -53,7 +53,7 @@ export default class Compiler implements CompilerInterface {
      * @inheritDoc
      */
     compile( value: string ): string {
-        this.options.logger.log( `Compiling: ${ value }.` );
+        this.options.logger.verbose( `Compiling: ${ value }.` );
 
         const context = new CompilerContext();
         const values = [ '""' ];
