@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-73d692d2","path":"/api/classes/","title":"Classes","lang":"en-US","frontmatter":{"title":"Classes","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0,"words":1},"filePathRelative":null,"excerpt":""}');export{e as data};
