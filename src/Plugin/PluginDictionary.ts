@@ -7,6 +7,7 @@ import { CatalogType } from '../Type/CatalogType';
 import VitePlugin from './VitePlugin';
 import Util from './Util';
 import PathError from '../Util/PathError';
+import { DictionaryType } from '../Type/DictionaryType';
 
 /**
  * Options for the {@link VitePlugin}.
@@ -40,14 +41,24 @@ export default class PluginDictionary implements PluginDictionaryType {
         } );
 
         this.handler = PathError.wrap( 'handler', () => {
+            const resolve = async ( path: string, resolver: () => Promise<DictionaryType> ): Promise<CatalogType> => {
+                const key = Util.localeFromPath( path );
+
+                try {
+                    return { [ key ]: await resolver() || {} };
+                } catch {
+                    return { [ key ]: {} };
+                }
+            };
+
             if ( 'json' === options.handler ) {
-                return async ( path: string ): Promise<CatalogType> => ( {
-                    [ Util.localeFromPath( path ) ]: JSON.parse( await readFile( path, 'utf8' ) ),
-                } );
+                return async ( path: string ): Promise<CatalogType> => {
+                    return resolve( path, async () => JSON.parse( await readFile( path, 'utf8' ) ) );
+                };
             } else if ( 'yaml' === options.handler ) {
-                return async ( path: string ): Promise<CatalogType> => ( {
-                    [ Util.localeFromPath( path ) ]: parseYaml( await readFile( path, 'utf8' ) ),
-                } );
+                return async ( path: string ): Promise<CatalogType> => {
+                    return resolve( path, async () => parseYaml( await readFile( path, 'utf8' ) ) );
+                };
             } else if ( 'function' === typeof options.handler ) {
                 return options.handler;
             }

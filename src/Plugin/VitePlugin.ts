@@ -4,8 +4,8 @@ import Plugin from './Plugin';
 export default function VitePlugin( options: PluginOptionsType ) {
     const plugin = new Plugin( options );
 
-    const inputWatcher = plugin.createDictionaryWatcher();
-    const dictionaryWatcher = plugin.createInputWatcher();
+    const dictionaryWatcher = plugin.createDictionaryWatcher();
+    const inputWatcher = plugin.createInputWatcher();
 
     return {
         name: 'vite-plugin-transax',
