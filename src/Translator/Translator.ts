@@ -1,9 +1,9 @@
-import Logger from '../Logger/Logger';
-
-import TranslatorInterface from './TranslatorInterface';
 import { TranslatorOptionsType } from '../Type/TranslatorOptionsType';
 import { KeyType } from '../Type/KeyType';
 import { ContextType } from '../Type/ContextType';
+
+import TranslatorInterface from './TranslatorInterface';
+
 import TranslatorOptions from './TranslatorOptions';
 
 /**
