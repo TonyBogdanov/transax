@@ -1,5 +1,5 @@
+import writeFileAtomic from 'write-file-atomic';
 import { extname } from 'node:path';
-import { writeFile } from 'node:fs/promises';
 import { stringify as stringifyYaml } from 'yaml';
 
 import {
@@ -87,15 +87,15 @@ export default class PluginOutputAnalysis implements PluginOutputAnalysisType {
                         return '## ' + locale + '\n' + keys.join( '\n' ) + '\n\n';
                     };
 
-                    return writeFile( path, Object.entries( getter( generator ) ).map( mapper ) );
+                    return writeFileAtomic( path, Object.entries( getter( generator ) ).map( mapper ) );
                 };
             } else if ( 'yaml' === options.handler ) {
                 return ( path: string, generator: Generator ): Promise<void> => {
-                    return writeFile( path, stringifyYaml( getter( generator ) ) );
+                    return writeFileAtomic( path, stringifyYaml( getter( generator ) ) );
                 };
             } else if ( 'json' === options.handler ) {
                 return ( path: string, generator: Generator ): Promise<void> => {
-                    return writeFile( path, JSON.stringify( getter( generator ), null, 2 ) );
+                    return writeFileAtomic( path, JSON.stringify( getter( generator ), null, 2 ) );
                 };
             } else if ( 'function' === typeof options.handler ) {
                 return options.handler;

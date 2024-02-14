@@ -1,5 +1,5 @@
+import writeFileAtomic from 'write-file-atomic';
 import { extname } from 'node:path';
-import { writeFile } from 'node:fs/promises';
 
 import { PluginOutputCompilationType } from '../Type/PluginOutputCompilationType';
 
@@ -65,10 +65,10 @@ export default class PluginOutputCompilation implements PluginOutputCompilationT
 
         this.handler = PathError.wrap( 'handler', () => {
             if ( 'esm' === options.handler ) {
-                return ( path: string, generator: Generator ): Promise<void> => writeFile( path,
+                return ( path: string, generator: Generator ): Promise<void> => writeFileAtomic( path,
                     generator.getCompiledTranslationsDumpAsESMExport( this.includeMeta ) );
             } else if ( 'cjs' === options.handler ) {
-                return ( path: string, generator: Generator ): Promise<void> => writeFile( path,
+                return ( path: string, generator: Generator ): Promise<void> => writeFileAtomic( path,
                     generator.getCompiledTranslationsDumpAsCJSExport( this.includeMeta ) );
             } else if ( 'function' === typeof options.handler ) {
                 return options.handler;
