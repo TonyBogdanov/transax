@@ -3,6 +3,8 @@ import { KeyFormatterType } from './KeyFormatterType';
 import LoggerInterface from '../Logger/LoggerInterface';
 import { LoggerOptionsType } from './LoggerOptionsType';
 
+import Analyzer from '../Analyzer/Analyzer';
+
 /**
  * Options for the {@link Analyzer}.
  */

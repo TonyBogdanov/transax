@@ -1,6 +1,8 @@
 import LoggerInterface from '../Logger/LoggerInterface';
 import { LoggerOptionsType } from './LoggerOptionsType';
 
+import Compiler from '../Compiler/Compiler';
+
 /**
  * Options for the {@link Compiler}.
  */

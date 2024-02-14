@@ -1,0 +1,1 @@
+{"version":3,"sources":["0"],"names":["Plugin","PluginOptions","PluginDictionary","PluginInput","PluginOutput","PluginOutputAnalysis","PluginOutputCompilation","VitePlugin"],"mappings":"OAAOA,WAAY,iCACZC,kBAAmB,wCACnBC,qBAAsB,2CACtBC,gBAAiB,sCACjBC,iBAAkB,uCAClBC,yBAA0B,+CAC1BC,4BAA6B,kDAC7BC,eAAgB,qCACdP,OAAQC,cAAeC,iBAAkBC,YAAaC,aAAcC,qBAAsBC,wBAAyBC,UAAa"}

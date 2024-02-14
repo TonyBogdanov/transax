@@ -1,3 +1,5 @@
+import Logger from '../Logger/Logger';
+
 /**
  * Options for {@link Logger}.
  */

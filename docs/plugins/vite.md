@@ -7,7 +7,7 @@ To use the plugin, simply add it to your `vite.config.js` file:
 
 ```js
 import { defineConfig } from 'vite';
-import { VitePlugin as transax } from 'transax';
+import { VitePlugin as transax } from 'transax/plugin';
 
 export default defineConfig( {
     plugins: [

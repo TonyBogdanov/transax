@@ -3,6 +3,8 @@ import { CompiledCatalogType } from './CompiledCatalogType';
 
 import LoggerInterface from '../Logger/LoggerInterface';
 
+import Translator from '../Translator/Translator';
+
 /**
  * Options for the {@link Translator}.
  */
