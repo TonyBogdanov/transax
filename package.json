@@ -61,7 +61,6 @@
     "ts-pegjs": "^4.2.1",
     "typedoc": "^0.25.7",
     "typedoc-plugin-markdown": "^3.17.1",
-    "typedoc-plugin-missing-exports": "^2.2.0",
     "typescript": "^5.3.3",
     "uglify-js": "^3.17.4",
     "vue": "^3.4.15",

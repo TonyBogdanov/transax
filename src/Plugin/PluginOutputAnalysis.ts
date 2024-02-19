@@ -1,3 +1,4 @@
+// @ts-ignore
 import writeFileAtomic from 'write-file-atomic';
 import { extname } from 'node:path';
 import { stringify as stringifyYaml } from 'yaml';
