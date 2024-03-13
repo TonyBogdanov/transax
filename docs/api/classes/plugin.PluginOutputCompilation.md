@@ -61,8 +61,6 @@ Creates a new instance.
 
 `void` \| `Promise`\<`void`\>
 
-**`Inherit Doc`**
-
 #### Implementation of
 
 PluginOutputCompilationType.handler

@@ -59,8 +59,6 @@ Creates a new instance.
 
 [`CatalogType`](../modules/types.md#catalogtype) \| `Promise`\<[`CatalogType`](../modules/types.md#catalogtype)\>
 
-**`Inherit Doc`**
-
 #### Implementation of
 
 PluginDictionaryType.handler

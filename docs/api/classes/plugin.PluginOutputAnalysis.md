@@ -73,8 +73,6 @@ ___
 
 `void` \| `Promise`\<`void`\>
 
-**`Inherit Doc`**
-
 #### Implementation of
 
 PluginOutputAnalysisType.handler
